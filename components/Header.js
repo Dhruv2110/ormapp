@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 
 import { Entypo } from '@expo/vector-icons';
 
@@ -12,12 +12,12 @@ export default function App() {
                 source={require('../assets/logo_only.png')}
                 style={{ width: 40, height: 40 }}
             />
-            <View style={styles.dots}>
+            <TouchableOpacity style={styles.dots}>
                 <Entypo
                     name="dots-three-vertical"
                     size={24} color="white"
                     onClick={() => { }} />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }
