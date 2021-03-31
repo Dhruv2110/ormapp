@@ -23,7 +23,12 @@ export default function App() {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Hello World!</Text>
+                            <Text style={styles.modalHeading}>Example of Keywords:</Text>
+                                <View style={styles.modalContent}>
+                                    <Text style={{ marginBottom: 10,fontSize:20 }}>- My Company Name</Text>
+                                    <Text style={{ marginBottom: 10, fontSize: 20  }}>- My Brand Name</Text>
+                                    <Text style={{ marginBottom: 10, fontSize: 20  }}>- John Smith Tampa FL</Text>
+                                </View>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
                                 onPress={() => setModalVisible(!modalVisible)}
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
+        padding: 30,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -159,22 +164,29 @@ const styles = StyleSheet.create({
     },
     button: {
         borderRadius: 20,
-        padding: 10,
-        elevation: 2
+        padding: 15,
+        elevation: 2,
+        marginTop:20,
+        borderWidth:1,
+        borderColor:'#4169E1'
     },
     buttonOpen: {
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        // backgroundColor: "#2196F3",
+        backgroundColor: "#FFFFFF",
     },
     textStyle: {
-        color: "white",
+        color: "black",
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
     },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
+    modalHeading: {
+        marginBottom:20,
+        fontWeight: "bold",
+        fontSize:25
+    },
+    modalContent: {
     }
 });
