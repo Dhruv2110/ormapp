@@ -1,17 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { SocialIcon } from 'react-native-elements';
-import { Icon } from 'react-native-elements'
+
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import TwitterIcon from '../components/Socialicons/Twitter'
-import FacebookIcon from '../components/Socialicons/Facebook'
-import LinkedInIcon from '../components/Socialicons/LinkedIn'
-import WebsiteIcon from '../components/Socialicons/Website'
-import PinterestIcon from '../components/Socialicons/Pinterest'
-import YoutubeIcon from '../components/Socialicons/Youtube'
+import TwitterIcon from '../components/Icons/Twitter'
+import FacebookIcon from '../components/Icons/Facebook'
+import LinkedInIcon from '../components/Icons/LinkedIn'
+import WebsiteIcon from '../components/Icons/Website'
+import PinterestIcon from '../components/Icons/Pinterest'
+import YoutubeIcon from '../components/Icons/Youtube'
 
 
 export default function App() {

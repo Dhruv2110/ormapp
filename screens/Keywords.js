@@ -25,9 +25,9 @@ export default function App() {
                         <View style={styles.modalView}>
                             <Text style={styles.modalHeading}>Example of Keywords:</Text>
                                 <View style={styles.modalContent}>
-                                    <Text style={{ marginBottom: 10,fontSize:20 }}>- My Company Name</Text>
-                                    <Text style={{ marginBottom: 10, fontSize: 20  }}>- My Brand Name</Text>
-                                    <Text style={{ marginBottom: 10, fontSize: 20  }}>- John Smith Tampa FL</Text>
+                                    <Text style={{ marginBottom: 10, fontSize: 20 }}>- My Company Name</Text>
+                                    <Text style={{ marginBottom: 10, fontSize: 20 }}>- My Brand Name</Text>
+                                    <Text style={{ marginBottom: 10, fontSize: 20 }}>- John Smith Tampa FL</Text>
                                 </View>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
