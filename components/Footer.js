@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function Footer() {
+export default function WebsiteIcon() {
     return (
         <View style={styles.bottom}>
             <FontAwesome5 name="headphones-alt" size={70} color="black" />

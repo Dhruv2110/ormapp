@@ -6,7 +6,13 @@ import { Icon } from 'react-native-elements'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import SocialCard from '../components/SocialCard'
+import TwitterIcon from '../components/Socialicons/Twitter'
+import FacebookIcon from '../components/Socialicons/Facebook'
+import LinkedInIcon from '../components/Socialicons/LinkedIn'
+import WebsiteIcon from '../components/Socialicons/Website'
+import PinterestIcon from '../components/Socialicons/Pinterest'
+import YoutubeIcon from '../components/Socialicons/Youtube'
+
 
 export default function App() {
     return (
@@ -17,9 +23,48 @@ export default function App() {
                     <Text style={styles.heading}>Our Recommendations</Text>
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
                     <View style={styles.card}>
-                        <SocialCard icon='twitter'/>
-                        <SocialCard icon='facebook'/>
-                        <SocialCard icon='linkedin'/>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <TwitterIcon />
+                                <Text style={{ fontSize: 15 }}> www.twitter.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <FacebookIcon />
+                                <Text style={{ fontSize: 15, paddingBottom: 4  }}> www.facebook.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <LinkedInIcon />
+                                <Text style={{ fontSize: 15, paddingBottom: 4  }}> www.linkedin.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <WebsiteIcon />
+                                <Text style={{ fontSize: 15, paddingBottom: 4 }}> www.website.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <PinterestIcon />
+                                <Text style={{ fontSize: 15, paddingBottom: 4 }}> www.pinterest.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
+                        <View style={styles.textBox}>
+                            <View style={styles.row}>
+                                <YoutubeIcon />
+                                <Text style={{ fontSize: 15,paddingBottom:4 }}> www.youtube.com/example</Text>
+                            </View>
+                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </View>
                         <Footer />
                     </View>
                 </View>
@@ -60,11 +105,32 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 10,
         backgroundColor: '#D1D1D1',
-        height: '80%',
+        height: '90%',
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         alignItems: 'center',
         padding: 20
+    },
+    textBox: {
+        backgroundColor: 'white',
+        width: '95%',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        height: 85,
+        borderRadius: 15,
+        marginBottom: 12,
+        paddingLeft: 20
+    },
+    input: {
+        margin: 7,
+        height: 25,
+        width: '100%'
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        marginTop:10
     }
 });
 
