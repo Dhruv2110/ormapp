@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+        padding:10
     },
         text2: {
         marginLeft: 10,
