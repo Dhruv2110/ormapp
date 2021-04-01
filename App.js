@@ -76,7 +76,7 @@ export default function App() {
         <Tab.Screen name="Connections" component={Connections} />
         <Tab.Screen name="Recommendations" component={Recommendations} />
         <Tab.Screen name="Measure" component={Measure} />
-        <Tab.Screen name="More" component={More} />
+        <Tab.Screen name="More" component={More}/>
       </Tab.Navigator>
     </NavigationContainer >
   );
