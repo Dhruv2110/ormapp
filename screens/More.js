@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Entypo } from '@expo/vector-icons';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -35,7 +36,28 @@ export default function App() {
     return (
             <Stack.Navigator initialRouteName="More">
             <Stack.Screen name="More" component={MoreScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="Notifications" component={Notifications} />
+                <Stack.Screen 
+                name="Notifications" 
+                component={Notifications}  
+                options={{
+                    title: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+                        
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    },
+                    headerRight: () => (
+                    <Entypo
+                        name="dots-three-vertical"
+                        size={24} color="white"
+                        onClick={() => { }} />
+                    )
+                }}
+               
+                />
                 <Stack.Screen name="Settings" component={Settings} />
             </Stack.Navigator>
     );

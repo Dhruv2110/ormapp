@@ -61,10 +61,6 @@ export default function App() {
                 return <FontAwesome5 name="bars" size={24} color="lightgrey" />
               }
             }
-
-            // You can return any component that you like here!
-            //return <Ionicons name={iconName} size={size} color={color} />;
-            //return <FontAwesome5 name={iconName} size={24} color="black" />
           },
         })}
         tabBarOptions={{

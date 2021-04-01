@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        padding:10
+        padding:10,
+        backgroundColor: '#D1D1D1',
     },
         text2: {
         marginLeft: 10,
