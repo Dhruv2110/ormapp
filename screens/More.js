@@ -58,7 +58,25 @@ export default function App() {
                 }}
                
                 />
-                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="Settings" component={Settings} 
+                options={{
+                    title: 'Settings',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    },
+                    headerRight: () => (
+                        <Entypo
+                            name="dots-three-vertical"
+                            size={24} color="white"
+                            onClick={() => { }} />
+                    )
+                }}
+                />
             </Stack.Navigator>
     );
 }
