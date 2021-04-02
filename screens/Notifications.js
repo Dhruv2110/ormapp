@@ -7,9 +7,10 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 import NewIcon from '../components/Icons/New'
-
-
 import FacebookIcon from '../components/Icons/Facebook'
+import TwitterIcon from '../components/Icons/Twitter'
+
+
 export default function Notfications() {
     return (
         <>
@@ -26,6 +27,17 @@ export default function Notfications() {
                             </View>
                         </View>
                 </View>
+                    <View style={styles.textBox}>
+                        <TwitterIcon />
+                        <View style={styles.col}>
+                            <Text style={{ fontWeight: 'bold' }}>www.twitter.com/example</Text>
+                            <Text>Your twitter URL moved up 5 positions for "Keyword 1"</Text>
+                            <View style={{ flexDirection: 'row', marginVertical: 5 }}>
+                                
+                                <Text style={{ fontSize: 12, margin: 7 }}>2 days ago</Text>
+                            </View>
+                        </View>
+                    </View>
             </View>
         </View>
         <Footer />
