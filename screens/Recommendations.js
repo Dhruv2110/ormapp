@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 
 import Header from '../components/Header'
@@ -10,6 +10,7 @@ import LinkedInIcon from '../components/Icons/LinkedIn'
 import WebsiteIcon from '../components/Icons/Website'
 import PinterestIcon from '../components/Icons/Pinterest'
 import YoutubeIcon from '../components/Icons/Youtube'
+import MediumIcon from '../components/Icons/Medium'
 
 import CardRecomm from '../components/cards/CardRecomm'
 
@@ -29,6 +30,7 @@ export default function Recommendations() {
                         <CardRecomm icon={<WebsiteIcon />} site='website'/>
                         <CardRecomm icon={<PinterestIcon />} site='pinterest'/>
                         <CardRecomm icon={<YoutubeIcon />} site='youtube'/>
+                        <CardRecomm icon={<MediumIcon />} site='medium'/>
                         <Footer />
                     </View>
                 </View>
