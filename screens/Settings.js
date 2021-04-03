@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#191919',
-            },
+    },
     card: {
         marginTop: 10,
         backgroundColor: '#D1D1D1',
@@ -29,5 +29,5 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 40,
         alignItems: 'center',
          padding: 20,
-        },
+    },
 })

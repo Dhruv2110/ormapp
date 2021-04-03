@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
 
 import Header from '../components/Header'
@@ -11,8 +11,10 @@ import WebsiteIcon from '../components/Icons/Website'
 import PinterestIcon from '../components/Icons/Pinterest'
 import YoutubeIcon from '../components/Icons/Youtube'
 
+import CardRecomm from '../components/cards/CardRecomm'
 
-export default function App() {
+
+export default function Recommendations() {
     return (
         <>
         <Header />
@@ -21,48 +23,12 @@ export default function App() {
                     <Text style={styles.heading}>Our Recommendations</Text>
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
                     <View style={styles.card}>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <TwitterIcon />
-                                <Text style={{ fontSize: 15 }}> www.twitter.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <FacebookIcon />
-                                <Text style={{ fontSize: 15, paddingBottom: 4  }}> www.facebook.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <LinkedInIcon />
-                                <Text style={{ fontSize: 15, paddingBottom: 4  }}> www.linkedin.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <WebsiteIcon />
-                                <Text style={{ fontSize: 15, paddingBottom: 4 }}> www.website.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <PinterestIcon />
-                                <Text style={{ fontSize: 15, paddingBottom: 4 }}> www.pinterest.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <YoutubeIcon />
-                                <Text style={{ fontSize: 15,paddingBottom:4 }}> www.youtube.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
+                        <CardRecomm icon={<TwitterIcon />} site='twitter'/>
+                        <CardRecomm icon={<FacebookIcon />} site='facebook'/>
+                        <CardRecomm icon={<LinkedInIcon />} site='linkedin'/>
+                        <CardRecomm icon={<WebsiteIcon />} site='website'/>
+                        <CardRecomm icon={<PinterestIcon />} site='pinterest'/>
+                        <CardRecomm icon={<YoutubeIcon />} site='youtube'/>
                         <Footer />
                     </View>
                 </View>
@@ -108,27 +74,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 40,
         alignItems: 'center',
         padding: 20
-    },
-    textBox: {
-        backgroundColor: 'white',
-        width: '95%',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        height: 85,
-        borderRadius: 15,
-        marginBottom: 12,
-        paddingLeft: 20
-    },
-    input: {
-        margin: 7,
-        height: 25,
-        width: '100%'
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginTop:10
     }
 });
 

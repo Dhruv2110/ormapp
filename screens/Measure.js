@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View,ScrollView } from 'react-native'
-import { Icon } from 'react-native-elements'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import CardMeasure from '../components/CardMeasure'
+import CardMeasure from '../components/cards/CardMeasure'
 
 export default function Measure() {
     return (

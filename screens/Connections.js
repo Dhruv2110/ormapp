@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Icon } from 'react-native-elements'
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -11,9 +9,11 @@ import LinkedInIcon from '../components/Icons/LinkedIn'
 import WebsiteIcon from '../components/Icons/Website'
 import PinterestIcon from '../components/Icons/Pinterest'
 import YoutubeIcon from '../components/Icons/Youtube'
-import EditIcon from '../components/Icons/Edit'
 import TickIcon from '../components/Icons/Tick'
 import CrossIcon from '../components/Icons/Cross'
+
+
+import CardConn from '../components/cards/CardConn'
 
 
 export default function App() {
@@ -25,84 +25,12 @@ export default function App() {
                     <Text style={styles.heading}>Connections</Text>
                     <Text style={styles.text}>{`Tell us the URLs of your social \n network profiles and/or\nwebsite(s)`}</Text>
                     <View style={styles.card}>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <TwitterIcon />
-                                    <Text style={{ fontSize: 15 }}> TWITTER</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <FacebookIcon />
-                                    <Text style={{ fontSize: 15 }}> FACEBOOK</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <LinkedInIcon />
-                                    <Text style={{ fontSize: 15 }}> LINKEDIN</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <WebsiteIcon />
-                                    <Text style={{ fontSize: 15 }}> WEBSITE</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder=""></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <PinterestIcon />
-                                    <Text style={{ fontSize: 15 }}> PINTEREST</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder=""></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <YoutubeIcon />
-                                    <Text style={{ fontSize: 15 }}> YOUTUBE</Text>
-                                </View>
-                                <TextInput style={styles.input} placeholder=""></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<TwitterIcon />} site='TWITTER' checkIcon={<TickIcon />}/>
+                        <CardConn siteIcon={<FacebookIcon />} site='FACEBOOK' checkIcon={<TickIcon />}/>
+                        <CardConn siteIcon={<LinkedInIcon />} site='LINKEDIN' checkIcon={<TickIcon />}/>
+                        <CardConn siteIcon={<WebsiteIcon />} site='WEBSITE' checkIcon={<CrossIcon />}/>
+                        <CardConn siteIcon={<PinterestIcon />} site='PINTEREST' checkIcon={<CrossIcon />}/>
+                        <CardConn siteIcon={<YoutubeIcon />} site='YOUTUBE' checkIcon={<CrossIcon />}/>
                         <Footer />
                     </View>
                 </View>
