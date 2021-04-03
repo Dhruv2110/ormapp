@@ -4,7 +4,9 @@ import { ScrollView, StyleSheet, Text, View,TextInput,CheckBox,TouchableOpacity}
 import Footer from '../components/Footer'
 
 export default function Settings() {
-    const [isSelected, setSelection] = useState(false);
+    const [isSelectedD, setSelectionD] = useState(false);
+    const [isSelectedW, setSelectionW] = useState(false);
+
     const [isFocusU,setFocusU] = useState(false);
     const [isFocusE,setFocusE] = useState(false);
     const [isFocusF,setFocusF] = useState(false);
@@ -46,44 +48,27 @@ export default function Settings() {
                             <View style={{}}>
                                 <TextInput 
                                     onFocus={FocusU}
-                                    // onBlur={() => setFocus(false)}
-                                style={{ 
-                                    borderBottomWidth: isFocusU ? 1 : 1,
-                                    borderWidth: isFocusU ? 1 : 0,
-                                    borderColor: isFocusU ? 'black' : '#B2B2FF',
-                                    borderRadius:  isFocusU  ? 10 : 0,
-                                    borderBottomColor: isFocusU ? 'black' : '#B2B2FF',
-                                    height:40,marginBottom:7,
-                                    padding:5}} placeholder="Username"></TextInput>
+                                    style={ isFocusU ? styles.focusStyle : styles.blurStyle }
+                                    placeholder="Username">
+                                     </TextInput>
                                 <TextInput 
                                     onFocus={FocusE}
-                                style={{ 
-                                    borderBottomWidth: isFocusE ? 1 : 1,
-                                    borderWidth: isFocusE ? 1 : 0,
-                                    borderColor: isFocusE ? 'black' : '#B2B2FF',
-                                    borderRadius: isFocusE ? 10 : 0,
-                                    borderBottomColor: isFocusE ? 'black' : '#B2B2FF',
-                                    height: 40, marginBottom: 7, padding: 5}} placeholder="Email Address"></TextInput>
+                                    style={isFocusE ? styles.focusStyle : styles.blurStyle}
+                                    placeholder="Email Address"></TextInput>
                             </View>
                             <View style={{flexDirection: 'row',justifyContent:'space-between'}}>
                                 <TextInput 
                                     onFocus={FocusF}
-                                style={{ 
-                                     borderBottomWidth: isFocusF ? 1 : 1,
-                                    borderWidth: isFocusF ? 1 : 0,
-                                    borderColor: isFocusF ? 'black' : '#B2B2FF',
-                                    borderRadius: isFocusF ? 10 : 0,
-                                    borderBottomColor: isFocusF ? 'black' : '#B2B2FF', 
-                                    height: 40, width: '45%', marginBottom: 7, padding: 5}} placeholder="First Name"></TextInput>
+                                    style={[isFocusF ? styles.focusStyle : styles.blurStyle,
+                                        {width: '45%'}
+                                    ]}
+                                    placeholder="First Name"></TextInput>
                                 <TextInput 
                                     onFocus={FocusL}
-                                style={{ 
-                                     borderBottomWidth: isFocusL ? 1 : 1,
-                                    borderWidth: isFocusL ? 1 : 0,
-                                    borderColor: isFocusL ? 'black' : '#B2B2FF',
-                                    borderRadius: isFocusL ? 10 : 0,
-                                    borderBottomColor: isFocusL ? 'black' : '#B2B2FF', 
-                                    height: 40, width: '45%', marginBottom: 7, padding: 5}} placeholder="Last Name"></TextInput>
+                                    style={[isFocusL ? styles.focusStyle : styles.blurStyle,
+                                    { width: '45%' }
+                                    ]}
+                                    placeholder="Last Name"></TextInput>
                             </View>
                     </View>
 
@@ -91,13 +76,14 @@ export default function Settings() {
                     <View style={styles.notifications}>
                         <View style={{flexDirection: 'row'}}>
                             <CheckBox
-                                value={isSelected}
-                                onValueChange={setSelection}/>
+                                value={isSelectedD}
+                                onValueChange={setSelectionD}/>
                             <Text style={{marginTop:5}}>Daily Website Performance Insights</Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
                             <CheckBox 
-                                value={isSelected}/>
+                                value={isSelectedW}
+                                onValueChange={setSelectionW}/>
                             <Text style={{ marginTop: 5 }}>Weekly On-Page Recommendations</Text>
                         </View>
                     </View>
@@ -142,6 +128,18 @@ const styles = StyleSheet.create({
         borderBottomRightRadius:15,
         paddingVertical:5,
         paddingHorizontal:15
+    },
+    focusStyle:{
+        borderBottomWidth:1,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 10,
+        height: 40, marginBottom: 7, padding: 5
+    },
+    blurStyle:{
+        borderBottomWidth: 1,
+        borderBottomColor: '#B2B2FF',
+        height: 40, marginBottom: 7, padding: 5
     },
     notifications: {
         marginVertical: 20,
