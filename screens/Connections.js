@@ -76,36 +76,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 40,
         alignItems: 'center',
         padding: 20
-    },
-    textBox: {
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        width: '95%',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        height: 85,
-        borderRadius: 15,
-        marginBottom: 12,
-        paddingTop:5
-    },
-    input: {
-        margin: 7,
-        height: 25,
-        width: '100%'
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginTop: 10
-    },
-    col1: {
-        alignItems:'flex-start',
-        width:'70%',
-        marginLeft:5
-    },
-    col2: {
-        flexDirection: 'row',
     }
 });
 
