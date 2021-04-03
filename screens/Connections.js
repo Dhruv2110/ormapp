@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import RNSpeedometer from 'react-native-speedometer'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -21,6 +22,42 @@ export default function App() {
         <>
             <Header />
             <ScrollView>
+                <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
+                    <RNSpeedometer 
+                    value={30} 
+                    size={300}
+                    labels= {[
+                            {
+                                activeBarColor: '#ff0000',
+                            },
+                            {
+                                activeBarColor: '#ff3300',
+                            },
+                            {
+                                activeBarColor: '#ff6600',
+                            },
+                            {
+                                activeBarColor: '#ff9933',
+                            },
+                            {
+                                activeBarColor: '#ff884d',
+                            },
+                            {
+                                activeBarColor: '#ffcc66',
+                            },
+                            {
+                                activeBarColor: '#ffff99',
+                            },
+                            {
+                                activeBarColor: '#33ff33',
+                            },
+                            {
+                                activeBarColor: '#33cc33',
+                            }]}
+                        innerCircleStyle={{ backgroundColor: '#191919' }}
+                    labelStyle={{ color: 'white'}}
+                    />
+                </View>
                 <View style={styles.container}>
                     <Text style={styles.heading}>Connections</Text>
                     <Text style={styles.text}>{`Tell us the URLs of your social \n network profiles and/or\nwebsite(s)`}</Text>
@@ -44,21 +81,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#191919',
     },
-    image: {
-        width: '100%',
-        height: 80,
-        paddingTop: 30,
-        marginBottom: 30,
-        alignItems: 'center',
-    },
     heading: {
-        margin: 10,
+        margin: 5,
         color: 'white',
         fontSize: 25,
         textAlign: 'center'
     },
     text: {
-        margin: 10,
+        marginTop: 5,
+        marginBottom:7,
         color: 'white',
         fontSize: 17,
         textAlign: 'center',
