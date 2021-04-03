@@ -16,6 +16,6 @@ export default function YoutubeIcon() {
 
 const styles = StyleSheet.create({
     keyicon: {
-        marginLeft:5
+        marginLeft:1
     }
 })
