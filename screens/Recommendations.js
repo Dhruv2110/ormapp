@@ -42,13 +42,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#191919',
     },
-    image: {
-        width: '100%',
-        height: 80,
-        paddingTop: 30,
-        marginBottom: 30,
-        alignItems: 'center',
-    },
     heading: {
         margin: 10,
         color: 'white',
@@ -60,11 +53,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 17,
         textAlign: 'center',
-    },
-    icon: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     card: {
         marginTop: 10,
