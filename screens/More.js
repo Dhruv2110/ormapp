@@ -15,12 +15,12 @@ function MoreScreen({ navigation }) {
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigation.push('Notifications')}>
                     <Text style={styles.text} >
-                        {`Notifications                          `}
+                        {`Notifications                           `}
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.push('Settings')}>
                     <Text style={styles.text}>
-                        {`Settings                                  `}
+                        {`Settings                                   `}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color:'white',
-        fontSize: 27,
+        fontSize: 26,
         marginLeft:25,
         marginTop:'10%',
         lineHeight:70,
