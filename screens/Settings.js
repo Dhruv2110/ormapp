@@ -112,9 +112,9 @@ export default function Settings() {
                             </View>
                             </TouchableOpacity>
                     </View>
+            <Footer />
                 </View>
             </View>
-            <Footer />
             </ScrollView>
         </>
     );

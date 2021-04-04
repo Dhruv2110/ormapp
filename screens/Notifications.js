@@ -24,7 +24,7 @@ export default function Notfications() {
                             </View>
                         </View>
                 </View>
-                    <View style={styles.textBox}>
+                <View style={styles.textBox}>
                         <TwitterIcon />
                         <View style={styles.col}>
                             <Text style={{ fontWeight: 'bold' }}>www.twitter.com/example</Text>
@@ -35,9 +35,11 @@ export default function Notfications() {
                             </View>
                         </View>
                     </View>
+                <View style={{position: 'relative',bottom:'-30%'}}>
+                    <Footer />
+                </View>
             </View>
         </View>
-        <Footer />
         </>
     );
 }
@@ -62,11 +64,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        height: '30%',
+        height: '20%',
         borderRadius: 15,
         marginBottom: 12,
+        paddingVertical: 10,
         padding: 20,
-        paddingVertical: 10
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     col:{
         margin:10
