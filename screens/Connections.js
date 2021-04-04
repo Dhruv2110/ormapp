@@ -69,6 +69,7 @@ export default function App() {
                         <CardConn siteIcon={<PinterestIcon />} site='PINTEREST' checkIcon={<CrossIcon />}/>
                         <CardConn siteIcon={<YoutubeIcon />} site='YOUTUBE' checkIcon={<CrossIcon />}/>
                         <Footer />
+                        <View style={{height:30}}></View>
                     </View>
                 </View>
             </ScrollView>

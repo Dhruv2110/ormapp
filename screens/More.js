@@ -21,6 +21,8 @@ function MoreScreen({ navigation }) {
                     </TouchableOpacity>
                     <View
                         style={{
+                            alignSelf: 'center',
+                            width: '90%',
                             borderBottomColor: 'white',
                             borderBottomWidth: 1,
                         }}
@@ -32,6 +34,8 @@ function MoreScreen({ navigation }) {
                     </TouchableOpacity>
                     <View
                         style={{
+                            alignSelf: 'center',
+                            width: '90%',
                             borderBottomColor: 'white',
                             borderBottomWidth: 1,
                         }}
@@ -109,8 +113,6 @@ const styles = StyleSheet.create({
         marginLeft:25,
         marginTop:'10%',
         lineHeight:70,
-        borderBottomWidth:2,
-        borderBottomColor: 'white'
     },
     card: {
         marginBottom: 10,

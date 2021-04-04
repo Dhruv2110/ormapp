@@ -98,7 +98,7 @@ export default function Measure() {
                     <CardMeasure />
                     <CardMeasure />
                     <CardMeasure />
-            <Footer />
+                    <Footer />
                 </View>
             </View>
             </ScrollView>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 10,
         backgroundColor: '#D1D1D1',
-        height: '100%',
+        height: '90%',
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         alignItems: 'center',
