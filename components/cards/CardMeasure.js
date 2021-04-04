@@ -35,6 +35,11 @@ const styles = StyleSheet.create({
         height: 130,
         borderRadius: 10,
         marginBottom: 20,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     tag: {
         backgroundColor: '#00B2FF',

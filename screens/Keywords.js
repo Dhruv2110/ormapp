@@ -127,7 +127,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height:75,
         borderRadius:15,
-        marginBottom:12
+        marginBottom:12,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     keyicon: {
         backgroundColor: '#6CC070',
