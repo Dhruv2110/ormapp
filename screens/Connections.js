@@ -28,31 +28,31 @@ export default function App() {
                     size={300}
                     labels= {[
                             {
-                                activeBarColor: '#ff0000',
+                            activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ff3300',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ff6600',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ff9933',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ff884d',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ffcc66',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#ffff99',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#33ff33',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
-                                activeBarColor: '#33cc33',
+                                activeBarColor: '#ADD8E6',
                             }]}
                         innerCircleStyle={{ backgroundColor: '#191919' }}
                     labelStyle={{ color: 'white'}}

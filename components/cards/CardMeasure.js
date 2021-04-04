@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     innerCard: {
         backgroundColor: 'white',
         width: '95%',
-        height: '27%',
+        height: 130,
         borderRadius: 10,
         marginBottom: 20,
     },

@@ -11,3 +11,4 @@ web-build/
 .pdf
 # macOS
 .DS_Store
+temp.js
