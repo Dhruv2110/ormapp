@@ -102,6 +102,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop:10,
         backgroundColor: '#191919',
         height: '70%',
         // maxHeight:'70%',
