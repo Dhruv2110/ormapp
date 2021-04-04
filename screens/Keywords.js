@@ -11,7 +11,7 @@ export default function App() {
     return (
         <>
             <Header />
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: '#191919' }}>
                 <Modal
                     animationType="slide"
                     transparent={true}

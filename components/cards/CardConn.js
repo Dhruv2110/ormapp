@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
     },
     col2: {
         flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline',
     }
 })
 

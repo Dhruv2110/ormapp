@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import { ScrollView, StyleSheet, Text, View,TextInput,TouchableOpacity} from 'react-native'
-import { Checkbox } from 'react-native-paper';
+//simport { Checkbox } from 'react-native-paper';
+import CheckBox from 'react-native-check-box'
 
 
 import Footer from '../components/Footer'
@@ -77,21 +78,29 @@ export default function Settings() {
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Notifications</Text>
                     <View style={styles.notifications}>
                         <View style={{flexDirection: 'row'}}>
-                                <Checkbox
-                                status={isSelectedD ? 'checked' : 'unchecked'}
-                                    onPress={() => {
-                                    setSelectionD(!isSelectedD)}}
-                                    color='#005CC8'/>
-                            <Text style={{marginTop:5}}>Daily Website Performance Insights</Text>
+                                <CheckBox
+                                    style={{padding: 1 }}
+                                    onClick={() => {
+                                        setSelectionD(!isSelectedD)
+                                    }}
+                                    isChecked={!isSelectedD}
+                                    checkBoxColor='#005CC8'
+                                    uncheckedCheckBoxColor='#b3b3b3'
+                                />
+                            <Text style={{marginTop:5}}>Daily Website Performance Insights.</Text>
                         </View>
-                        <View style={{flexDirection: 'row'}}>
-                                <Checkbox
-                                    status={isSelectedW ? 'checked' : 'unchecked'}
-                                    onPress={() => {
-                                    setSelectionW(!isSelectedW)}} 
-                                    color='#005CC8'/>
-                            <Text style={{ marginTop: 5 }}>Weekly On-Page Recommendations</Text>
-                        </View>
+                            <View style={{ flexDirection: 'row' }}>
+                                <CheckBox
+                                    style={{ padding: 1 }}
+                                    onClick={() => {
+                                        setSelectionW(!isSelectedW)
+                                    }}
+                                    isChecked={!isSelectedW}
+                                    checkBoxColor='#005CC8'
+                                    uncheckedCheckBoxColor='#b3b3b3'
+                                />
+                                <Text style={{ marginTop: 5 }}>Weekly On-Page Recommendation.</Text>
+                            </View>
                     </View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Delete Account</Text>
                     <View style={styles.delete}>

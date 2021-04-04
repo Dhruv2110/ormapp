@@ -12,7 +12,7 @@ export default function Measure() {
     return (
         <>
             <Header />
-            <ScrollView>
+            <ScrollView style={{ backgroundColor:'#191919'}}>
 
             <View style={styles.container}>
                 <View style={{padding:5,alignItems: 'center',justifyContent: 'center'}}>
@@ -98,9 +98,9 @@ export default function Measure() {
                     <CardMeasure />
                     <CardMeasure />
                     <CardMeasure />
+            <Footer />
                 </View>
             </View>
-            <Footer />
             </ScrollView>
         </>
     );

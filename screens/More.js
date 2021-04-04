@@ -12,19 +12,35 @@ function MoreScreen({ navigation }) {
     return (
         <>
             <Header />
-            <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.push('Notifications')}>
-                    <Text style={styles.text} >
-                        {`Notifications                           `}
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.push('Settings')}>
-                    <Text style={styles.text}>
-                        {`Settings                                   `}
-                    </Text>
-                </TouchableOpacity>
+            <View style={{ backgroundColor:'#191919',justifyContent: 'space-around' }}>
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={() => navigation.push('Notifications')}>
+                        <Text style={styles.text} >
+                            {`Notifications `}
+                        </Text>
+                    </TouchableOpacity>
+                    <View
+                        style={{
+                            borderBottomColor: 'white',
+                            borderBottomWidth: 1,
+                        }}
+                    />
+                    <TouchableOpacity onPress={() => navigation.push('Settings')}>
+                        <Text style={styles.text}>
+                            {`Settings`}
+                        </Text>
+                    </TouchableOpacity>
+                    <View
+                        style={{
+                            borderBottomColor: 'white',
+                            borderBottomWidth: 1,
+                        }}
+                    />
+                </View>
+                <View style={styles.card}>
+                <Footer />
+                </View>
             </View>
-            <Footer />
         </>
     );
 }
@@ -83,8 +99,9 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#191919',
-        height: '65%',
-        alignItems: 'flex-start',
+        height: '70%',
+        // maxHeight:'70%',
+        // alignItems: 'flex-start'
     },
     text: {
         color:'white',
@@ -94,5 +111,12 @@ const styles = StyleSheet.create({
         lineHeight:70,
         borderBottomWidth:2,
         borderBottomColor: 'white'
+    },
+    card: {
+        marginBottom: 10,
+        backgroundColor: '#D1D1D1',
+        height: '35%',
+        alignItems: 'center',
+        padding: 20,
     }
 });

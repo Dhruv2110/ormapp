@@ -21,7 +21,7 @@ export default function App() {
     return (
         <>
             <Header />
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: '#191919' }}>
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
                     <RNSpeedometer 
                     value={30} 

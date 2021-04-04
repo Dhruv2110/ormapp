@@ -19,7 +19,7 @@ export default function Recommendations() {
     return (
         <>
         <Header />
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: '#191919' }}>
                 <View style={styles.container}>
                     <Text style={styles.heading}>Our Recommendations</Text>
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
