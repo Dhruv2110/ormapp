@@ -1,5 +1,7 @@
 import React,{ useState } from 'react';
-import { ScrollView, StyleSheet, Text, View,TextInput,CheckBox,TouchableOpacity} from 'react-native'
+import { ScrollView, StyleSheet, Text, View,TextInput,TouchableOpacity} from 'react-native'
+import { Checkbox } from 'react-native-paper';
+
 
 import Footer from '../components/Footer'
 
@@ -75,15 +77,19 @@ export default function Settings() {
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Notifications</Text>
                     <View style={styles.notifications}>
                         <View style={{flexDirection: 'row'}}>
-                            <CheckBox
-                                value={isSelectedD}
-                                onValueChange={setSelectionD}/>
+                                <Checkbox
+                                status={isSelectedD ? 'checked' : 'unchecked'}
+                                    onPress={() => {
+                                    setSelectionD(!isSelectedD)}}
+                                    color='#005CC8'/>
                             <Text style={{marginTop:5}}>Daily Website Performance Insights</Text>
                         </View>
                         <View style={{flexDirection: 'row'}}>
-                            <CheckBox 
-                                value={isSelectedW}
-                                onValueChange={setSelectionW}/>
+                                <Checkbox
+                                    status={isSelectedW ? 'checked' : 'unchecked'}
+                                    onPress={() => {
+                                    setSelectionW(!isSelectedW)}} 
+                                    color='#005CC8'/>
                             <Text style={{ marginTop: 5 }}>Weekly On-Page Recommendations</Text>
                         </View>
                     </View>

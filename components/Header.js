@@ -1,6 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text,View, Image,TouchableOpacity } from 'react-native';
 
+import {
+    MenuContext,
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+} from 'react-native-popup-menu';
 import { Entypo } from '@expo/vector-icons';
 
 
@@ -12,11 +19,12 @@ export default function App() {
                 source={require('../assets/logo_only.png')}
                 style={{ width: 40, height: 40 }}
             />
+
             <TouchableOpacity style={styles.dots}>
                 <Entypo
                     name="dots-three-vertical"
                     size={24} color="white"
-                    onClick={() => { }} />
+                    onClick={() => {}} />
             </TouchableOpacity>
         </View>
     );
