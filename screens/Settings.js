@@ -83,7 +83,7 @@ export default function Settings() {
                                     onClick={() => {
                                         setSelectionD(!isSelectedD)
                                     }}
-                                    isChecked={!isSelectedD}
+                                    isChecked={isSelectedD}
                                     checkBoxColor='#005CC8'
                                     uncheckedCheckBoxColor='#b3b3b3'
                                 />

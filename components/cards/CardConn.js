@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginBottom: 12,
         paddingTop: 5,
-        elevation: 10,
-        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        elevation: 5,
+        shadowColor: 'rgba(0,0,0, .8)', // IOS
         shadowOffset: { height: 0, width: 0 }, // IOS
         shadowOpacity: 2, // IOS
         shadowRadius: 1, //IOS
