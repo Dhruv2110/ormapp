@@ -26,6 +26,7 @@
     "react-native-check-box": "^2.1.7",
     "react-native-elements": "^3.3.2",
     "react-native-gesture-handler": "~1.8.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-material-menu": "^1.2.0",
     "react-native-paper": "^4.7.2",
     "react-native-popup-menu": "^0.15.10",

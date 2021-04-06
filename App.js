@@ -12,6 +12,7 @@ import Connections from './screens/Connections'
 import Measure from './screens/Measure'
 import Recommendations from './screens/Recommendations'
 import More from './screens/More'
+import Login from './screens/Login'
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -68,7 +69,7 @@ export default function App() {
           inactiveTintColor: 'lightgrey',
         }}
       >
-        <Tab.Screen name="Keywords" component={Keywords} />
+        <Tab.Screen name="Keywords" component={Login} />
         <Tab.Screen name="Connections" component={Connections} />
         <Tab.Screen name="Recommendations" component={Recommendations} />
         <Tab.Screen name="Measure" component={Measure} />
