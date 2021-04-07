@@ -2,7 +2,6 @@ import React from 'react';
 
 import {View,Text,TextInput,StyleSheet} from 'react-native'
 
-import TwitterIcon from '../Icons/Twitter'
 
 const CardRecomm = ( {icon,site} ) => {
     return (

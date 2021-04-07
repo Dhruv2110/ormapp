@@ -2,8 +2,10 @@ import React, { useState} from 'react';
 
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 
-import { MailIcon, LockIcon,EyeOpen,EyeSlash } from '../components/Icons/LoginIcons'
-const Login = () => {
+import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
+
+
+export default SignUp = () => {
 
     const [EyeIcon,ChangeEye] = useState(true)
 
@@ -20,22 +22,35 @@ const Login = () => {
                             <Text style={{ color: '#54585A',fontSize:20}}>ORM Optimizer</Text>
                         </View>
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.headText}>Welcome,</Text>
-                            <Text style={styles.headText}>Login Now.</Text>
+                            <Text style={styles.headText}>Create Account</Text>
                         </View>
                     </View>
                     <View style={styles.card}>
                         <View style={styles.email}>
                             <MailIcon/>
                             <TextInput 
-                            style={{ paddingHorizontal: 5, width: '75%'}}
+                            style={{ paddingHorizontal: 10, width: '75%'}}
                                 placeholder='Email'>
+                            </TextInput>
+                        </View>
+                        <View style={styles.email}>
+                        <UserIcon/>
+                            <TextInput 
+                            style={{ paddingHorizontal: 10, width: '75%'}}
+                                placeholder='Full Name'>
+                            </TextInput>
+                        </View>
+                        <View style={styles.email}>
+                        <UsersIcon/>
+                            <TextInput 
+                            style={{ paddingHorizontal: 5, width: '75%'}}
+                                placeholder='Company or Individual'>
                             </TextInput>
                         </View>
                         <View style={styles.password}>
                             <LockIcon/>
                             <TextInput
-                                style={{ paddingHorizontal: 5,width:'75%' }}
+                                style={{ paddingHorizontal: 13,width:'75%' }}
                                 placeholder='Password'>
                             </TextInput>
                         {/* <TouchableOpacity onPress={ChangeEye(!EyeIcon)}>
@@ -43,16 +58,14 @@ const Login = () => {
                         </TouchableOpacity> */}
                         <EyeOpen />
                         </View>
-                    <TouchableOpacity>
-                    <Text style={{ marginVertical: 20, color:'#8366A2',fontSize: 15 }}>Forgot Password?</Text>
-                    </TouchableOpacity>
+                    
                     <TouchableOpacity style={styles.button}>
-                        <Text style={{color:'white',fontSize: 20 }}>LOGIN</Text>
+                        <Text style={{color:'white',fontSize: 20 }}>SIGNUP</Text>
                     </TouchableOpacity>
-                    <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-                        <Text>Don't have an account? </Text>
+                    <View style={{flexDirection: 'row',marginVertical:10}}>
+                        <Text>Already have an account? </Text>
                         <TouchableOpacity>
-                            <Text style={{ color: '#8366A2', fontSize: 15 }}>Sign Up</Text>
+                        <Text style={{color: '#8366A2', fontSize: 15 }}>Login</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
@@ -70,7 +83,7 @@ const styles = StyleSheet.create({
     },
     head:{
         width:'100%',
-        height:'40%',
+        height:'30%',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -81,12 +94,11 @@ const styles = StyleSheet.create({
     card: {
         marginTop: 10,
         backgroundColor: '#FFFFFF',
-        height: '60%',
+        height: '70%',
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical:40
+        padding: 20
     },
     email:{
         backgroundColor: '#FFFFFF',
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
         height:60,
         // borderWidth: 0.5,
         marginVertical:10,
-        paddingHorizontal:10,
+        paddingHorizontal:12,
         paddingVertical:10,
         borderRadius:50,
         elevation: 10,
@@ -113,7 +125,7 @@ const styles = StyleSheet.create({
         height: 60,
         // borderWidth:0.5,
         marginVertical:10,
-        paddingHorizontal:10,
+        paddingHorizontal:14,
         paddingVertical:10,
         borderRadius:50,
         elevation: 10,
@@ -133,4 +145,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login
+// export default SignUp;

@@ -4,13 +4,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import TwitterIcon from '../components/Icons/Twitter'
-import FacebookIcon from '../components/Icons/Facebook'
-import LinkedInIcon from '../components/Icons/LinkedIn'
-import WebsiteIcon from '../components/Icons/Website'
-import PinterestIcon from '../components/Icons/Pinterest'
-import YoutubeIcon from '../components/Icons/Youtube'
-import MediumIcon from '../components/Icons/Medium'
+import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon, CrunchBaseIcon } from '../components/Icons/SocialIcons'
 
 import CardRecomm from '../components/cards/CardRecomm'
 
@@ -31,6 +25,7 @@ export default function Recommendations() {
                         <CardRecomm icon={<PinterestIcon />} site='pinterest'/>
                         <CardRecomm icon={<YoutubeIcon />} site='youtube'/>
                         <CardRecomm icon={<MediumIcon />} site='medium'/>
+                        <CardRecomm icon={<CrunchBaseIcon />} site='crunchbase'/>
                         <Footer />
                     </View>
                 </View>

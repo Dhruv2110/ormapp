@@ -4,8 +4,9 @@ import { StyleSheet, Text, View} from 'react-native'
 import Footer from '../components/Footer'
 
 import NewIcon from '../components/Icons/New'
-import FacebookIcon from '../components/Icons/Facebook'
-import TwitterIcon from '../components/Icons/Twitter'
+import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon } from '../components/Icons/SocialIcons'
+
+
 
 
 export default function Notfications() {

@@ -10,7 +10,7 @@ const CardConn = ( {siteIcon,site,checkIcon} ) => {
             <View style={styles.col1}>
                 <View style={styles.row}>
                     {siteIcon}
-                    <Text style={{ fontSize: 15 }}> {site}</Text>
+                    <Text style={{ fontSize: 15}}> {site}</Text>
                 </View>
                 <TextInput style={styles.input} placeholder="www.demosite.url.com"></TextInput>
             </View>

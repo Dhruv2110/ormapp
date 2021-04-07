@@ -4,12 +4,8 @@ import RNSpeedometer from 'react-native-speedometer'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import TwitterIcon from '../components/Icons/Twitter'
-import FacebookIcon from '../components/Icons/Facebook'
-import LinkedInIcon from '../components/Icons/LinkedIn'
-import WebsiteIcon from '../components/Icons/Website'
-import PinterestIcon from '../components/Icons/Pinterest'
-import YoutubeIcon from '../components/Icons/Youtube'
+import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon, CrunchBaseIcon } from '../components/Icons/SocialIcons'
+
 import TickIcon from '../components/Icons/Tick'
 import CrossIcon from '../components/Icons/Cross'
 
@@ -28,7 +24,7 @@ export default function App() {
                     size={300}
                     labels= {[
                             {
-                            activeBarColor: '#ADD8E6',
+                                activeBarColor: '#ADD8E6',
                             },
                             {
                                 activeBarColor: '#ADD8E6',
@@ -68,8 +64,10 @@ export default function App() {
                         <CardConn siteIcon={<WebsiteIcon />} site='WEBSITE' checkIcon={<CrossIcon />}/>
                         <CardConn siteIcon={<PinterestIcon />} site='PINTEREST' checkIcon={<CrossIcon />}/>
                         <CardConn siteIcon={<YoutubeIcon />} site='YOUTUBE' checkIcon={<CrossIcon />}/>
+                        <CardConn siteIcon={<MediumIcon />} site='MEDIUM' checkIcon={<CrossIcon />}/>
+                        <CardConn siteIcon={<CrunchBaseIcon />} site='CRUNCHBASE' checkIcon={<CrossIcon />}/>
                         <Footer />
-                        <View style={{height:30}}></View>
+                        <View style={{height:100}}></View>
                     </View>
                 </View>
             </ScrollView>
