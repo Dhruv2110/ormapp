@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text,View, Image,TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Menu, { MenuItem } from 'react-native-material-menu';
 import { Entypo } from '@expo/vector-icons';
 
 
-export default function App() {
+const Header = ({navigation}) => {
     _menu = null;
 
     setMenuRef = ref => {
@@ -46,6 +47,21 @@ export default function App() {
         </View>
     );
 }
+
+export default Header
+
+// const Stack = createStackNavigator();
+
+// export default function App() {
+//     return (
+//         <Stack.Navigator initialRouteName="Header">
+//             <Stack.Screen name="Header" component={Header}/>
+//             {/* <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} /> */}
+//             {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/> */}
+//         </Stack.Navigator>
+//     );
+// }
+
 
 const styles = StyleSheet.create({
     head: {

@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
-
+import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
+import HomeScreen from '../HomeScreen'
 
-export default SignUp = () => {
+const SignUp = ({navigation}) => {
 
     const [EyeIcon,ChangeEye] = useState(true)
 
@@ -59,18 +60,31 @@ export default SignUp = () => {
                         <EyeOpen />
                         </View>
                     
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
                         <Text style={{color:'white',fontSize: 20 }}>SIGNUP</Text>
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row',marginVertical:10}}>
                         <Text>Already have an account? </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.popToTop()}>
                         <Text style={{color: '#8366A2', fontSize: 15 }}>Login</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
                 </View>
         </>
+    );
+}
+
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <Stack.Navigator initialRouteName="SignUp">
+                <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+            {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/> */}
+        </Stack.Navigator>
     );
 }
 
