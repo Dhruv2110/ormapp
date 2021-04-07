@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import RNSpeedometer from 'react-native-speedometer'
 
 import Header from '../components/Header'
@@ -9,14 +10,15 @@ import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, Web
 import TickIcon from '../components/Icons/Tick'
 import CrossIcon from '../components/Icons/Cross'
 
-
+import Notifications from './Notifications'
+import Measure from './Measure'
 import CardConn from '../components/cards/CardConn'
 
 
-export default function App() {
+const Connections = ( { navigation } ) => {
     return (
         <>
-            <Header />
+            <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
                     <RNSpeedometer 
@@ -72,6 +74,30 @@ export default function App() {
                 </View>
             </ScrollView>
         </>
+    );
+}
+
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <Stack.Navigator initialRouteName="Connections">
+            <Stack.Screen name="Connections" component={Connections} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={Notifications}
+                options={{
+                    title: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    }
+                }} />
+            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }} />
+        </Stack.Navigator>
     );
 }
 

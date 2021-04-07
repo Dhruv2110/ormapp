@@ -1,17 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions  } from 'react-native'
-
+import { createStackNavigator } from '@react-navigation/stack';
 import { LineChart } from "react-native-chart-kit";
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import CardMeasure from '../components/cards/CardMeasure'
 
-export default function Measure() {
+import Notifications from './Notifications'
+
+const Measure = ({ navigation } ) => {
     const screenWidth = Dimensions.get("window").width;
     return (
         <>
-            <Header />
+            <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor:'#191919'}}>
 
             <View style={styles.container}>
@@ -105,6 +107,29 @@ export default function Measure() {
         </>
     );
 
+}
+
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <Stack.Navigator initialRouteName="Measure">
+            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={Notifications}
+                options={{
+                    title: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    }
+                }} />
+        </Stack.Navigator>
+    );
 }
 
 const styles = StyleSheet.create({

@@ -1,17 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Entypo } from '@expo/vector-icons';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Notifications from './Notifications'
 import Settings from './Settings'
+import Measure from './Measure'
 
-function MoreScreen({ navigation }) {
+const MoreScreen = ({ navigation }) => {
     return (
         <>
-            <Header />
+            <Header navigate={navigation} />
             <View style={{ backgroundColor:'#191919',justifyContent: 'space-around' }}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={() => navigation.push('Notifications')}>
@@ -68,12 +68,12 @@ export default function App() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                     },
-                    headerRight: () => (
-                    <Entypo
-                        name="dots-three-vertical"
-                        size={24} color="white"
-                        onClick={() => { }} />
-                    )
+                    // headerRight: () => (
+                    // <Entypo
+                    //     name="dots-three-vertical"
+                    //     size={24} color="white"
+                    //     onClick={() => { }} />
+                    // )
                 }}
                
                 />
@@ -88,14 +88,15 @@ export default function App() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                     },
-                    headerRight: () => (
-                        <Entypo
-                            name="dots-three-vertical"
-                            size={24} color="white"
-                            onClick={() => { }} />
-                    )
+                    // headerRight: () => (
+                    //     <Entypo
+                    //         name="dots-three-vertical"
+                    //         size={24} color="white"
+                    //         onClick={() => { }} />
+                    // )
                 }}
                 />
+            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }} />
             </Stack.Navigator>
     );
 }

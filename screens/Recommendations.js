@@ -1,18 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon, CrunchBaseIcon } from '../components/Icons/SocialIcons'
 
+import Notifications from './Notifications'
+import Measure from './Measure'
 import CardRecomm from '../components/cards/CardRecomm'
 
 
-export default function Recommendations() {
+const Recommendations = ({ navigation}) => {
     return (
         <>
-        <Header />
+            <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <View style={styles.container}>
                     <Text style={styles.heading}>Our Recommendations</Text>
@@ -31,6 +33,29 @@ export default function Recommendations() {
                 </View>
             </ScrollView>
         </>
+    );
+}
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <Stack.Navigator initialRouteName="Recommendations">
+            <Stack.Screen name="Recommendations" component={Recommendations} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={Notifications}
+                options={{
+                    title: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    }
+                }} />
+            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }} />
+        </Stack.Navigator>
     );
 }
 

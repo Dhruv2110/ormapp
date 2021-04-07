@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Alert, Modal,Pressable} from "react-native";
 
 import Header from '../components/Header'
+import Notifications from './Notifications'
+import Measure from './Measure'
 import Footer from '../components/Footer'
 
-export default function App() {
+const Keywords = ( {navigation} ) => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <>
-            <Header />
+            <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <Modal
                     animationType="slide"
@@ -78,6 +81,30 @@ export default function App() {
             </View>
         </ScrollView>
         </>
+    );
+}
+
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <Stack.Navigator initialRouteName="Keywords">
+            <Stack.Screen name="Keywords" component={Keywords} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={Notifications}
+                options={{
+                    title: 'Notifications',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: '#191919',
+
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                    }
+                }}/>
+            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }}/>
+        </Stack.Navigator>
     );
 }
 
@@ -193,5 +220,19 @@ const styles = StyleSheet.create({
         fontSize:25
     },
     modalContent: {
+    },
+
+    head: {
+        width: '100%',
+        height: 80,
+        paddingTop: 30,
+        backgroundColor: '#191919',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    dots: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
     }
 });

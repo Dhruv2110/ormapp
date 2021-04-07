@@ -6,7 +6,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import { Entypo } from '@expo/vector-icons';
 
 
-const Header = ({navigation}) => {
+const Header = ({ navigate }) => {
     _menu = null;
 
     setMenuRef = ref => {
@@ -28,40 +28,27 @@ const Header = ({navigation}) => {
                 style={{ width: 40, height: 40 }}
             />
             <View>
-        <Menu
-            ref={setMenuRef}
-            button={<TouchableOpacity style={styles.dots} onPress={showMenu} >
+                <Menu
+                    ref={setMenuRef}
+                    button={<TouchableOpacity style={styles.dots} onPress={showMenu} >
                         <Entypo
                             name="dots-three-vertical"
                             size={24} color="white"
-                            />
+                        />
                     </TouchableOpacity>}
-            animationDuration={10}
-            style={{padding:5}}//Menu Style
-        >
-          <MenuItem onPress={hideMenu}>Notfication</MenuItem>
-          <MenuItem onPress={hideMenu}>ORM Performance</MenuItem>
-        </Menu>
-      </View>
-            
+                    animationDuration={10}
+                    style={{ padding: 5 }}//Menu Style
+                >
+                    <MenuItem onPress={() => navigate.navigate('Notifications')}>Notifications</MenuItem>
+                    <MenuItem onPress={() => navigate.navigate('Measure')}>ORM Performance</MenuItem>
+                </Menu>
+            </View>
+
         </View>
     );
 }
 
 export default Header
-
-// const Stack = createStackNavigator();
-
-// export default function App() {
-//     return (
-//         <Stack.Navigator initialRouteName="Header">
-//             <Stack.Screen name="Header" component={Header}/>
-//             {/* <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} /> */}
-//             {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/> */}
-//         </Stack.Navigator>
-//     );
-// }
-
 
 const styles = StyleSheet.create({
     head: {
