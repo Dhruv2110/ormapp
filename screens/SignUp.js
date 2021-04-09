@@ -8,7 +8,7 @@ import HomeScreen from '../HomeScreen'
 
 const SignUp = ({navigation}) => {
 
-    const [EyeIcon,ChangeEye] = useState(true)
+    const [EyeIcon,ChangeEye] = useState(false)
 
 
     return(
@@ -52,12 +52,12 @@ const SignUp = ({navigation}) => {
                             <LockIcon/>
                             <TextInput
                                 style={{ paddingHorizontal: 13,width:'75%' }}
-                                placeholder='Password'>
+                                placeholder='Password'
+                            secureTextEntry={EyeIcon ? false : true}>
                             </TextInput>
-                        {/* <TouchableOpacity onPress={ChangeEye(!EyeIcon)}>
-                            {EyeIcon ? <EyeOpen/> : <EyeSlash/> }
-                        </TouchableOpacity> */}
-                        <EyeOpen />
+                        <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
+                            {EyeIcon ? <EyeOpen /> : <EyeSlash />}
+                        </TouchableOpacity>
                         </View>
                     
                     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>

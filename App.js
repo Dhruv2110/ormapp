@@ -11,8 +11,16 @@ import { MailIcon, LockIcon,EyeOpen,EyeSlash } from './components/Icons/LoginIco
 
 const Login = ({navigation}) => {
 
-    const [EyeIcon,ChangeEye] = useState(true)
+    const [EyeIcon,ChangeEye] = useState(false)
 
+    const renderEye = () => {
+        if (EyeIcon){
+            return <EyeIcon />
+        }
+        else{
+            return <EyeSlash />
+        }
+    }
 
     return(
         <>
@@ -42,12 +50,12 @@ const Login = ({navigation}) => {
                             <LockIcon/>
                             <TextInput
                                 style={{ paddingHorizontal: 5,width:'75%' }}
-                                placeholder='Password'>
+                                placeholder='Password'
+                            secureTextEntry={EyeIcon ? false : true}>
                             </TextInput>
-                        {/* <TouchableOpacity onPress={ChangeEye(!EyeIcon)}>
-                            {EyeIcon ? <EyeOpen/> : <EyeSlash/> }
-                        </TouchableOpacity> */}
-                        <EyeOpen />
+                        <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
+                            {EyeIcon ? <EyeOpen/> : <EyeSlash/>}
+                        </TouchableOpacity>
                         </View>
                     <TouchableOpacity>
                     <Text style={{ marginVertical: 20, color:'#8366A2',fontSize: 15 }}>Forgot Password?</Text>
@@ -74,9 +82,8 @@ export default function App() {
         <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
         </NavigationContainer>
     );
