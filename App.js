@@ -26,12 +26,12 @@ const Login = ({navigation}) => {
         <>
                 <View style={styles.container}>
                     <View style={styles.head}>
-                        <View style={{alignItems:'center',marginVertical:40}}>
+                        <View style={{alignItems:'center',marginVertical:30}}>
                             <Image
-                                source={require('./assets/logo_only.png')}
-                                style={{ width: 40, height: 40 }}
+                                source={require('./assets/logo.png')}
+                                style={{ width: 220, height: 95 }}
                             />
-                            <Text style={{ color: '#54585A',fontSize:20}}>ORM Optimizer</Text>
+                            {/* <Text style={{ color: '#54585A',fontSize:20}}>ORM Optimizer</Text> */}
                         </View>
                         <View style={{ alignItems: 'center' }}>
                             <Text style={styles.headText}>Welcome,</Text>
