@@ -139,10 +139,14 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
         width:'100%',
         height: 150,
-        borderBottomLeftRadius:15,
-        borderBottomRightRadius:15,
+        borderRadius:15,
         paddingVertical:5,
-        paddingHorizontal:15
+        paddingHorizontal:15,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     focusStyle:{
         borderBottomWidth:1,
@@ -161,20 +165,28 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: '100%',
         height: 100,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        borderRadius: 15,
         paddingVertical: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     delete:{
         marginVertical: 20,
         backgroundColor: 'white',
         width: '100%',
         height: 120,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        borderRadius: 15,
         paddingVertical: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 2, // IOS
+        shadowRadius: 1, //IOS
     },
     button: {
         marginVertical:10,

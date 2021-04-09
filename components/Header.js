@@ -1,12 +1,16 @@
-import React from 'react';
+import React , { useEffect } from 'react';
 import { StyleSheet, Text,View, Image,TouchableOpacity } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import Menu, { MenuItem } from 'react-native-material-menu';
 import { Entypo } from '@expo/vector-icons';
 
 
 const Header = ({ navigate }) => {
+
+    useEffect(() => {
+        hideMenu()
+    });
+
     _menu = null;
 
     setMenuRef = ref => {
@@ -39,7 +43,7 @@ const Header = ({ navigate }) => {
                     animationDuration={10}
                     style={{ padding: 5 }}//Menu Style
                 >
-                    <MenuItem onPress={() => navigate.navigate('Notifications')}>Notifications</MenuItem>
+                    <MenuItem onPress={() => {navigate.navigate('Notifications')}}>Notifications</MenuItem>
                     <MenuItem onPress={() => navigate.navigate('Measure')}>ORM Performance</MenuItem>
                 </Menu>
             </View>

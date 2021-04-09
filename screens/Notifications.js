@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useEffect } from 'react';
 import { StyleSheet, Text, View} from 'react-native'
 
 import Footer from '../components/Footer'
@@ -10,6 +10,12 @@ import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, Web
 
 
 export default function Notfications() {
+
+    useEffect(() => {
+        hideMenu();
+    });
+
+
     return (
         <>
         <View style={styles.container}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions  } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { LineChart } from "react-native-chart-kit";
@@ -10,6 +10,11 @@ import CardMeasure from '../components/cards/CardMeasure'
 import Notifications from './Notifications'
 
 const Measure = ({ navigation } ) => {
+
+    useEffect(() => {
+        hideMenu();
+    });
+
     const screenWidth = Dimensions.get("window").width;
     return (
         <>
