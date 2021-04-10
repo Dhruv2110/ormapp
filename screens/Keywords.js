@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
         marginBottom:12,
         elevation: 10,
         shadowColor: 'rgba(0,0,0, .4)', // IOS
-        shadowOffset: { height: 0, width: 0 }, // IOS
-        shadowOpacity: 2, // IOS
+        shadowOffset: { height: 1, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
     },
     keyicon: {

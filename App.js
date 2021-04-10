@@ -60,7 +60,7 @@ const Login = ({navigation}) => {
                     <TouchableOpacity>
                     <Text style={{ marginVertical: 20, color:'#8366A2',fontSize: 15 }}>Forgot Password?</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')} >
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.replace('HomeScreen')} >
                         <Text style={{color:'white',fontSize: 20 }}>LOGIN</Text>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', marginVertical: 10 }}>
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
         borderRadius:50,
         elevation: 10,
         shadowColor: 'rgba(0,0,0, .4)', // IOS
-        shadowOffset: { height: 0, width: 0 }, // IOS
-        shadowOpacity: 2, // IOS
+        shadowOffset: { height: 1, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
     },
     password:{
@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
         borderRadius:50,
         elevation: 10,
         shadowColor: 'rgba(0,0,0, .4)', // IOS
-        shadowOffset: { height: 0, width: 0 }, // IOS
-        shadowOpacity: 2, // IOS
+        shadowOffset: { height: 1, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
     },
     button:{
