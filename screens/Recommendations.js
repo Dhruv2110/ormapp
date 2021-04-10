@@ -29,6 +29,7 @@ const Recommendations = ({ navigation}) => {
                         <CardRecomm icon={<MediumIcon />} site='medium'/>
                         <CardRecomm icon={<CrunchBaseIcon />} site='crunchbase'/>
                         <Footer />
+                        <View style={{ height: 100 }}></View>
                     </View>
                 </View>
             </ScrollView>
