@@ -76,6 +76,9 @@ const Keywords = ( {navigation} ) => {
                         </View>
                         <TextInput style={styles.input} placeholder="Keyword 3"></TextInput>
                     </View>
+                        <TouchableOpacity style={styles.buttonSave} onPress={() => navigation.navigate('HomeScreen')}>
+                            <Text style={{ color: 'white', fontSize: 20 }}>SAVE KEYWORDS</Text>
+                        </TouchableOpacity>
                     <Footer/>
                 </View>
             </View>
@@ -169,7 +172,21 @@ const styles = StyleSheet.create({
     input: {
         margin: 15,
         height: 30, 
-        width:'60%'
+        width:'65%'
+    },
+    buttonSave: {
+        width: '85%',
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 50,
+        backgroundColor: '#4169E1',
+        marginVertical: 20,
+        elevation: 10,
+        shadowColor: 'rgba(0,0,0, .4)', // IOS
+        shadowOffset: { height: 1, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 1, //IOS
     },
 
 

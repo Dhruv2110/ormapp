@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
+import { Picker } from '@react-native-picker/picker';
 
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
@@ -9,7 +10,7 @@ import HomeScreen from '../HomeScreen'
 const SignUp = ({navigation}) => {
 
     const [EyeIcon,ChangeEye] = useState(false)
-
+    const [selectedLanguage, setSelectedLanguage] = useState();
 
     return(
         <>
@@ -43,10 +44,19 @@ const SignUp = ({navigation}) => {
                         </View>
                         <View style={styles.email}>
                         <UsersIcon/>
-                            <TextInput 
+                            {/* <TextInput 
                             style={{ paddingHorizontal: 5, width: '75%'}}
                                 placeholder='Company or Individual'>
-                            </TextInput>
+                            </TextInput> */}
+                        <Picker
+                            selectedValue={selectedLanguage}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setSelectedLanguage(itemValue)}
+                            style={{ backgroundColor:'black',width:500,height:50,color:'grey'}}>
+                            <Picker.Item label="Select" value="0"/>
+                            <Picker.Item label="Company" value="company" />
+                            <Picker.Item label="Individual" value="individual" />
+                        </Picker>
                         </View>
                         <View style={styles.password}>
                             <LockIcon/>
