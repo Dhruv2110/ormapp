@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Snackbar from 'react-native-snackbar';
 
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 
@@ -8,9 +9,12 @@ import SignUp from './screens/SignUp'
 import HomeScreen from './HomeScreen'
 
 import { MailIcon, LockIcon,EyeOpen,EyeSlash } from './components/Icons/LoginIcons'
+import * as Auth from './api/auth';
 
 const Login = ({navigation}) => {
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [EyeIcon,ChangeEye] = useState(false)
 
     const renderEye = () => {
@@ -20,6 +24,48 @@ const Login = ({navigation}) => {
         else{
             return <EyeSlash />
         }
+    }
+
+    const validateEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    // const validatePassword = (password) => {
+    //     const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    //     return re.test(String(email));
+    // }
+
+    const handleSubmit = async e => {
+        if (validateEmail(email) && validatePassword) {
+            await loginUser({
+                email,
+                password
+            });
+        }
+    }
+
+    const loginUser = async (credentials) => {
+        Auth
+            .login(credentials)
+            .then((response) => {
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+                localStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
+                localStorage.setItem('refreshToken', response.data.refreshToken)
+                localStorage.setItem('expiresIn', response.data.expiresIn)
+                navigation.replace('HomeScreen')
+            })
+            .catch(err => {
+                Snackbar.show({
+                    text: 'User Not Found or Incorrect Email/Password',
+                    duration: Snackbar.LENGTH_INDEFINITE,
+                    action: {
+                        text: 'OK',
+                        textColor: 'green',
+                        onPress: () => { /* Do something. */ },
+                    },
+                });
+            })
     }
 
     return(
@@ -42,16 +88,20 @@ const Login = ({navigation}) => {
                         <View style={styles.email}>
                             <MailIcon/>
                             <TextInput 
-                            style={{ paddingHorizontal: 5, width: '75%'}}
-                                placeholder='Email'>
+                                defaultValue={email}
+                                style={{ paddingHorizontal: 5, width: '75%'}}
+                                placeholder='Email'
+                                onChangeText={(e) => setEmail(e)}>
                             </TextInput>
                         </View>
                         <View style={styles.password}>
                             <LockIcon/>
                             <TextInput
+                                defaultValue={password}
                                 style={{ paddingHorizontal: 5,width:'75%' }}
                                 placeholder='Password'
-                            secureTextEntry={EyeIcon ? false : true}>
+                                secureTextEntry={EyeIcon ? false : true}
+                                onChangeText={(e) => setPassword(e)}>
                             </TextInput>
                         <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
                             {EyeIcon ? <EyeOpen/> : <EyeSlash/>}
@@ -60,7 +110,7 @@ const Login = ({navigation}) => {
                     <TouchableOpacity>
                     <Text style={{ marginVertical: 20, color:'#8366A2',fontSize: 15 }}>Forgot Password?</Text>
                     </TouchableOpacity >
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.replace('HomeScreen')} >
+                    <TouchableOpacity style={styles.button} onPress={handleSubmit} >
                         <Text style={{color:'white',fontSize: 20 }}>LOGIN</Text>
                     </TouchableOpacity>
                     <View style={{ flexDirection: 'row', marginVertical: 10 }}>

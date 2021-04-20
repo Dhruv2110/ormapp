@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 import { Picker } from '@react-native-picker/picker';
+import Snackbar from 'react-native-snackbar';
 
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
@@ -10,8 +11,85 @@ import HomeScreen from '../HomeScreen'
 const SignUp = ({navigation}) => {
 
     const [EyeIcon,ChangeEye] = useState(false)
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [company, setCompany] = useState("company");
+    const [password, setPassword] = useState("");
 
+
+    const validateEmail = (email) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    const validatePassword = (password) => {
+        const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        return re.test(String(password));
+    }
+
+
+    const validateCompany = (company) => {
+        if (company === 'company' || company === 'individual') {
+            return true
+        }
+
+        return false
+    }
+
+    const validateName = (name) => {
+        if (name.length > 0) {
+            return true
+        }
+
+        return false
+    }
+
+    const handleSubmit = async e => {
+        console.log(password)
+        console.log(validatePassword(password))
+        if (validateEmail(email) && validatePassword(password) && validateCompany(company) && validateName(name)) {
+            await signupUser({
+                email,
+                name,
+                type: company,
+                password
+            });
+        } else {
+            console.log('validate error')
+            Snackbar.show({
+                text: 'Check all fields',
+                duration: Snackbar.LENGTH_INDEFINITE,
+                action: {
+                    text: 'OK',
+                    textColor: 'green',
+                    onPress: () => { /* Do something. */ },
+                },
+            });
+        }
+    }
+
+
+    const signupUser = async (credentials) => {
+        Auth
+            .signup(credentials)
+            .then((response) => {
+                console.log(response)
+                navigation.navigate('Login')
+            })
+            .catch(err => {
+                console.log(err.response.data.msg)
+                Snackbar.show({
+                    text: 'Some Error Occured.Try Again',
+                    duration: Snackbar.LENGTH_INDEFINITE,
+                    action: {
+                        text: 'OK',
+                        textColor: 'green',
+                        onPress: () => { /* Do something. */ },
+                    },
+                });
+
+            })
+    }
     return(
         <>
                 <View style={styles.container}>
@@ -32,14 +110,16 @@ const SignUp = ({navigation}) => {
                             <MailIcon/>
                             <TextInput 
                             style={{ paddingHorizontal: 10, width: '75%'}}
-                                placeholder='Email'>
+                                placeholder='Email'
+                                onChangeText={e => setEmail(e)}>
                             </TextInput>
                         </View>
                         <View style={styles.email}>
                         <UserIcon/>
                             <TextInput 
                             style={{ paddingHorizontal: 10, width: '75%'}}
-                                placeholder='Full Name'>
+                                placeholder='Full Name'
+                            onChangeText={e => setName(e)}>
                             </TextInput>
                         </View>
                         <View style={styles.email}>
@@ -49,9 +129,9 @@ const SignUp = ({navigation}) => {
                                 placeholder='Company or Individual'>
                             </TextInput> */}
                         <Picker
-                            selectedValue={selectedLanguage}
+                            selectedValue={company}
                             onValueChange={(itemValue, itemIndex) =>
-                                setSelectedLanguage(itemValue)}
+                                setCompany(itemValue)}
                             style={{ backgroundColor:'black',width:500,height:50,color:'grey'}}>
                             <Picker.Item label="Select" value="0"/>
                             <Picker.Item label="Company" value="company" />
@@ -63,14 +143,15 @@ const SignUp = ({navigation}) => {
                             <TextInput
                                 style={{ paddingHorizontal: 13,width:'75%' }}
                                 placeholder='Password'
-                            secureTextEntry={EyeIcon ? false : true}>
+                            secureTextEntry={EyeIcon ? false : true}
+                            onChangeText={e => setPassword(e)}>
                             </TextInput>
                         <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
                             {EyeIcon ? <EyeOpen /> : <EyeSlash />}
                         </TouchableOpacity>
                         </View>
                     
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
+                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                         <Text style={{color:'white',fontSize: 20 }}>SIGNUP</Text>
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row',marginVertical:10}}>
