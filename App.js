@@ -1,7 +1,9 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Snackbar from 'react-native-snackbar';
+import SnackBar from 'react-native-snackbar-component'
+import Spinner from 'react-native-loading-spinner-overlay';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 
@@ -16,15 +18,16 @@ const Login = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [EyeIcon,ChangeEye] = useState(false)
+    const [loading,setLoading] = useState(false)
+    const [snackbar, setsnackbar] = useState(false)
 
-    const renderEye = () => {
-        if (EyeIcon){
-            return <EyeIcon />
-        }
-        else{
-            return <EyeSlash />
-        }
-    }
+    // useEffect(() => {
+    //     // setInterval(() => {
+    //     //     setLoading(false);
+    //     // }, 3000);
+    // }, [])
+
+    const onDismissSnackBar = () => setsnackbar(false);
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -37,40 +40,47 @@ const Login = ({navigation}) => {
     // }
 
     const handleSubmit = async e => {
-        if (validateEmail(email) && validatePassword) {
-            await loginUser({
-                email,
-                password
-            });
-        }
+        // if (validateEmail(email) && validatePassword) {
+        //     await loginUser({
+        //         email,
+        //         password
+        //     });
+        // }
+
     }
 
     const loginUser = async (credentials) => {
         Auth
             .login(credentials)
             .then((response) => {
-                localStorage.setItem('user', JSON.stringify(response.data.user))
-                localStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
-                localStorage.setItem('refreshToken', response.data.refreshToken)
-                localStorage.setItem('expiresIn', response.data.expiresIn)
+                AsyncStorage.setItem('user', JSON.stringify(response.data.user))
+                AsyncStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
+                AsyncStorage.setItem('refreshToken', response.data.refreshToken)
+                AsyncStorage.setItem('expiresIn', response.data.expiresIn)
                 navigation.replace('HomeScreen')
             })
             .catch(err => {
-                Snackbar.show({
-                    text: 'User Not Found or Incorrect Email/Password',
-                    duration: Snackbar.LENGTH_INDEFINITE,
-                    action: {
-                        text: 'OK',
-                        textColor: 'green',
-                        onPress: () => { /* Do something. */ },
-                    },
-                });
+                
             })
     }
 
     return(
         <>
                 <View style={styles.container}>
+                
+                <Spinner
+                    visible={loading}
+                    textContent={'Please Wait...'}
+                    textStyle={{ color: '#FFF'}}
+                />
+                <SnackBar visible={snackbar} 
+                    bottom={10}
+                    containerStyle={{ width:'90%',marginHorizontal:20,borderRadius:10 }}
+                    autoHidingTime={100}
+                    textMessage="Hello There!" 
+                    actionHandler={() => onDismissSnackBar()}
+                    actionText="OK" 
+                    accentColor='#ff9933' />
                     <View style={styles.head}>
                         <View style={{alignItems:'center',marginVertical:30}}>
                             <Image

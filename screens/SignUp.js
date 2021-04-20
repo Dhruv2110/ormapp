@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 import { Picker } from '@react-native-picker/picker';
-import Snackbar from 'react-native-snackbar';
+//import Snackbar from 'react-native-snackbar';
 
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
@@ -56,15 +56,7 @@ const SignUp = ({navigation}) => {
             });
         } else {
             console.log('validate error')
-            Snackbar.show({
-                text: 'Check all fields',
-                duration: Snackbar.LENGTH_INDEFINITE,
-                action: {
-                    text: 'OK',
-                    textColor: 'green',
-                    onPress: () => { /* Do something. */ },
-                },
-            });
+            
         }
     }
 
@@ -78,15 +70,7 @@ const SignUp = ({navigation}) => {
             })
             .catch(err => {
                 console.log(err.response.data.msg)
-                Snackbar.show({
-                    text: 'Some Error Occured.Try Again',
-                    duration: Snackbar.LENGTH_INDEFINITE,
-                    action: {
-                        text: 'OK',
-                        textColor: 'green',
-                        onPress: () => { /* Do something. */ },
-                    },
-                });
+
 
             })
     }
