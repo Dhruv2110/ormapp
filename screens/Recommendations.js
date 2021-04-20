@@ -12,6 +12,46 @@ import CardRecomm from '../components/cards/CardRecomm'
 
 
 const Recommendations = ({ navigation}) => {
+
+    const [twitterRe, setTwitterRe] = useState("")
+    const [facebookRe, setFacebookRe] = useState("")
+    const [linkedinRe, setLinkedinRe] = useState("")
+    const [websiteRe, setWebsiteRe] = useState("")
+    const [pinterestRe, setPinterestRe] = useState("")
+    const [youtubeRe, setYoutubeRe] = useState("")
+    const [mediumRe, setMediumRe] = useState("")
+    const [crunchbaseRe, setCrunchbaseRe] = useState("")
+
+
+    // useEffect(async () => {
+    //     let user = await Auth.getUser();
+    //     setUser(user)
+    // }, [])
+
+    // const setMsg = (link) => {
+    //     var msg = ""
+    //     const { useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
+
+    //     if (useHttps && hasTitle && hasMetaDesc && hasCanTag) {
+    //         return msg = "All Ok."
+    //     }
+    //     if (!useHttps) { msg += "Enable HTTPS." }
+    //     if (!hasTitle) { msg += "Add title." }
+    //     if (!hasMetaDesc) { msg += "Add Meta Description." }
+    //     if (!hasCanTag) { msg += "Add Canonical tag." }
+
+    //     return msg
+    // }
+
+    // useEffect(async () => {
+    //     let connections = await Connection.getConnections()
+    //     console.log(connections)
+    //     const { twitter, facebook } = connections
+
+    //     // setTwitterRe(setMsg(twitter))
+    //     // setFacebookRe(setMsg(facebook))
+    // }, [])
+
     return (
         <>
             <Header navigate={navigation} />
@@ -21,62 +61,38 @@ const Recommendations = ({ navigation}) => {
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
                     <View style={styles.card}>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <TwitterIcon />
-                                <Text style={{ fontSize: 15 }}> www.twitter.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <FacebookIcon />
-                                <Text style={{ fontSize: 15 }}> www.facebook.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <LinkedInIcon />
-                                <Text style={{ fontSize: 15 }}> www.linkedin.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <WebsiteIcon />
-                                <Text style={{ fontSize: 15 }}> www.website.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <PinterestIcon />
-                                <Text style={{ fontSize: 15 }}> www.pinterest.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <YoutubeIcon />
-                                <Text style={{ fontSize: 15 }}> www.youtube.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <MediumIcon />
-                                <Text style={{ fontSize: 15 }}> www.medium.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
-                        <View style={styles.textBox}>
-                            <View style={styles.row}>
-                                <CrunchBaseIcon />
-                                <Text style={{ fontSize: 15 }}> www.crunchbase.com/example</Text>
-                            </View>
-                            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
-                        </View>
+                        <CardRecomm icon={<TwitterIcon />} site="twitter">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<FacebookIcon />} site="facebook">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<LinkedInIcon />} site="linkedin">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<WebsiteIcon />} site="website">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<PinterestIcon />} site="pinterest">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<YoutubeIcon />} site="youtube">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<MediumIcon />} site="medium">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
+                        <CardRecomm icon={<CrunchBaseIcon />} site="crunchbase">
+                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                        </CardRecomm>
+
 
                         <Footer />
                         <View style={{ height: 100 }}></View>

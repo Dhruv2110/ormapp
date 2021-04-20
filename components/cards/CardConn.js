@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {View,Text,TextInput,StyleSheet} from 'react-native'
+import {View,Text,StyleSheet,TouchableOpacity} from 'react-native'
 
 import EditIcon from '../Icons/Edit'
 
-const CardConn = ( {siteIcon,site,checkIcon} ) => {
+const CardConn = ({ siteIcon, site, checkIcon,URL, onCheck, children} ) => {
     return (
         <View style={styles.textBox}>
             <View style={styles.col1}>
@@ -12,10 +12,12 @@ const CardConn = ( {siteIcon,site,checkIcon} ) => {
                     {siteIcon}
                     <Text style={{ fontSize: 15}}> {site}</Text>
                 </View>
-                <TextInput style={styles.input} placeholder="www.demosite.url.com"></TextInput>
+                {children}
             </View>
             <View style={styles.col2}>
-                <EditIcon />
+                <TouchableOpacity onPress={()=>onCheck(URL)}>
+                    <EditIcon />
+                </TouchableOpacity>
                 {checkIcon}
             </View>
         </View>

@@ -7,6 +7,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon, CrunchBaseIcon } from '../components/Icons/SocialIcons'
 
+
+import CardConn from '../components/cards/CardConn'
 import TickIcon from '../components/Icons/Tick'
 import CrossIcon from '../components/Icons/Cross'
 import EditIcon from '../components/Icons/Edit'
@@ -14,6 +16,8 @@ import EditIcon from '../components/Icons/Edit'
 import Notifications from './Notifications'
 import Measure from './Measure'
 
+import * as Auth from '../api/auth';
+import * as Connection from '../api/connections'
 
 const Connections = ( { navigation } ) => {
     const [twitterURL,setTwitterURL] = useState("")
@@ -24,6 +28,71 @@ const Connections = ( { navigation } ) => {
     const [youtubeURL,setYoutubeURL] = useState("")
     const [mediumURL,setMediumURL] = useState("")
     const [crunchbaseURL,setCrunchbaseURL] = useState("")
+
+    const [twitterCheck, setTwitterCheck] = useState(false)
+    const [facebookCheck, setFacebookCheck] = useState(false)
+    const [linkedinCheck, setLinkedinCheck] = useState(false)
+    const [websiteCheck, setWebsiteCheck] = useState(false)
+    const [pinterestCheck, setPinterestCheck] = useState(false)
+    const [youtubeCheck, setYoutubeCheck] = useState(false)
+    const [mediumCheck, setMediumCheck] = useState(false)
+    const [crunchbaseCheck, setCrunchbaseCheck] = useState(false)
+
+
+    // useEffect(async () => {
+    //     let user = await Auth.getUser();
+    //     setUser(user);
+    // }, [])
+
+    // useEffect(async () => {
+    //     let connections = await Connection.getConnections()
+    //     console.log(connections.twitter)
+
+    //     setTwitterURL(connections.twitter.URL)
+    //     setTwitterCheck(connections.twitter.isValid)
+
+    //     setFacebookURL(connections.facebook.URL)
+    //     setFacebookCheck(connections.facebook.isValid)
+
+    //     setLinkedinURL(connections.linkedin.URL)
+    //     setLinkedinCheck(connections.linkedin.isValid)
+
+    //     setWebsiteURL(connections.website.URL)
+    //     setWebsiteCheck(connections.website.isValid)
+
+    //     setPinterestURL(connections.pinterest.URL)
+    //     setPinterestCheck(connections.pinterest.isValid)
+
+    //     setYoutubeURL(connections.youtube.URL)
+    //     setYoutubeCheck(connections.youtube.isValid)
+
+    //     setMediumURL(connections.medium.URL)
+    //     setMediumCheck(connections.medium.isValid)
+
+    //     setCrunchbaseURL(connections.crunchbase.URL)
+    //     setCrunchbaseCheck(connections.crunchbase.isValid)
+
+
+    // }, [])
+
+    const CheckURL = (url) => {
+        console.log(url)
+        // if (validURL(url))
+        // {
+        //  saveConnections(url)
+        // }
+        // else
+        // {
+        //   console.log("enter valid url")
+        // }
+    }
+
+    // const saveConnections = async (url) => {
+    //     console.log(url)
+    //     const { msg, valid } = await Connection.saveConnections(url);
+    //     console.log(msg, valid)
+    //     // router.push()
+    // }
 
     return (
         <>
@@ -70,123 +139,56 @@ const Connections = ( { navigation } ) => {
                     <Text style={styles.text}>{`Tell us the URLs of your social \n network profiles and/or\nwebsite(s)`}</Text>
                     <View style={styles.card}>
 
+                        <CardConn siteIcon={<TwitterIcon />} site={'TWITTER'} URL={twitterURL}
+                            checkIcon={twitterCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                                <TextInput defaultValue={twitterURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setTwitterURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <TwitterIcon />
-                                    <Text style={{ fontSize: 15 }}> TWITTER</Text>
-                                </View>
-                                <TextInput value={twitterURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setTwitterURL(e.value)}></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<FacebookIcon />} site={'FACEBOOK'} URL={facebookURL}
+                            checkIcon={facebookCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput defaultValue={facebookURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setFacebookURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <FacebookIcon />
-                                    <Text style={{ fontSize: 15 }}> FACEBOOK</Text>
-                                </View>
-                                <TextInput value={facebookURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<LinkedInIcon />} site={'LINKEDIN'} URL={linkedinURL}
+                            checkIcon={linkedinCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput defaultValue={linkedinURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setLinkedinURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <LinkedInIcon />
-                                    <Text style={{ fontSize: 15 }}> LINKEDIN</Text>
-                                </View>
-                                <TextInput value={linkedinURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <TickIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<WebsiteIcon />} site={'WEBSITE'} URL={websiteURL}
+                            checkIcon={websiteCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput value={websiteURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setWebsiteURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <WebsiteIcon />
-                                    <Text style={{ fontSize: 15 }}> WEBSITE</Text>
-                                </View>
-                                <TextInput value={websiteURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<PinterestIcon />} site={'PINTEREST'} URL={pinterestURL}
+                            checkIcon={pinterestCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput value={pinterestURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setPinterestURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <PinterestIcon />
-                                    <Text style={{ fontSize: 15 }}> PINTEREST</Text>
-                                </View>
-                                <TextInput value={pinterestURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<YoutubeIcon />} site={'YOUTUBE'} URL={youtubeURL}
+                            checkIcon={youtubeCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput value={youtubeURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setYoutubeURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <YoutubeIcon />
-                                    <Text style={{ fontSize: 15 }}> YOUTUBE</Text>
-                                </View>
-                                <TextInput value={youtubeURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
+                        <CardConn siteIcon={<MediumIcon />} site={'MEDIUM'} URL={mediumURL}
+                            checkIcon={mediumCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput value={mediumURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText={(e) => setMediumURL(e)}></TextInput>
+                            </CardConn>
 
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <MediumIcon />
-                                    <Text style={{ fontSize: 15 }}> MEDIUM</Text>
-                                </View>
-                                <TextInput value={mediumURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
-
-
-                        <View style={styles.textBox}>
-                            <View style={styles.col1}>
-                                <View style={styles.row}>
-                                    <CrunchBaseIcon />
-                                    <Text style={{ fontSize: 15 }}> CRUNCHBASE</Text>
-                                </View>
-                                <TextInput value={crunchbaseURL} style={styles.input} placeholder="www.demosite.url.com"></TextInput>
-                            </View>
-                            <View style={styles.col2}>
-                                <EditIcon />
-                                <CrossIcon />
-                            </View>
-                        </View>
-                        <TouchableOpacity style={styles.buttonSave} onPress={() => {}}>
+                        <CardConn siteIcon={<CrunchBaseIcon />} site={'CRUNCHBASE'} URL={crunchbaseURL}
+                            checkIcon={crunchbaseCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
+                            <TextInput value={crunchbaseURL} style={styles.input} placeholder="www.demosite.url.com"
+                                onChangeText ={(e) => setCrunchbaseURL(e)}></TextInput>
+                            </CardConn>
+                        {/* <TouchableOpacity style={styles.buttonSave} onPress={() => {}}>
                             <Text style={{ color: 'white', fontSize: 20 }}>SAVE CONNECTIONS</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <Footer />
                         <View style={{height:100}}></View>
                     </View>
@@ -254,43 +256,10 @@ const styles = StyleSheet.create({
         padding: 20
     },
 
-
-    textBox: {
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        width: '95%',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        height: 85,
-        borderRadius: 15,
-        marginBottom: 12,
-        paddingTop: 5,
-        elevation: 5,
-        shadowColor: 'rgba(0,0,0, .8)', // IOS
-        shadowOffset: { height: 1, width: 0 }, // IOS
-        shadowOpacity: 1, // IOS
-        shadowRadius: 1, //IOS
-    },
     input: {
         margin: 7,
         height: 25,
         width: '100%'
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginTop: 10
-    },
-    col1: {
-        alignItems: 'flex-start',
-        width: '70%',
-        marginLeft: 5
-    },
-    col2: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'baseline',
     },
     buttonSave: {
         width: '85%',

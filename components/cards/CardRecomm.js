@@ -3,14 +3,14 @@ import React from 'react';
 import {View,Text,TextInput,StyleSheet} from 'react-native'
 
 
-const CardRecomm = ( {icon,site} ) => {
+const CardRecomm = ( {icon,site,children} ) => {
     return (
         <View style={styles.textBox}>
             <View style={styles.row}>
                 {icon}
                 <Text style={{ fontSize: 15 }}> www.{site}.com/example</Text>
             </View>
-            <TextInput style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+            {children}
         </View>
     );
 }

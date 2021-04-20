@@ -9,8 +9,33 @@ import Notifications from './Notifications'
 import Measure from './Measure'
 import Footer from '../components/Footer'
 
+import * as Auth from '../api/auth'
+import * as Keyword from '../api/keywords'
+
 const Keywords = ( {navigation} ) => {
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [keyword1, setKeyword1] = useState("")
+    const [keyword2, setKeyword2] = useState("")
+    const [keyword3, setKeyword3] = useState("")
+
+    // useEffect(async () => {
+    //     let user = await Auth.getUser();
+    //     setUser(user)
+    // }, [])
+
+    // useEffect(async () => {
+    //     let keywords = await Keyword.getKeywords()
+    //     console.log(keywords)
+    // }, [])
+
+    const saveKeywords = async () => {
+        // var keywords = [keyword1, keyword2, keyword3]
+        // console.log(keywords)
+        // await Keyword.saveKeywords(keywords);
+    }
+
+
     return (
         <>
             <Header navigate={navigation} />
@@ -62,21 +87,21 @@ const Keywords = ( {navigation} ) => {
                         <View style={styles.keyicon}>
                         <FontAwesome5 name="key" size={15} color="white" />
                         </View>
-                        <TextInput style={styles.input} placeholder="Keyword 1"></TextInput>
+                            <TextInput defaultValue={keyword1} style={styles.input} placeholder="Keyword 1" onChangeText={text => setKeyword1(text)}></TextInput>
                     </View>
                     <View style={styles.textBox}>
                         <View style={styles.keyicon}>
                             <FontAwesome5 name="key" size={15} color="white" />
                         </View>
-                        <TextInput style={styles.input} placeholder="Keyword 2"></TextInput>
+                            <TextInput defaultValue={keyword2} style={styles.input} placeholder="Keyword 2" onChangeText={text => setKeyword2(text)}></TextInput>
                     </View>
                     <View style={styles.textBox}>
                         <View style={styles.keyicon}>
                             <FontAwesome5 name="key" size={15} color="white" />
                         </View>
-                        <TextInput style={styles.input} placeholder="Keyword 3"></TextInput>
+                            <TextInput defaultValue={keyword3} style={styles.input} placeholder="Keyword 3" onChangeText={text => setKeyword3(text)}></TextInput>
                     </View>
-                        <TouchableOpacity style={styles.buttonSave} onPress={() => navigation.navigate('HomeScreen')}>
+                        <TouchableOpacity style={styles.buttonSave} onPress={saveKeywords}>
                             <Text style={{ color: 'white', fontSize: 20 }}>SAVE KEYWORDS</Text>
                         </TouchableOpacity>
                     <Footer/>
