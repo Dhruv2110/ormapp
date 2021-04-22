@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNSpeedometer from 'react-native-speedometer'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -10,6 +11,7 @@ import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, Web
 
 import CardConn from '../components/cards/CardConn'
 import TickIcon from '../components/Icons/Tick'
+import CheckIcon from '../components/Icons/Check'
 import CrossIcon from '../components/Icons/Cross'
 import EditIcon from '../components/Icons/Edit'
 
@@ -20,6 +22,9 @@ import * as Auth from '../api/auth';
 import * as Connection from '../api/connections'
 
 const Connections = ( { navigation } ) => {
+
+    const [loading, setLoading] = useState(false)
+
     const [twitterURL,setTwitterURL] = useState("")
     const [facebookURL,setFacebookURL] = useState("")
     const [linkedinURL,setLinkedinURL] = useState("")
@@ -38,74 +43,147 @@ const Connections = ( { navigation } ) => {
     const [mediumCheck, setMediumCheck] = useState(false)
     const [crunchbaseCheck, setCrunchbaseCheck] = useState(false)
 
+    const [twitterEdit, setTwitterEdit] = useState(true)
+    const [facebookEdit, setFacebookEdit] = useState(true)
+    const [linkedinEdit, setLinkedinEdit] = useState(true)
+    const [websiteEdit, setWebsiteEdit] = useState(true)
+    const [pinterestEdit, setPinterestEdit] = useState(true)
+    const [youtubeEdit, setYoutubeEdit] = useState(true)
+    const [mediumEdit, setMediumEdit] = useState(true)
+    const [crunchbaseEdit, setCrunchbaseEdit] = useState(true)
+
+    const [twitterEn, setTwitterEn] = useState(false)
+    const [facebookEn, setFacebookEn] = useState(false)
+    const [linkedinEn, setLinkedinEn] = useState(false)
+    const [websiteEn, setWebsiteEn] = useState(false)
+    const [pinterestEn, setPinterestEn] = useState(false)
+    const [youtubeEn, setYoutubeEn] = useState(false)
+    const [mediumEn, setMediumEn] = useState(false)
+    const [crunchbaseEn, setCrunchbaseEn] = useState(false)
+
 
     // useEffect(async () => {
     //     let user = await Auth.getUser();
     //     setUser(user);
     // }, [])
 
-    // useEffect(async () => {
-    //     let connections = await Connection.getConnections()
-    //     console.log(connections.twitter)
+    useEffect(async () => {
+        let connections = await Connection.getConnections()
+        // console.log(connections.twitter)
 
-    //     setTwitterURL(connections.twitter.URL)
-    //     setTwitterCheck(connections.twitter.isValid)
+        if (connections.twitter) {
+            setTwitterURL(connections.twitter.URL)
+            setTwitterCheck(connections.twitter.isValid)
+        }
 
-    //     setFacebookURL(connections.facebook.URL)
-    //     setFacebookCheck(connections.facebook.isValid)
+        if (connections.facebook) {
 
-    //     setLinkedinURL(connections.linkedin.URL)
-    //     setLinkedinCheck(connections.linkedin.isValid)
+            setFacebookURL(connections.facebook.URL)
+            setFacebookCheck(connections.facebook.isValid)
+        }
+        if (connections.linkedin) {
 
-    //     setWebsiteURL(connections.website.URL)
-    //     setWebsiteCheck(connections.website.isValid)
+            setLinkedinURL(connections.linkedin.URL)
+            setLinkedinCheck(connections.linkedin.isValid)
+        }
+        if (connections.website) {
 
-    //     setPinterestURL(connections.pinterest.URL)
-    //     setPinterestCheck(connections.pinterest.isValid)
+            setWebsiteURL(connections.website.URL)
+            setWebsiteCheck(connections.website.isValid)
+        }
+        if (connections.pinterest) {
 
-    //     setYoutubeURL(connections.youtube.URL)
-    //     setYoutubeCheck(connections.youtube.isValid)
+            setPinterestURL(connections.pinterest.URL)
+            setPinterestCheck(connections.pinterest.isValid)
+        }
+        if (connections.youtube) {
 
-    //     setMediumURL(connections.medium.URL)
-    //     setMediumCheck(connections.medium.isValid)
+            setYoutubeURL(connections.youtube.URL)
+            setYoutubeCheck(connections.youtube.isValid)
+        }
+        if (connections.medium) {
 
-    //     setCrunchbaseURL(connections.crunchbase.URL)
-    //     setCrunchbaseCheck(connections.crunchbase.isValid)
+            setMediumURL(connections.medium.URL)
+            setMediumCheck(connections.medium.isValid)
+        }
+        if (connections.crunchbase) {
+
+            setCrunchbaseURL(connections.crunchbase.URL)
+            setCrunchbaseCheck(connections.crunchbase.isValid)
+        }
 
 
-    // }, [])
+    }, [])
 
     const CheckURL = (url) => {
+        setLoading(true)
         console.log(url)
-        // if (validURL(url))
-        // {
-        //  saveConnections(url)
-        // }
-        // else
-        // {
-        //   console.log("enter valid url")
-        // }
+        saveConnections(url)
     }
 
-    // const saveConnections = async (url) => {
-    //     console.log(url)
-    //     const { msg, valid } = await Connection.saveConnections(url);
-    //     console.log(msg, valid)
-    //     // router.push()
-    // }
+    const saveConnections = async (url) => {
+        // console.log(url)
+        const { msg, saved ,valid} = await Connection.saveConnections(url);
+        console.log(msg, saved, valid)
+        if (url[0] == "twitter") {
+            setTwitterEdit(true)
+            setTwitterEn(false)
+            setTwitterCheck(valid)
+        }
+
+        if (url[0] == "facebook") {
+            setFacebookEdit(true)
+            setFacebookEn(false)
+            setFacebookCheck(valid)
+        }
+        if (url[0] == "linkedin") {
+            setLinkedinEdit(true)
+            setLinkedinEn(false)
+            setLinkedinCheck(valid)
+        }
+        if (url[0] == "website") {
+            setWebsiteEdit(true)
+            setWebsiteEn(false)
+            setWebsiteCheck(valid)
+        }
+        if (url[0] == "pinterest") {
+            setPinterestEdit(true)
+            setPinterestEn(false)
+            setPinterestCheck(valid)
+        }
+        if (url[0] == "youtube") {
+            setYoutubeEdit(true)
+            setYoutubeEn(false)
+            setYoutubeCheck(valid)
+        }
+        if (url[0] == "medium") {
+            setMediumEdit(true)
+            setMediumEn(false)
+            setMediumCheck(valid)
+        }
+        if (url[0] == "crunchbase") {
+            setCrunchbaseEdit(true)
+            setCrunchbaseEn(false)
+            setCrunchbaseCheck(valid)
+        }
+        setLoading(false)
+        // router.push()
+    }
 
     return (
         <>
             <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
+                <Spinner
+                    visible={loading}
+                    textContent={'Please Wait...'}
+                    textStyle={{ color: '#FFF' }}
+                />
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
                     <RNSpeedometer 
                     value={30} 
                     size={300}
                     labels= {[
-                            {
-                                activeBarColor: '#ADD8E6',
-                            },
                             {
                                 activeBarColor: '#ADD8E6',
                             },
@@ -139,53 +217,182 @@ const Connections = ( { navigation } ) => {
                     <Text style={styles.text}>{`Tell us the URLs of your social \n network profiles and/or\nwebsite(s)`}</Text>
                     <View style={styles.card}>
 
-                        <CardConn siteIcon={<TwitterIcon />} site={'TWITTER'} URL={twitterURL}
-                            checkIcon={twitterCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                                <TextInput defaultValue={twitterURL} style={styles.input} placeholder="www.demosite.url.com"
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <TwitterIcon />
+                                    <Text style={{ fontSize: 15 }}> TWITTER</Text>
+                                </View>
+                                <TextInput editable={twitterEn} defaultValue={twitterURL} style={styles.input} placeholder="www.demosite.url.com"
                                     onChangeText={(e) => setTwitterURL(e)}></TextInput>
-                            </CardConn>
+                            </View>
+                            <View style={styles.col2}>
+                                {twitterEdit
+                                    ? <TouchableOpacity onPress={() => { setTwitterEn(true); setTwitterEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["twitter",twitterURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {twitterCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<FacebookIcon />} site={'FACEBOOK'} URL={facebookURL}
-                            checkIcon={facebookCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput defaultValue={facebookURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setFacebookURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <FacebookIcon />
+                                    <Text style={{ fontSize: 15 }}> FACEBOOK</Text>
+                                </View>
+                                <TextInput editable={facebookEn} defaultValue={facebookURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setFacebookURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {facebookEdit
+                                    ? <TouchableOpacity onPress={() => { setFacebookEn(true); setFacebookEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["facebook",facebookURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {facebookCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<LinkedInIcon />} site={'LINKEDIN'} URL={linkedinURL}
-                            checkIcon={linkedinCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput defaultValue={linkedinURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setLinkedinURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <LinkedInIcon />
+                                    <Text style={{ fontSize: 15 }}> LINKEDIN</Text>
+                                </View>
+                                <TextInput editable={linkedinEn} defaultValue={linkedinURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setLinkedinURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {linkedinEdit
+                                    ? <TouchableOpacity onPress={() => { setLinkedinEn(true); setLinkedinEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["linkedin",linkedinURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {linkedinCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<WebsiteIcon />} site={'WEBSITE'} URL={websiteURL}
-                            checkIcon={websiteCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput value={websiteURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setWebsiteURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <WebsiteIcon />
+                                    <Text style={{ fontSize: 15 }}> WEBSITE</Text>
+                                </View>
+                                <TextInput editable={websiteEn} defaultValue={websiteURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setWebsiteURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {websiteEdit
+                                    ? <TouchableOpacity onPress={() => { setWebsiteEn(true); setWebsiteEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["website",websiteURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {websiteCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<PinterestIcon />} site={'PINTEREST'} URL={pinterestURL}
-                            checkIcon={pinterestCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput value={pinterestURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setPinterestURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <PinterestIcon />
+                                    <Text style={{ fontSize: 15 }}> PINTEREST</Text>
+                                </View>
+                                <TextInput editable={pinterestEn} defaultValue={pinterestURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setPinterestURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {pinterestEdit
+                                    ? <TouchableOpacity onPress={() => { setPinterestEn(true); setPinterestEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["pinterest",pinterestURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {pinterestCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<YoutubeIcon />} site={'YOUTUBE'} URL={youtubeURL}
-                            checkIcon={youtubeCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput value={youtubeURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setYoutubeURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <YoutubeIcon />
+                                    <Text style={{ fontSize: 15 }}> YOUTUBE</Text>
+                                </View>
+                                <TextInput editable={youtubeEn} defaultValue={youtubeURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setYoutubeURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {youtubeEdit
+                                    ? <TouchableOpacity onPress={() => { setYoutubeEn(true); setYoutubeEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["youtube",youtubeURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {youtubeCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<MediumIcon />} site={'MEDIUM'} URL={mediumURL}
-                            checkIcon={mediumCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput value={mediumURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText={(e) => setMediumURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <MediumIcon />
+                                    <Text style={{ fontSize: 15 }}> MEDIUM</Text>
+                                </View>
+                                <TextInput editable={mediumEn} defaultValue={mediumURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setMediumURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {mediumEdit
+                                    ? <TouchableOpacity onPress={() => { setMediuMEn(true); setmediumEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["medium",mediumURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {mediumCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
 
-                        <CardConn siteIcon={<CrunchBaseIcon />} site={'CRUNCHBASE'} URL={crunchbaseURL}
-                            checkIcon={crunchbaseCheck ? <TickIcon /> : <CrossIcon />} onCheck={CheckURL}>
-                            <TextInput value={crunchbaseURL} style={styles.input} placeholder="www.demosite.url.com"
-                                onChangeText ={(e) => setCrunchbaseURL(e)}></TextInput>
-                            </CardConn>
+                        <View style={styles.textBox}>
+                            <View style={styles.col1}>
+                                <View style={styles.row}>
+                                    <CrunchBaseIcon />
+                                    <Text style={{ fontSize: 15 }}> CRUNCHBASE</Text>
+                                </View>
+                                <TextInput editable={crunchbaseEn} defaultValue={crunchbaseURL} style={styles.input} placeholder="www.demosite.url.com"
+                                    onChangeText={(e) => setCrunchbaseURL(e)}></TextInput>
+                            </View>
+                            <View style={styles.col2}>
+                                {crunchbaseEdit
+                                    ? <TouchableOpacity onPress={() => { setCrunchbaseEn(true); setCrunchbaseEdit(false) }}>
+                                        <EditIcon />
+                                    </TouchableOpacity>
+                            
+                                    : <TouchableOpacity onPress={() => CheckURL(["crunchbase",crunchbaseURL])}>
+                                        <CheckIcon />
+                                    </TouchableOpacity> }
+                                {crunchbaseCheck ? <TickIcon /> : <CrossIcon />}
+                            </View>
+                        </View>
+
                         {/* <TouchableOpacity style={styles.buttonSave} onPress={() => {}}>
                             <Text style={{ color: 'white', fontSize: 20 }}>SAVE CONNECTIONS</Text>
                         </TouchableOpacity> */}
@@ -256,10 +463,42 @@ const styles = StyleSheet.create({
         padding: 20
     },
 
+    textBox: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        width: '95%',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        height: 85,
+        borderRadius: 15,
+        marginBottom: 12,
+        paddingTop: 5,
+        elevation: 5,
+        shadowColor: 'rgba(0,0,0, .8)', // IOS
+        shadowOffset: { height: 1, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 1, //IOS
+    },
     input: {
         margin: 7,
         height: 25,
         width: '100%'
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        marginTop: 10
+    },
+    col1: {
+        alignItems: 'flex-start',
+        width: '70%',
+        marginLeft: 5
+    },
+    col2: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline',
     },
     buttonSave: {
         width: '85%',

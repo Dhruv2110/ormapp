@@ -1,7 +1,5 @@
 import API from '../utils/api'
 
-
-
  
 export const login = async (credentials) => {
 
@@ -15,7 +13,6 @@ export const login = async (credentials) => {
 
 
 export const signup = async (credentials) => {
-
     return await API({
         method: 'POST',
         url: '/auth/signup',

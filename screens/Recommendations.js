@@ -10,6 +10,7 @@ import Notifications from './Notifications'
 import Measure from './Measure'
 import CardRecomm from '../components/cards/CardRecomm'
 
+import * as Connection from '../api/connections'
 
 const Recommendations = ({ navigation}) => {
 
@@ -28,29 +29,35 @@ const Recommendations = ({ navigation}) => {
     //     setUser(user)
     // }, [])
 
-    // const setMsg = (link) => {
-    //     var msg = ""
-    //     const { useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
+    const setMsg = (link) => {
+        var msg = ""
+        const { useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
 
-    //     if (useHttps && hasTitle && hasMetaDesc && hasCanTag) {
-    //         return msg = "All Ok."
-    //     }
-    //     if (!useHttps) { msg += "Enable HTTPS." }
-    //     if (!hasTitle) { msg += "Add title." }
-    //     if (!hasMetaDesc) { msg += "Add Meta Description." }
-    //     if (!hasCanTag) { msg += "Add Canonical tag." }
+        if (useHttps && hasTitle && hasMetaDesc && hasCanTag) {
+            return msg = "All Ok."
+        }
+        if (!useHttps) { msg += "Enable HTTPS." }
+        if (!hasTitle) { msg += "Add title." }
+        if (!hasMetaDesc) { msg += "Add Meta Description." }
+        if (!hasCanTag) { msg += "Add Canonical tag." }
 
-    //     return msg
-    // }
+        return msg
+    }
 
-    // useEffect(async () => {
-    //     let connections = await Connection.getConnections()
-    //     console.log(connections)
-    //     const { twitter, facebook } = connections
+    useEffect(async () => { 
+        let connections = await Connection.getConnections()
+        console.log(connections)
+        const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
 
-    //     // setTwitterRe(setMsg(twitter))
-    //     // setFacebookRe(setMsg(facebook))
-    // }, [])
+        setTwitterRe(setMsg(twitter))
+        setFacebookRe(setMsg(facebook))
+        setLinkedinRe(setMsg(linkedin))
+        setPinterestRe(setMsg(pinterest))
+        setWebsiteRe(setMsg(website))
+        setYoutubeRe(setMsg(youtube))
+        setMediumRe(setMsg(medium))
+        setCrunchbaseRe(setMsg(crunchbase))
+    }, [])
 
     return (
         <>
@@ -62,40 +69,42 @@ const Recommendations = ({ navigation}) => {
                     <View style={styles.card}>
 
                         <CardRecomm icon={<TwitterIcon />} site="twitter">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={twitterRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<FacebookIcon />} site="facebook">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={facebookRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<LinkedInIcon />} site="linkedin">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={linkedinRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<WebsiteIcon />} site="website">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={websiteRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<PinterestIcon />} site="pinterest">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={pinterestRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<YoutubeIcon />} site="youtube">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={youtubeRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<MediumIcon />} site="medium">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={mediumRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
                         <CardRecomm icon={<CrunchBaseIcon />} site="crunchbase">
-                            <TextInput editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
+                            <TextInput multiline={true} defaultValue={crunchbaseRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
 
-                        <Footer />
-                        <View style={{ height: 100 }}></View>
+                        <View style={{ position: 'relative', bottom: '0%' }}>
+                            <Footer />
+                        </View>
+                        {/* <View style={{ height: 100 }}></View> */}
                     </View>
                 </View>
             </ScrollView>
@@ -170,7 +179,7 @@ const styles = StyleSheet.create({
     },
     input: {
         margin: 7,
-        height: 25,
+        height: 35,
         width: '100%'
     },
     row: {

@@ -23,10 +23,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo_only.png",
         "backgroundColor": "#191919"
-      }
+      },
+      "package": "com.ormapp.ormapp"
     },
     "web": {
       "favicon": "./assets/logo_only.png"
-    }
+    },
+    "description": ""
   }
 }

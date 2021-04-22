@@ -34,33 +34,35 @@ const Login = ({navigation}) => {
         return re.test(String(email).toLowerCase());
     }
 
-    // const validatePassword = (password) => {
-    //     const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    //     return re.test(String(email));
-    // }
+    const validatePassword = (password) => {
+        const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+        return re.test(String(email));
+    }
 
     const handleSubmit = async e => {
-        // if (validateEmail(email) && validatePassword) {
-        //     await loginUser({
-        //         email,
-        //         password
-        //     });
-        // }
+        navigation.navigate('HomeScreen')
+        if (validateEmail(email) && validatePassword) {
+            await loginUser({
+                email,
+                password
+            });
+        }
 
     }
 
     const loginUser = async (credentials) => {
         Auth
             .login(credentials)
-            .then((response) => {
-                AsyncStorage.setItem('user', JSON.stringify(response.data.user))
-                AsyncStorage.setItem('accessToken', 'Bearer ' + response.data.accessToken)
-                AsyncStorage.setItem('refreshToken', response.data.refreshToken)
-                AsyncStorage.setItem('expiresIn', response.data.expiresIn)
+            .then( async (response) => {
+                await AsyncStorage.setItem('@user', response.data.user)
+                await AsyncStorage.setItem('@accessToken', response.data.accessToken)
+                await AsyncStorage.setItem('@refreshToken', response.data.refreshToken)
+                await AsyncStorage.setItem('@expiresIn', response.data.expiresIn)
+                // console.log(response)
                 navigation.replace('HomeScreen')
             })
             .catch(err => {
-                
+                console.log("Error!!")
             })
     }
 

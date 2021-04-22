@@ -2,13 +2,18 @@ import React, { useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 import { Picker } from '@react-native-picker/picker';
+import SnackBar from 'react-native-snackbar-component'
+import Spinner from 'react-native-loading-spinner-overlay';
 //import Snackbar from 'react-native-snackbar';
-
+import * as Auth from '../api/auth';
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
 import HomeScreen from '../HomeScreen'
 
 const SignUp = ({navigation}) => {
+
+    const [loading, setLoading] = useState(false)
+    const [snackbar, setsnackbar] = useState(false)
 
     const [EyeIcon,ChangeEye] = useState(false)
     const [email, setEmail] = useState("");
@@ -16,6 +21,7 @@ const SignUp = ({navigation}) => {
     const [company, setCompany] = useState("company");
     const [password, setPassword] = useState("");
 
+    const onDismissSnackBar = () => setsnackbar(false);
 
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -45,8 +51,9 @@ const SignUp = ({navigation}) => {
     }
 
     const handleSubmit = async e => {
-        console.log(password)
-        console.log(validatePassword(password))
+        setLoading(true)
+        //console.log(password)
+        //console.log(validatePassword(password))
         if (validateEmail(email) && validatePassword(password) && validateCompany(company) && validateName(name)) {
             await signupUser({
                 email,
@@ -56,27 +63,44 @@ const SignUp = ({navigation}) => {
             });
         } else {
             console.log('validate error')
+            setLoading(false)
             
         }
     }
 
 
     const signupUser = async (credentials) => {
+        //console.log(credentials)
         Auth
             .signup(credentials)
             .then((response) => {
-                console.log(response)
-                navigation.navigate('Login')
+                console.log("Res:",response)
+                //navigation.navigate('Login')
             })
             .catch(err => {
                 console.log(err.response.data.msg)
 
-
             })
+        setLoading(false)
+        setsnackbar(true)
+        
     }
     return(
         <>
                 <View style={styles.container}>
+                <Spinner
+                    visible={loading}
+                    textContent={'Signing up.Pease Wait...'}
+                    textStyle={{ color: '#FFF' }}
+                />
+                <SnackBar visible={snackbar}
+                    bottom={10}
+                    containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
+                    autoHidingTime={3000}
+                    textMessage="Signup Successfull.Please LogIn"
+                    actionHandler={() => onDismissSnackBar()}
+                    actionText="OK"
+                    accentColor='#ff9933' />
                     <View style={styles.head}>
                         <View style={{alignItems:'center',marginVertical:30}}>
                             <Image

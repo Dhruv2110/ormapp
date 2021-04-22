@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Alert, Modal,Pressable} from "react-native";
-
+import SnackBar from 'react-native-snackbar-component'
 import Header from '../components/Header'
 import Notifications from './Notifications'
 import Measure from './Measure'
@@ -24,15 +24,20 @@ const Keywords = ( {navigation} ) => {
     //     setUser(user)
     // }, [])
 
-    // useEffect(async () => {
-    //     let keywords = await Keyword.getKeywords()
-    //     console.log(keywords)
-    // }, [])
+    useEffect(async () => {
+        let keywords = await Keyword.getKeywords()
+        console.log("front:", keywords.items)
+        setKeyword1(keywords.items[0])
+        setKeyword2(keywords.items[1])
+        setKeyword3(keywords.items[2])
+    }, [])
 
     const saveKeywords = async () => {
-        // var keywords = [keyword1, keyword2, keyword3]
-        // console.log(keywords)
-        // await Keyword.saveKeywords(keywords);
+        var keywords = [keyword1, keyword2, keyword3]
+        console.log(keywords)
+        await Keyword.saveKeywords(keywords).then(
+
+        );
     }
 
 
