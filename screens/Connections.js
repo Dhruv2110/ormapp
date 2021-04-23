@@ -67,51 +67,45 @@ const Connections = ( { navigation } ) => {
     //     setUser(user);
     // }, [])
 
-    useEffect(async () => {
-        let connections = await Connection.getConnections()
-        // console.log(connections.twitter)
+    useEffect(() => {
 
-        if (connections.twitter) {
-            setTwitterURL(connections.twitter.URL)
-            setTwitterCheck(connections.twitter.isValid)
+        async function fetchConnections() {
+            let connections = await Connection.getConnections()
+            if (connections.twitter) {
+                setTwitterURL(connections.twitter.URL)
+                setTwitterCheck(connections.twitter.isValid)
+            }
+            if (connections.facebook) {
+                setFacebookURL(connections.facebook.URL)
+                setFacebookCheck(connections.facebook.isValid)
+            }
+            if (connections.linkedin) {
+                setLinkedinURL(connections.linkedin.URL)
+                setLinkedinCheck(connections.linkedin.isValid)
+            }
+            if (connections.website) {
+                setWebsiteURL(connections.website.URL)
+                setWebsiteCheck(connections.website.isValid)
+            }
+            if (connections.pinterest) {
+                setPinterestURL(connections.pinterest.URL)
+                setPinterestCheck(connections.pinterest.isValid)
+            }
+            if (connections.youtube) {
+                setYoutubeURL(connections.youtube.URL)
+                setYoutubeCheck(connections.youtube.isValid)
+            }
+            if (connections.medium) {
+                setMediumURL(connections.medium.URL)
+                setMediumCheck(connections.medium.isValid)
+            }
+            if (connections.crunchbase) {
+                setCrunchbaseURL(connections.crunchbase.URL)
+                setCrunchbaseCheck(connections.crunchbase.isValid)
+            }
+
         }
-
-        if (connections.facebook) {
-
-            setFacebookURL(connections.facebook.URL)
-            setFacebookCheck(connections.facebook.isValid)
-        }
-        if (connections.linkedin) {
-
-            setLinkedinURL(connections.linkedin.URL)
-            setLinkedinCheck(connections.linkedin.isValid)
-        }
-        if (connections.website) {
-
-            setWebsiteURL(connections.website.URL)
-            setWebsiteCheck(connections.website.isValid)
-        }
-        if (connections.pinterest) {
-
-            setPinterestURL(connections.pinterest.URL)
-            setPinterestCheck(connections.pinterest.isValid)
-        }
-        if (connections.youtube) {
-
-            setYoutubeURL(connections.youtube.URL)
-            setYoutubeCheck(connections.youtube.isValid)
-        }
-        if (connections.medium) {
-
-            setMediumURL(connections.medium.URL)
-            setMediumCheck(connections.medium.isValid)
-        }
-        if (connections.crunchbase) {
-
-            setCrunchbaseURL(connections.crunchbase.URL)
-            setCrunchbaseCheck(connections.crunchbase.isValid)
-        }
-
+        fetchConnections()
 
     }, [])
 
@@ -176,7 +170,7 @@ const Connections = ( { navigation } ) => {
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <Spinner
                     visible={loading}
-                    textContent={'Please Wait...'}
+                    textContent={'Checking...Please Wait...'}
                     textStyle={{ color: '#FFF' }}
                 />
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
@@ -185,27 +179,43 @@ const Connections = ( { navigation } ) => {
                     size={300}
                     labels= {[
                             {
+                                name: '1',
+                            labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '2',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '3',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '4',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '5',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '6',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
+                                name: '7',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
-                            {
+                        {
+                            name: '8',
+                            labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             }]}
                         innerCircleStyle={{ backgroundColor: '#191919' }}

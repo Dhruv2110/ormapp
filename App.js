@@ -13,13 +13,21 @@ import HomeScreen from './HomeScreen'
 import { MailIcon, LockIcon,EyeOpen,EyeSlash } from './components/Icons/LoginIcons'
 import * as Auth from './api/auth';
 
-const Login = ({navigation}) => {
+const Login = ({route, navigation}) => {
 
+    const { valid } = route.params; 
+
+    if (valid)
+    {
+        setsnackbarText("Signup Successfull.Please Signin")
+        setsnackbar(true)
+    }
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [EyeIcon,ChangeEye] = useState(false)
     const [loading,setLoading] = useState(false)
     const [snackbar, setsnackbar] = useState(false)
+    const [snackbarText, setsnackbarText] = useState("")
 
     // useEffect(() => {
     //     // setInterval(() => {
@@ -40,7 +48,7 @@ const Login = ({navigation}) => {
     }
 
     const handleSubmit = async e => {
-        navigation.navigate('HomeScreen')
+        //navigation.navigate('HomeScreen')
         if (validateEmail(email) && validatePassword) {
             await loginUser({
                 email,
@@ -54,11 +62,11 @@ const Login = ({navigation}) => {
         Auth
             .login(credentials)
             .then( async (response) => {
-                await AsyncStorage.setItem('@user', response.data.user)
+                await AsyncStorage.setItem('@user', response.data.user.email)
                 await AsyncStorage.setItem('@accessToken', response.data.accessToken)
                 await AsyncStorage.setItem('@refreshToken', response.data.refreshToken)
                 await AsyncStorage.setItem('@expiresIn', response.data.expiresIn)
-                // console.log(response)
+                console.log(await AsyncStorage.getItem('@user'))
                 navigation.replace('HomeScreen')
             })
             .catch(err => {
@@ -79,7 +87,7 @@ const Login = ({navigation}) => {
                     bottom={10}
                     containerStyle={{ width:'90%',marginHorizontal:20,borderRadius:10 }}
                     autoHidingTime={100}
-                    textMessage="Hello There!" 
+                    textMessage={snackbarText}
                     actionHandler={() => onDismissSnackBar()}
                     actionText="OK" 
                     accentColor='#ff9933' />
@@ -143,7 +151,7 @@ export default function App() {
     return (
         <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={Login} initialParams={{ valid: false }} options={{ headerShown: false }} />
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         </Stack.Navigator>

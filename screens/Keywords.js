@@ -15,28 +15,34 @@ import * as Keyword from '../api/keywords'
 const Keywords = ( {navigation} ) => {
     const [modalVisible, setModalVisible] = useState(false);
 
+    const [snackbar, setsnackbar] = useState(false)
+
     const [keyword1, setKeyword1] = useState("")
     const [keyword2, setKeyword2] = useState("")
     const [keyword3, setKeyword3] = useState("")
 
+    const onDismissSnackBar = () => setsnackbar(false);
     // useEffect(async () => {
     //     let user = await Auth.getUser();
     //     setUser(user)
     // }, [])
 
-    useEffect(async () => {
-        let keywords = await Keyword.getKeywords()
-        console.log("front:", keywords.items)
-        setKeyword1(keywords.items[0])
-        setKeyword2(keywords.items[1])
-        setKeyword3(keywords.items[2])
+    useEffect(() => {
+
+        async function fetchKeywords() {
+            let keywords = await Keyword.getKeywords()
+            setKeyword1(keywords.items[0])
+            setKeyword2(keywords.items[1])
+            setKeyword3(keywords.items[2])
+        }
+        fetchKeywords()
     }, [])
 
     const saveKeywords = async () => {
         var keywords = [keyword1, keyword2, keyword3]
         console.log(keywords)
         await Keyword.saveKeywords(keywords).then(
-
+            setsnackbar(true)
         );
     }
 
@@ -45,6 +51,14 @@ const Keywords = ( {navigation} ) => {
         <>
             <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
+                <SnackBar visible={snackbar}
+                    bottom={10}
+                    containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
+                    autoHidingTime={100}
+                    textMessage="Keywords Saved"
+                    actionHandler={() => onDismissSnackBar()}
+                    actionText="OK"
+                    accentColor='#ff9933' />
                 <Modal
                     animationType="slide"
                     transparent={true}

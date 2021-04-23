@@ -7,6 +7,10 @@ import NewIcon from '../components/Icons/New'
 import DeleteIcon from '../components/Icons/Delete'
 import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon } from '../components/Icons/SocialIcons'
 
+import * as Connection from '../api/connections'
+
+
+
 
 const DATA = [
     {
@@ -38,20 +42,29 @@ const DATA = [
 
 export default function Notfications() {
 
-    const [data,setData] = useState(DATA)
+    const [data,setData] = useState({})
     
 
     useEffect(() => {
-    });
+
+        async function fetchConnections() {
+            let connections = await Connection.getConnections()
+            // console.log(connections)
+            // console.log(DATA)
+            // setData(connections)
+        }
+        fetchConnections()
+        //setData(DATA)
+    }, []);
 
 
-    const CardNotif = ({ icon, url }) => {
+    const CardNotif = ({ icon, url ,msg}) => {
         return (
             <View style={styles.textBox}>
                     {icon}
                 <View style={styles.col}>
                     <Text style={{ fontWeight: 'bold' }}>{url}</Text>
-                    <Text>Add your tracked keyword "keyword 1" to your website homepage "Title tag" and "meta description"</Text>
+                    <Text>{msg}</Text>
                     <View style={{ flexDirection: 'row', marginVertical: 5 }}>
                         <NewIcon />
                         <Text style={{ fontSize: 12, margin: 7 }}>2 days ago</Text>
@@ -66,21 +79,27 @@ export default function Notfications() {
 
     const renderItem = ({ item }) => (
         // <Item title={item.icon} />
-        
-        <CardNotif icon={item.icon} url={item.url} />
+        // const {twitter,facebook,linkedin,website,pinterest,youtube,medium,crunchbase} = item
+        // console.log("renderlist:",item)
+        <CardNotif icon={item.icon} url={item.url} msg={msg}/>
     );
+
+    // const RenderLoop = () => {
+    //     return (
+
+    //     )
+    // }
 
     return (
         <>
         <View style={styles.container}>
             <View style={styles.card}>
-                    <ScrollView>
+                {/* <RenderLoop /> */}
                     <FlatList
                         data={data}
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                     />
-                    </ScrollView>
                     {/* <CardNotifn={<TwitterIcon />} url={"www.twitter.com/example"} /> */}
 
                 <View style={{position: 'relative',bottom:'0%'}}>

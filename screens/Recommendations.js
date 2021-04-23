@@ -31,8 +31,12 @@ const Recommendations = ({ navigation}) => {
 
     const setMsg = (link) => {
         var msg = ""
-        const { useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
-
+        const {URL, useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
+        if(URL == "")
+        {
+            msg = "Enter URL in connections"
+            return msg
+        }
         if (useHttps && hasTitle && hasMetaDesc && hasCanTag) {
             return msg = "All Ok."
         }
@@ -44,19 +48,22 @@ const Recommendations = ({ navigation}) => {
         return msg
     }
 
-    useEffect(async () => { 
-        let connections = await Connection.getConnections()
-        console.log(connections)
-        const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
+    useEffect(() => { 
 
-        setTwitterRe(setMsg(twitter))
-        setFacebookRe(setMsg(facebook))
-        setLinkedinRe(setMsg(linkedin))
-        setPinterestRe(setMsg(pinterest))
-        setWebsiteRe(setMsg(website))
-        setYoutubeRe(setMsg(youtube))
-        setMediumRe(setMsg(medium))
-        setCrunchbaseRe(setMsg(crunchbase))
+        async function fetchConnections() {
+            let connections = await Connection.getConnections()
+            const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
+
+            setTwitterRe(setMsg(twitter))
+            setFacebookRe(setMsg(facebook))
+            setLinkedinRe(setMsg(linkedin))
+            setPinterestRe(setMsg(pinterest))
+            setWebsiteRe(setMsg(website))
+            setYoutubeRe(setMsg(youtube))
+            setMediumRe(setMsg(medium))
+            setCrunchbaseRe(setMsg(crunchbase))
+        }
+        fetchConnections()
     }, [])
 
     return (
