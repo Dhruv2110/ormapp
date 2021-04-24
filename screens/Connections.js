@@ -22,8 +22,9 @@ import * as Auth from '../api/auth';
 import * as Connection from '../api/connections'
 
 const Connections = ( { navigation } ) => {
-
+    var total = 0
     const [loading, setLoading] = useState(false)
+    const [score, setScore] = useState(total)
 
     const [twitterURL,setTwitterURL] = useState("")
     const [facebookURL,setFacebookURL] = useState("")
@@ -68,44 +69,55 @@ const Connections = ( { navigation } ) => {
     // }, [])
 
     useEffect(() => {
-
+        
         async function fetchConnections() {
             let connections = await Connection.getConnections()
             if (connections.twitter) {
                 setTwitterURL(connections.twitter.URL)
                 setTwitterCheck(connections.twitter.isValid)
+                if (connections.twitter.isValid) { total+=1}
+                
             }
             if (connections.facebook) {
                 setFacebookURL(connections.facebook.URL)
                 setFacebookCheck(connections.facebook.isValid)
+                if (connections.facebook.isValid) { total+=1 }
             }
             if (connections.linkedin) {
                 setLinkedinURL(connections.linkedin.URL)
                 setLinkedinCheck(connections.linkedin.isValid)
+                if (connections.linkedin.isValid) { total+=1 }
             }
             if (connections.website) {
                 setWebsiteURL(connections.website.URL)
                 setWebsiteCheck(connections.website.isValid)
+                if (connections.website.isValid) { total+=1 }
             }
             if (connections.pinterest) {
                 setPinterestURL(connections.pinterest.URL)
                 setPinterestCheck(connections.pinterest.isValid)
+                if (connections.pinterest.isValid) { total+=1 }
             }
             if (connections.youtube) {
                 setYoutubeURL(connections.youtube.URL)
                 setYoutubeCheck(connections.youtube.isValid)
+                if (connections.youtube.isValid) { total+=1 }
             }
             if (connections.medium) {
                 setMediumURL(connections.medium.URL)
                 setMediumCheck(connections.medium.isValid)
+                if (connections.medium.isValid) { total+=1 }
             }
             if (connections.crunchbase) {
                 setCrunchbaseURL(connections.crunchbase.URL)
                 setCrunchbaseCheck(connections.crunchbase.isValid)
+                if (connections.crunchbase.isValid) { total+=1 }
             }
-
+            Speed = (total / 8) * 100
+            setScore(Speed)
         }
         fetchConnections()
+        
 
     }, [])
 
@@ -175,12 +187,12 @@ const Connections = ( { navigation } ) => {
                 />
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>
                     <RNSpeedometer 
-                    value={30} 
+                    value={score} 
                     size={300}
                     labels= {[
                             {
                                 name: '1',
-                            labelColor: '#191919',
+                                labelColor: '#191919',
                                 activeBarColor: '#ADD8E6',
                             },
                             {
