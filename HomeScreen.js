@@ -12,8 +12,8 @@ import Connections from './screens/Connections'
 import Measure from './screens/Measure'
 import Recommendations from './screens/Recommendations'
 import More from './screens/More'
-import Login from './screens/Login'
-import SignUp from './screens/SignUp'
+// import Login from './screens/Login'
+// import SignUp from './screens/SignUp'
 
 export default function App() {
   const Tab = createBottomTabNavigator();

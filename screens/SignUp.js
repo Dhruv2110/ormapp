@@ -9,7 +9,7 @@ import * as Auth from '../api/auth';
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
 import HomeScreen from '../HomeScreen'
-import Login from '../App'
+// import Login from '../App'
 
 const SignUp = ({navigation}) => {
 
@@ -183,7 +183,7 @@ export default function App() {
         <Stack.Navigator initialRouteName="SignUp">
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+            {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/> */}
         </Stack.Navigator>
     );
 }
