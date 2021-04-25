@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -13,6 +14,8 @@ import CardRecomm from '../components/cards/CardRecomm'
 import * as Connection from '../api/connections'
 
 const Recommendations = ({ navigation}) => {
+
+    const [loading, setLoading] = useState(false)
 
     const [twitterRe, setTwitterRe] = useState("")
     const [facebookRe, setFacebookRe] = useState("")
@@ -51,6 +54,7 @@ const Recommendations = ({ navigation}) => {
     useEffect(() => { 
 
         async function fetchConnections() {
+            setLoading(true)
             let connections = await Connection.getConnections()
             const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
 
@@ -62,6 +66,7 @@ const Recommendations = ({ navigation}) => {
             setYoutubeRe(setMsg(youtube))
             setMediumRe(setMsg(medium))
             setCrunchbaseRe(setMsg(crunchbase))
+            setLoading(false)
         }
         fetchConnections()
     }, [])
@@ -70,6 +75,11 @@ const Recommendations = ({ navigation}) => {
         <>
             <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
+                <Spinner
+                    visible={loading}
+                    textContent={'Loading Recommendations...Please Wait...'}
+                    textStyle={{ color: '#FFF' }}
+                />
                 <View style={styles.container}>
                     <Text style={styles.heading}>Our Recommendations</Text>
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>

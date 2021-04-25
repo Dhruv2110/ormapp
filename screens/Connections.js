@@ -24,6 +24,7 @@ import * as Connection from '../api/connections'
 const Connections = ( { navigation } ) => {
     var total = 0
     const [loading, setLoading] = useState(false)
+    const [saving, setSaving] = useState(false)
     const [score, setScore] = useState(total)
 
     const [twitterURL,setTwitterURL] = useState("")
@@ -71,6 +72,7 @@ const Connections = ( { navigation } ) => {
     useEffect(() => {
         
         async function fetchConnections() {
+            setLoading(true)
             let connections = await Connection.getConnections()
             if (connections.twitter) {
                 setTwitterURL(connections.twitter.URL)
@@ -113,8 +115,9 @@ const Connections = ( { navigation } ) => {
                 setCrunchbaseCheck(connections.crunchbase.isValid)
                 if (connections.crunchbase.isValid) { total+=1 }
             }
-            Speed = (total / 8) * 100
+            var Speed = (total / 8) * 100
             setScore(Speed)
+            setLoading(false)
         }
         fetchConnections()
         
@@ -122,9 +125,10 @@ const Connections = ( { navigation } ) => {
     }, [])
 
     const CheckURL = (url) => {
-        setLoading(true)
-        console.log(url)
-        saveConnections(url)
+        setSaving(true)
+        var toSend = {data:url}
+        console.log(toSend)
+        saveConnections(toSend)
     }
 
     const saveConnections = async (url) => {
@@ -172,7 +176,7 @@ const Connections = ( { navigation } ) => {
             setCrunchbaseEn(false)
             setCrunchbaseCheck(valid)
         }
-        setLoading(false)
+        setSaving(false)
         // router.push()
     }
 
@@ -182,7 +186,12 @@ const Connections = ( { navigation } ) => {
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <Spinner
                     visible={loading}
-                    textContent={'Checking...Please Wait...'}
+                    textContent={'Loading Connections...Please Wait...'}
+                    textStyle={{ color: '#FFF' }}
+                />
+                <Spinner
+                    visible={saving}
+                    textContent={'Verifying Connection...Please Wait...'}
                     textStyle={{ color: '#FFF' }}
                 />
                 <View style={{ backgroundColor:'#191919',paddingVertical:10,height:'20%'}}>

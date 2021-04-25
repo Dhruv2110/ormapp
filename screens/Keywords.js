@@ -52,9 +52,9 @@ const Keywords = ( {navigation} ) => {
             <Header navigate={navigation} />
             <ScrollView style={{ backgroundColor: '#191919' }}>
                 <SnackBar visible={snackbar}
-                    bottom={10}
+                    bottom={20}
                     containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
-                    autoHidingTime={100}
+                    autoHidingTime={0}
                     textMessage="Keywords Saved"
                     actionHandler={() => onDismissSnackBar()}
                     actionText="OK"

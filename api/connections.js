@@ -11,6 +11,8 @@ export const getConnections = async () => {
     }).then((data) => { return data.data[0]}).catch(err => {console.error(err)})
 }
 
+
+
 export const saveConnections = async (connections) => {
     return await API({
         method: 'POST',
@@ -19,5 +21,6 @@ export const saveConnections = async (connections) => {
             authorization: 'Bearer ' + await AsyncStorage.getItem('@accessToken')
         },
         data: connections
-    }).then((result) => { return result.data })
+    })
+    // .then((result) => { return result.data })
 }

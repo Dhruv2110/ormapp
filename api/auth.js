@@ -6,7 +6,10 @@ export const login = async (credentials) => {
     return await API({
         method: 'POST',
         url: '/auth/login',
-        data: credentials
+        data: credentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
     
 }
@@ -16,7 +19,10 @@ export const signup = async (credentials) => {
     return await API({
         method: 'POST',
         url: '/auth/signup',
-        data: credentials
+        data: credentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })     
 }
 

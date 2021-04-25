@@ -1,10 +1,9 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View,Text,TextInput,StyleSheet,Image,TouchableOpacity} from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 import SnackBar from 'react-native-snackbar-component'
 import Spinner from 'react-native-loading-spinner-overlay';
-//import Snackbar from 'react-native-snackbar';
 import * as Auth from '../api/auth';
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
@@ -15,6 +14,7 @@ const SignUp = ({navigation}) => {
 
     const [loading, setLoading] = useState(false)
     const [snackbar, setsnackbar] = useState(false)
+    const [snackbarText, setsnackbarText] = useState("")
 
     const [EyeIcon,ChangeEye] = useState(false)
     const [email, setEmail] = useState("");
@@ -39,7 +39,6 @@ const SignUp = ({navigation}) => {
         if (company === 'company' || company === 'individual') {
             return true
         }
-
         return false
     }
 
@@ -47,7 +46,6 @@ const SignUp = ({navigation}) => {
         if (name.length > 0) {
             return true
         }
-
         return false
     }
 
@@ -64,8 +62,8 @@ const SignUp = ({navigation}) => {
             });
         } else {
             console.log('validate error')
+            setsnackbarText("Please Check Details.")
             setLoading(false)
-            
         }
     }
 
@@ -77,14 +75,26 @@ const SignUp = ({navigation}) => {
             .then((response) => {
                 //console.log("Res:",response)
                 setLoading(false)
-                navigation.navigate('Login',{ valid:true })
+                if(response.data.code == -1){
+                    setsnackbarText("User Name Already Exists")
+                    setsnackbar(true);
+                }
+                else
+                {
+                    setsnackbarText("Registered Successfully.Please Login")
+                    setsnackbar(true);
+                }
+                
+                // navigation.navigate('Login',{ valid:true })
             })
             .catch(err => {
-                console.log(err.response.data.msg)
+                console.log(err)
+                setsnackbarText("Some Error Occurred.Try again")
+                setsnackbar(true);
 
             })
         setLoading(false)
-        setsnackbar(true)
+        //setsnackbar(true)
     }
     return(
         <>
@@ -98,7 +108,7 @@ const SignUp = ({navigation}) => {
                     bottom={10}
                     containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
                     autoHidingTime={0}
-                    textMessage="Signup Successfull.Please LogIn"
+                    textMessage={snackbarText}
                     actionHandler={() => onDismissSnackBar()}
                     actionText="OK"
                     accentColor='#ff9933' />
