@@ -12,7 +12,7 @@ import Connections from './screens/Connections'
 import Measure from './screens/Measure'
 import Recommendations from './screens/Recommendations'
 import More from './screens/More'
-// import Login from './screens/Login'
+// import Login from './App'
 // import SignUp from './screens/SignUp'
 
 export default function App() {

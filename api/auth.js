@@ -1,4 +1,5 @@
 import API from '../utils/api'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
  
 export const login = async (credentials) => {
@@ -14,7 +15,6 @@ export const login = async (credentials) => {
     
 }
 
-
 export const signup = async (credentials) => {
     return await API({
         method: 'POST',
@@ -28,7 +28,7 @@ export const signup = async (credentials) => {
 
 
 export const getUser = async () => {
-    let user = localStorage.getItem('user');
+    let user = await AsyncStorage.getItem('@user');
 
     if(user)  {
         return JSON.parse(user)
@@ -46,7 +46,7 @@ export const tokenRefesh = ( refreshToken) => {
             data: { token: refreshToken }
         })
         .then((response) => {
-            localStorage.setItem('accessToken', 'Bearer '+ response.data.accessToken) 
+            AsyncStorage.setItem('@accessToken', 'Bearer '+ response.data.accessToken)
             return resolve({status: 200})
         })
         .catch(err => {
@@ -57,11 +57,10 @@ export const tokenRefesh = ( refreshToken) => {
        
 }
 
-
 export const checkAuthentication = async() => {
-    let accessToken = localStorage.getItem('accessToken')
-    let refreshToken = localStorage.getItem('refreshToken')
-    let user = localStorage.getItem('user')
+    let accessToken = await AsyncStorage.getItem('@accessToken')
+    let refreshToken = await  AsyncStorage.getItem('@refreshToken')
+    let user = await  AsyncStorage.getItem('@user')
 
     return await new Promise((resolve,reject) => {
         if(accessToken && refreshToken && user) {
@@ -94,9 +93,9 @@ export const checkAuthentication = async() => {
 }
 
 
-export const logout = () => {
-    let refreshToken = localStorage.getItem('refreshToken');
-    localStorage.clear();
+export const logout = async () => {
+    let refreshToken = await AsyncStorage.getItem('@accessToken');
+    AsyncStorage.clear();
 
     return API({
         method: 'POST',

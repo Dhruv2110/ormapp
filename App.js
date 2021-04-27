@@ -64,6 +64,12 @@ const Login = ({navigation}) => {
                 password
             });
         }
+        else {
+            console.log('validate error')
+            setsnackbar(true)
+            setsnackbarText("Please Check Details.")
+            setLoading(false)
+        }
 
     }
 

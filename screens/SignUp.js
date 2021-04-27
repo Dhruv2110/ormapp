@@ -7,7 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import * as Auth from '../api/auth';
 import { MailIcon, LockIcon, EyeOpen, EyeSlash, UserIcon, UsersIcon } from '../components/Icons/LoginIcons'
 
-import HomeScreen from '../HomeScreen'
+// import HomeScreen from '../HomeScreen'
 // import Login from '../App'
 
 const SignUp = ({navigation}) => {
@@ -62,6 +62,7 @@ const SignUp = ({navigation}) => {
             });
         } else {
             console.log('validate error')
+            setsnackbar(true)
             setsnackbarText("Please Check Details.")
             setLoading(false)
         }
@@ -70,17 +71,21 @@ const SignUp = ({navigation}) => {
 
     const signupUser = async (credentials) => {
         //console.log(credentials)
+        setLoading(true)
+
         Auth
             .signup(credentials)
             .then((response) => {
                 //console.log("Res:",response)
-                setLoading(false)
+                //setLoading(false)
                 if(response.data.code == -1){
+                    setLoading(false)
                     setsnackbarText("User Name Already Exists")
                     setsnackbar(true);
                 }
                 else
                 {
+                    setLoading(false)
                     setsnackbarText("Registered Successfully.Please Login")
                     setsnackbar(true);
                 }
@@ -93,7 +98,6 @@ const SignUp = ({navigation}) => {
                 setsnackbar(true);
 
             })
-        setLoading(false)
         //setsnackbar(true)
     }
     return(
@@ -192,7 +196,7 @@ export default function App() {
     return (
         <Stack.Navigator initialRouteName="SignUp">
             <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+            {/* <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} /> */}
             {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/> */}
         </Stack.Navigator>
     );

@@ -50,15 +50,16 @@ const Keywords = ( {navigation} ) => {
     return (
         <>
             <Header navigate={navigation} />
+            <SnackBar visible={snackbar}
+                bottom={20}
+                containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
+                autoHidingTime={0}
+                textMessage="Keywords Saved"
+                actionHandler={() => onDismissSnackBar()}
+                actionText="OK"
+                accentColor='#ff9933' />
             <ScrollView style={{ backgroundColor: '#191919' }}>
-                <SnackBar visible={snackbar}
-                    bottom={20}
-                    containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
-                    autoHidingTime={0}
-                    textMessage="Keywords Saved"
-                    actionHandler={() => onDismissSnackBar()}
-                    actionText="OK"
-                    accentColor='#ff9933' />
+                
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -234,54 +235,6 @@ const styles = StyleSheet.create({
     },
 
 
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 30,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.30,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 15,
-        elevation: 2,
-        marginTop:20,
-        borderWidth:1,
-        borderColor:'#4169E1'
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        // backgroundColor: "#2196F3",
-        backgroundColor: "#FFFFFF",
-    },
-    textStyle: {
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "center",
-    },
-    modalHeading: {
-        marginBottom:20,
-        fontWeight: "bold",
-        fontSize:25
-    },
-    modalContent: {
-    },
 
     head: {
         width: '100%',

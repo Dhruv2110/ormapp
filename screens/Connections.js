@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 
 import { createStackNavigator } from '@react-navigation/stack';
 import RNSpeedometer from 'react-native-speedometer'
 import Spinner from 'react-native-loading-spinner-overlay';
+import SnackBar from 'react-native-snackbar-component'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -26,6 +27,8 @@ const Connections = ( { navigation } ) => {
     const [loading, setLoading] = useState(false)
     const [saving, setSaving] = useState(false)
     const [score, setScore] = useState(total)
+    const [snackbar, setsnackbar] = useState(false)
+    const [snackbarText, setsnackbarText] = useState("")
 
     const [twitterURL,setTwitterURL] = useState("")
     const [facebookURL,setFacebookURL] = useState("")
@@ -63,127 +66,163 @@ const Connections = ( { navigation } ) => {
     const [mediumEn, setMediumEn] = useState(false)
     const [crunchbaseEn, setCrunchbaseEn] = useState(false)
 
+    const onDismissSnackBar = () => setsnackbar(false);
 
     // useEffect(async () => {
     //     let user = await Auth.getUser();
     //     setUser(user);
     // }, [])
 
+    async function fetchConnections() {
+        setLoading(true)
+        let connections = await Connection.getConnections()
+        if (connections.twitter) {
+            setTwitterURL(connections.twitter.URL)
+            setTwitterCheck(connections.twitter.isValid)
+            if (connections.twitter.isValid) { total += 1 }
+
+        }
+        if (connections.facebook) {
+            setFacebookURL(connections.facebook.URL)
+            setFacebookCheck(connections.facebook.isValid)
+            if (connections.facebook.isValid) { total += 1 }
+        }
+        if (connections.linkedin) {
+            setLinkedinURL(connections.linkedin.URL)
+            setLinkedinCheck(connections.linkedin.isValid)
+            if (connections.linkedin.isValid) { total += 1 }
+        }
+        if (connections.website) {
+            setWebsiteURL(connections.website.URL)
+            setWebsiteCheck(connections.website.isValid)
+            if (connections.website.isValid) { total += 1 }
+        }
+        if (connections.pinterest) {
+            setPinterestURL(connections.pinterest.URL)
+            setPinterestCheck(connections.pinterest.isValid)
+            if (connections.pinterest.isValid) { total += 1 }
+        }
+        if (connections.youtube) {
+            setYoutubeURL(connections.youtube.URL)
+            setYoutubeCheck(connections.youtube.isValid)
+            if (connections.youtube.isValid) { total += 1 }
+        }
+        if (connections.medium) {
+            setMediumURL(connections.medium.URL)
+            setMediumCheck(connections.medium.isValid)
+            if (connections.medium.isValid) { total += 1 }
+        }
+        if (connections.crunchbase) {
+            setCrunchbaseURL(connections.crunchbase.URL)
+            setCrunchbaseCheck(connections.crunchbase.isValid)
+            if (connections.crunchbase.isValid) { total += 1 }
+        }
+        var Speed = (total / 8) * 100
+        setScore(Speed)
+        setLoading(false)
+    }
+
     useEffect(() => {
         
-        async function fetchConnections() {
-            setLoading(true)
-            let connections = await Connection.getConnections()
-            if (connections.twitter) {
-                setTwitterURL(connections.twitter.URL)
-                setTwitterCheck(connections.twitter.isValid)
-                if (connections.twitter.isValid) { total+=1}
-                
-            }
-            if (connections.facebook) {
-                setFacebookURL(connections.facebook.URL)
-                setFacebookCheck(connections.facebook.isValid)
-                if (connections.facebook.isValid) { total+=1 }
-            }
-            if (connections.linkedin) {
-                setLinkedinURL(connections.linkedin.URL)
-                setLinkedinCheck(connections.linkedin.isValid)
-                if (connections.linkedin.isValid) { total+=1 }
-            }
-            if (connections.website) {
-                setWebsiteURL(connections.website.URL)
-                setWebsiteCheck(connections.website.isValid)
-                if (connections.website.isValid) { total+=1 }
-            }
-            if (connections.pinterest) {
-                setPinterestURL(connections.pinterest.URL)
-                setPinterestCheck(connections.pinterest.isValid)
-                if (connections.pinterest.isValid) { total+=1 }
-            }
-            if (connections.youtube) {
-                setYoutubeURL(connections.youtube.URL)
-                setYoutubeCheck(connections.youtube.isValid)
-                if (connections.youtube.isValid) { total+=1 }
-            }
-            if (connections.medium) {
-                setMediumURL(connections.medium.URL)
-                setMediumCheck(connections.medium.isValid)
-                if (connections.medium.isValid) { total+=1 }
-            }
-            if (connections.crunchbase) {
-                setCrunchbaseURL(connections.crunchbase.URL)
-                setCrunchbaseCheck(connections.crunchbase.isValid)
-                if (connections.crunchbase.isValid) { total+=1 }
-            }
-            var Speed = (total / 8) * 100
-            setScore(Speed)
-            setLoading(false)
-        }
         fetchConnections()
         
 
     }, [])
 
     const CheckURL = (url) => {
-        setSaving(true)
-        var toSend = {data:url}
-        console.log(toSend)
-        saveConnections(toSend)
+
+        console.log(url[1] == "")
+
+        if(url[1] != "")
+        {
+            setSaving(true)
+            var toSend = { data: url }
+            console.log(toSend)
+            saveConnections(toSend)
+        }
+        else
+        {
+            setsnackbarText("Check Connection URL")
+            setsnackbar(true)
+        }
+        
     }
 
     const saveConnections = async (url) => {
-        // console.log(url)
-        const { msg, saved ,valid} = await Connection.saveConnections(url);
-        console.log(msg, saved, valid)
-        if (url[0] == "twitter") {
-            setTwitterEdit(true)
-            setTwitterEn(false)
-            setTwitterCheck(valid)
+        console.log(url)
+        try{
+            const { msg, saved, valid } = await Connection.saveConnections(url);
+            console.log(msg, saved, valid)
+            if (url.data[0] == "twitter") {
+                setTwitterEdit(true)
+                setTwitterEn(false)
+                setTwitterCheck(valid)
+            }
+
+            if (url.data[0] == "facebook") {
+                setFacebookEdit(true)
+                setFacebookEn(false)
+                setFacebookCheck(valid)
+            }
+            if (url.data[0] == "linkedin") {
+                setLinkedinEdit(true)
+                setLinkedinEn(false)
+                setLinkedinCheck(valid)
+            }
+            if (url.data[0] == "website") {
+                setWebsiteEdit(true)
+                setWebsiteEn(false)
+                setWebsiteCheck(valid)
+            }
+            if (url.data[0] == "pinterest") {
+                setPinterestEdit(true)
+                setPinterestEn(false)
+                setPinterestCheck(valid)
+            }
+            if (url.data[0] == "youtube") {
+                setYoutubeEdit(true)
+                setYoutubeEn(false)
+                setYoutubeCheck(valid)
+            }
+            if (url.data[0] == "medium") {
+                setMediumEdit(true)
+                setMediumEn(false)
+                setMediumCheck(valid)
+            }
+            if (url.data[0] == "crunchbase") {
+                setCrunchbaseEdit(true)
+                setCrunchbaseEn(false)
+                setCrunchbaseCheck(valid)
+            }
+            setSaving(false)
+            fetchConnections()
+            setsnackbarText("Connection Saved Successfully")
         }
 
-        if (url[0] == "facebook") {
-            setFacebookEdit(true)
-            setFacebookEn(false)
-            setFacebookCheck(valid)
+        catch (error) {
+            console.log(error)
+            setSaving(false)
+            setLoading(false)
+            setsnackbarText("Some Error Occurred.Try again")
+            setsnackbar(true)
         }
-        if (url[0] == "linkedin") {
-            setLinkedinEdit(true)
-            setLinkedinEn(false)
-            setLinkedinCheck(valid)
-        }
-        if (url[0] == "website") {
-            setWebsiteEdit(true)
-            setWebsiteEn(false)
-            setWebsiteCheck(valid)
-        }
-        if (url[0] == "pinterest") {
-            setPinterestEdit(true)
-            setPinterestEn(false)
-            setPinterestCheck(valid)
-        }
-        if (url[0] == "youtube") {
-            setYoutubeEdit(true)
-            setYoutubeEn(false)
-            setYoutubeCheck(valid)
-        }
-        if (url[0] == "medium") {
-            setMediumEdit(true)
-            setMediumEn(false)
-            setMediumCheck(valid)
-        }
-        if (url[0] == "crunchbase") {
-            setCrunchbaseEdit(true)
-            setCrunchbaseEn(false)
-            setCrunchbaseCheck(valid)
-        }
-        setSaving(false)
+        
         // router.push()
     }
 
     return (
         <>
             <Header navigate={navigation} />
+            <SnackBar visible={snackbar}
+                bottom={10}
+                containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
+                autoHidingTime={0}
+                textMessage={snackbarText}
+                actionHandler={() => onDismissSnackBar()}
+                actionText="OK"
+                accentColor='#ff9933' />
             <ScrollView style={{ backgroundColor: '#191919' }}>
+                
                 <Spinner
                     visible={loading}
                     textContent={'Loading Connections...Please Wait...'}
@@ -391,7 +430,7 @@ const Connections = ( { navigation } ) => {
                             </View>
                             <View style={styles.col2}>
                                 {mediumEdit
-                                    ? <TouchableOpacity onPress={() => { setMediuMEn(true); setmediumEdit(false) }}>
+                                    ? <TouchableOpacity onPress={() => { setMediumEn(true); setMediumEdit(false) }}>
                                         <EditIcon />
                                     </TouchableOpacity>
                             

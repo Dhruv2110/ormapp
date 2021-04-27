@@ -22,5 +22,5 @@ export const saveConnections = async (connections) => {
         },
         data: connections
     })
-    // .then((result) => { return result.data })
+    .then((result) => { return result.data })
 }
