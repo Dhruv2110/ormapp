@@ -21,13 +21,10 @@ const Login = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [modalText, setModalText] = useState("");
 
-    // const { valid } = route.params;
-    // if (valid)
-    // {
-    //     setsnackbarText("Signup Successfull.Please Signin")
-    //     setsnackbar(true)
-    // }
+    const [forgetModal,setForgetModal] = useState(false);
+
     const [email, setEmail] = useState("");
+    const [emailF, setEmailF] = useState("");
     const [password, setPassword] = useState("");
     const [EyeIcon,ChangeEye] = useState(false)
     const [loading,setLoading] = useState(false)
@@ -55,10 +52,10 @@ const Login = ({navigation}) => {
         return re.test(String(email));
     }
 
-    const handleSubmit = async e => {
+    const handleSubmit = async () => {
         setLoading(true)
         //navigation.navigate('HomeScreen')
-        if (validateEmail(email) && validatePassword) {
+        if (validateEmail(email)) {
             await loginUser({
                 email,
                 password
@@ -67,10 +64,62 @@ const Login = ({navigation}) => {
         else {
             console.log('validate error')
             setsnackbar(true)
-            setsnackbarText("Please Check Details.")
+            setsnackbarText("Please Enter Valid Email")
             setLoading(false)
         }
 
+    }
+
+    const forgetHandle = async () => {
+        setLoading(true)
+        //navigation.navigate('HomeScreen')
+        if (validateEmail(emailF)) {
+            await sendMail(emailF);
+        }
+        else {
+            console.log('validate error')
+            setForgetModal(false)
+            setsnackbar(true)
+            setsnackbarText("Please Enter Valid Email")
+            setLoading(false)
+        }
+    }
+
+    const sendMail = async (email) => {
+        Auth
+            .forgot({email:email})
+            .then(async (response) => {
+                console.log(response.data)
+                var code = response.data.code
+                if (code == -1) {
+                    setForgetModal(false)
+                    setLoading(false)
+                    setsnackbarText("Email Not Registered.Please Signup")
+                    setsnackbar(true)
+
+                }
+                else if (code == 1) {
+                    setForgetModal(false)
+                    setLoading(false)
+                    setsnackbarText("Reset Link Sent Successfully.Check Your Mail")
+                    setsnackbar(true)
+                }
+                else {
+                    setForgetModal(false)
+                    setLoading(false)
+                    setsnackbarText("Some Error Occured.Please Try Again")
+                    setsnackbar(true)
+                }
+
+
+            })
+            .catch(err => {
+                console.log(err)
+                setForgetModal(false)
+                setLoading(false)
+                setsnackbarText("Some Error Occurred.Please Try again")
+                setsnackbar(true)
+            })
     }
 
     const loginUser = async (credentials) => {
@@ -116,6 +165,7 @@ const Login = ({navigation}) => {
     return(
         <>
                 <View style={styles.container}>
+
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -142,9 +192,57 @@ const Login = ({navigation}) => {
                         </View>
                     </View>
                 </Modal>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={forgetModal}
+                    onRequestClose={() => {
+                        setForgetModal(!forgetModal);
+                    }}>
+                    <View
+                        style={{
+                            height: '40%',
+                            marginTop: 'auto',
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            alignItems: 'center',
+                            borderRadius:20,
+                            elevation: 10,
+                            shadowColor: 'rgba(0,0,0, .4)', // IOS
+                            shadowOffset: { height: 1, width: 0 }, // IOS
+                            shadowOpacity: 1, // IOS
+                            shadowRadius: 1, //IOS
+                        }}>
+                        <View style={styles.forgetModalView}>
+                            <Text style={{fontSize: 20 }}>Enter Registered Email to Reset Password</Text>
+                            <View style={styles.email}>
+                                <MailIcon />
+                                <TextInput
+                                    defaultValue={emailF}
+                                    style={{ paddingHorizontal: 5, width: '120%' }}
+                                    placeholder='Email'
+                                    onChangeText={(e) => setEmailF(e)}>
+                                </TextInput>
+                            </View>
+                        </View>
+                        <View style={{flexDirection: 'row',justifyContent: 'space-around'}}>
+                        <TouchableOpacity
+                            style={styles.btnF}
+                                onPress={forgetHandle}>
+                            <Text style={{ color: 'white', fontSize: 20 }}>SEND</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.btnC}
+                            onPress={() => {
+                                setForgetModal(!forgetModal);
+                            }}>
+                                <Text style={{ color: '#4169E1', fontSize: 20 }}>CANCEL</Text>
+                        </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
                 <Spinner
                     visible={loading}
-                    textContent={'Logging In.Please Wait...'}
+                    textContent={'Please Wait...'}
                     textStyle={{ color: '#FFF'}}
                 />
                 <SnackBar visible={snackbar} 
@@ -191,7 +289,9 @@ const Login = ({navigation}) => {
                             {EyeIcon ? <EyeOpen/> : <EyeSlash/>}
                         </TouchableOpacity>
                         </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {
+                        setForgetModal(!forgetModal);
+                    }}>
                     <Text style={{ marginVertical: 20, color:'#8366A2',fontSize: 15 }}>Forgot Password?</Text>
                     </TouchableOpacity >
                     <TouchableOpacity style={styles.button} onPress={handleSubmit} >
@@ -340,5 +440,45 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     modalContent: {
+    },
+
+    forgetModalView: {
+        margin: 15,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.30,
+        shadowRadius: 4,
+        elevation: 5
+    },
+
+    btnF: {
+        width: '40%',
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 50,
+        backgroundColor: '#4169E1',
+        marginVertical: 20,
+        marginHorizontal: 10
+    },
+
+    btnC: {
+        width: '40%',
+        height: 60,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 50,
+        backgroundColor: 'white',
+        marginVertical: 20,
+        marginHorizontal: 10,
+        borderWidth: 1,
+        borderColor:'#4169E1'
     },
 })

@@ -7,6 +7,7 @@ import SnackBar from 'react-native-snackbar-component'
 import Header from '../components/Header'
 import Notifications from './Notifications'
 import Measure from './Measure'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Footer from '../components/Footer'
 
 import * as Auth from '../api/auth'
@@ -27,14 +28,18 @@ const Keywords = ( {navigation} ) => {
     //     setUser(user)
     // }, [])
 
-    useEffect(() => {
+    async function fetchKeywords() {
+        let keywords = await Keyword.getKeywords()
+        console.log(keywords)
+        setKeyword1(keywords.items[0])
+        setKeyword2(keywords.items[1])
+        setKeyword3(keywords.items[2])
+        // if (keywords.items[0] != "") {await AsyncStorage.setItem('@key1', keywords.items[0])}
+        // if (keywords.items[1] != "") {await AsyncStorage.setItem('@key2', keywords.items[1])}
+        // if (keywords.items[2] != "") {await AsyncStorage.setItem('@key3', keywords.items[2])}
+    }
 
-        async function fetchKeywords() {
-            let keywords = await Keyword.getKeywords()
-            setKeyword1(keywords.items[0])
-            setKeyword2(keywords.items[1])
-            setKeyword3(keywords.items[2])
-        }
+    useEffect(() => {
         fetchKeywords()
     }, [])
 
@@ -44,6 +49,7 @@ const Keywords = ( {navigation} ) => {
         await Keyword.saveKeywords(keywords).then(
             setsnackbar(true)
         );
+        fetchKeywords()
     }
 
 

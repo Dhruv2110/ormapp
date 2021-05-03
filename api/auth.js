@@ -26,6 +26,16 @@ export const signup = async (credentials) => {
     })     
 }
 
+export const forgot = async (credentials) => {
+    return await API({
+        method: 'POST',
+        url: '/auth/forgot',
+        data: credentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 
 export const getUser = async () => {
     let user = await AsyncStorage.getItem('@user');

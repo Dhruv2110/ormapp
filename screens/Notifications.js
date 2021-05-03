@@ -11,9 +11,6 @@ import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, Web
 import * as Connection from '../api/connections'
 
 
-// "twitter": {"icon":"<TwitterIcon />","url":"","msg":""}
-
-
 
 export default function Notfications() {
 
@@ -21,8 +18,7 @@ export default function Notfications() {
     
     var json = []
     useEffect(() => {
-        
-        
+         
         async function fetchConnections() {
             let connections = await Connection.getConnections()
             
@@ -162,6 +158,7 @@ export default function Notfications() {
 
         }
     }
+
     const CardNotif = ({ icon, url ,msg}) => {
         return (
             <View style={styles.textBox}>

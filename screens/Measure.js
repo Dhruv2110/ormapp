@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions  } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView, Dimensions, RefreshControl } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import { LineChart } from "react-native-chart-kit";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -9,17 +10,79 @@ import CardMeasure from '../components/cards/CardMeasure'
 
 import Notifications from './Notifications'
 
+import * as Auth from '../api/auth'
+import * as Serp from '../api/serp'
+import * as Keyword from '../api/keywords'
+
 const Measure = ({ navigation } ) => {
 
+    const [refreshing, setRefreshing] = useState(false);
+    const [data1,setData1] = useState([1,2,3,4,5,6,7])
+    const [data2,setData2] = useState([])
+    const [data3,setData3] = useState([])
+
+    async function fetchSerpData() {
+        let keywords = await Keyword.getKeywords()
+        console.log(keywords)
+        var keyword1 = keywords.items[0]
+        var keyword2 = keywords.items[1]
+        var keyword3 = keywords.items[2]
+        console.log(keyword1,keyword2,keyword3)
+        // const keyword = "apple"
+        let result1 = await Serp.getSerpData({keyword: keyword1})
+        let result2 = await Serp.getSerpData({keyword: keyword2})
+        let result3 = await Serp.getSerpData({keyword: keyword3})
+
+        result1.data.json.data.splice(7)
+        result2.data.json.data.splice(7)
+        result3.data.json.data.splice(7)
+        var arr1 = result1.data.json.data
+        var arr2 = result2.data.json.data
+        var arr3 = result3.data.json.data
+        console.log(result1.data.json.data)
+        console.log(result2.data.json.data)
+        console.log(result3.data.json.data)
+
+        var ArrData1 = []
+        var ArrData2 = []
+        var ArrData3 = []
+        arr1.forEach((el) => {
+            ArrData1.push(el[0])
+        })
+        arr2.forEach((el) => {
+            ArrData2.push(el[0])
+        })
+        arr3.forEach((el) => {
+            ArrData3.push(el[0])
+        })
+        // console.log(ArrData1, ArrData2, ArrData3)
+        // setData1(ArrData1)
+        // setData2(ArrData2)
+        // setData3(ArrData3)
+        console.log(data2)
+    }
+
     useEffect(() => {
-        hideMenu();
-    });
+        //AsyncStorage.clear();
+        fetchSerpData()
+    },[]);
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchSerpData();
+        setRefreshing(false);
+    };
 
     const screenWidth = Dimensions.get("window").width;
     return (
         <>
             <Header navigate={navigation} />
-            <ScrollView style={{ backgroundColor:'#191919'}}>
+            <ScrollView style={{ backgroundColor: '#191919' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
 
             <View style={styles.container}>
                 <View style={{padding:5,alignItems: 'center',justifyContent: 'center'}}>
