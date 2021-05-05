@@ -1,21 +1,24 @@
 import React, { useState,useEffect } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TextInput, TouchableOpacity, BackHandler} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Alert, Modal,Pressable} from "react-native";
 import SnackBar from 'react-native-snackbar-component'
+import Spinner from 'react-native-loading-spinner-overlay';
+
 import Header from '../components/Header'
 import Notifications from './Notifications'
 import Measure from './Measure'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Footer from '../components/Footer'
+// import Login from '../App'
 
 import * as Auth from '../api/auth'
 import * as Keyword from '../api/keywords'
 
 const Keywords = ( {navigation} ) => {
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [loading, setLoading] = useState(false)
     const [snackbar, setsnackbar] = useState(false)
 
     const [keyword1, setKeyword1] = useState("")
@@ -28,15 +31,63 @@ const Keywords = ( {navigation} ) => {
     //     setUser(user)
     // }, [])
 
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+                
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+    //             Alert.alert(
+    //                 'Discard changes?',
+    //                 'You have unsaved changes. Are you sure to discard them and leave the screen?',
+    //                 [
+    //                     { text: "Don't leave", style: 'cancel', onPress: () => { } },
+    //                     {
+    //                         text: 'Discard',
+    //                         style: 'destructive',
+    //                         // If the user confirmed, then we dispatch the action we blocked earlier
+    //                         // This will continue the action that had triggered the removal of the screen
+    //                         onPress: () => navigation.dispatch(e.data.action),
+    //                     },
+    //                 ]
+    //             );
+
+    //         }),
+    //     [navigation]
+    // );
+
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert("Hold on!", "Are you sure you want to Exit?", [
+                {
+                    text: "Cancel",
+                    onPress: () => null,
+                    style: "cancel"
+                },
+                { text: "YES", onPress: () => BackHandler.exitApp() }
+            ]);
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => backHandler.remove();
+    }, []);
+
     async function fetchKeywords() {
+        setLoading(true)
         let keywords = await Keyword.getKeywords()
         console.log(keywords)
         setKeyword1(keywords.items[0])
         setKeyword2(keywords.items[1])
         setKeyword3(keywords.items[2])
-        // if (keywords.items[0] != "") {await AsyncStorage.setItem('@key1', keywords.items[0])}
-        // if (keywords.items[1] != "") {await AsyncStorage.setItem('@key2', keywords.items[1])}
-        // if (keywords.items[2] != "") {await AsyncStorage.setItem('@key3', keywords.items[2])}
+        await AsyncStorage.setItem('@key1', keywords.items[0])
+        await AsyncStorage.setItem('@key2', keywords.items[1])
+        await AsyncStorage.setItem('@key3', keywords.items[2])
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -44,11 +95,13 @@ const Keywords = ( {navigation} ) => {
     }, [])
 
     const saveKeywords = async () => {
+        setLoading(true)
         var keywords = [keyword1, keyword2, keyword3]
         console.log(keywords)
         await Keyword.saveKeywords(keywords).then(
-            setsnackbar(true)
-        );
+            setLoading(false)
+        ).then(setsnackbar(true));
+        setLoading(false)
         fetchKeywords()
     }
 
@@ -56,6 +109,11 @@ const Keywords = ( {navigation} ) => {
     return (
         <>
             <Header navigate={navigation} />
+             <Spinner
+                visible={loading}
+                textContent={'Please Wait...'}
+                textStyle={{ color: '#FFF' }}
+            />
             <SnackBar visible={snackbar}
                 bottom={20}
                 containerStyle={{ width: '90%', marginHorizontal: 20, borderRadius: 10 }}
@@ -157,7 +215,7 @@ export default function App() {
                     headerTitleStyle: {
                     }
                 }}/>
-            <Stack.Screen name="Measure" component={Measure} options={{ headerShown: false }}/>
+            {/* <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/> */}
         </Stack.Navigator>
     );
 }

@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View,TextInput,TouchableOpacity} from 'react-native'
 //simport { Checkbox } from 'react-native-paper';
 import CheckBox from 'react-native-check-box'
@@ -6,7 +6,7 @@ import CheckBox from 'react-native-check-box'
 
 import Footer from '../components/Footer'
 
-export default function Settings() {
+export default function Settings(navigation) {
     const [isSelectedD, setSelectionD] = useState(false);
     const [isSelectedW, setSelectionW] = useState(false);
 
@@ -14,6 +14,17 @@ export default function Settings() {
     const [isFocusE,setFocusE] = useState(false);
     const [isFocusF,setFocusF] = useState(false);
     const [isFocusL,setFocusL] = useState(false);
+
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+
+    //         }),
+    //     [navigation]
+    // );
 
     const FocusU = () => {
         setFocusU(true);

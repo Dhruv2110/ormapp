@@ -4,11 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SnackBar from 'react-native-snackbar-component'
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert, Modal, Pressable } from "react-native";
+import { Alert, Modal, Pressable, BackHandler } from "react-native";
 
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, LogBox } from 'react-native'
 
 import SignUp from './screens/SignUp'
+import Otp from './screens/Otp'
+import Reset from './screens/Reset'
 import HomeScreen from './HomeScreen'
 
 import { MailIcon, LockIcon,EyeOpen,EyeSlash } from './components/Icons/LoginIcons'
@@ -29,12 +31,20 @@ const Login = ({navigation}) => {
     const [EyeIcon,ChangeEye] = useState(false)
     const [loading,setLoading] = useState(false)
     
-    
-    // useEffect(() => {
-    //     // setInterval(() => {
-    //     //     setLoading(false);
-    //     // }, 3000);
-    // }, [])
+    async function getUser() {
+        var user = await AsyncStorage.getItem('@user')
+        console.log("User",user)
+        if (user != null) navigation.push('HomeScreen')
+
+        // return user
+    }
+
+    useEffect(() => {
+        getUser()
+        
+    }, [])
+
+
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -71,6 +81,8 @@ const Login = ({navigation}) => {
     }
 
     const forgetHandle = async () => {
+        // setForgetModal(false)
+        
         setLoading(true)
         //navigation.navigate('HomeScreen')
         if (validateEmail(emailF)) {
@@ -86,6 +98,7 @@ const Login = ({navigation}) => {
     }
 
     const sendMail = async (email) => {
+        console.log(email)
         Auth
             .forgot({email:email})
             .then(async (response) => {
@@ -99,10 +112,12 @@ const Login = ({navigation}) => {
 
                 }
                 else if (code == 1) {
+                    AsyncStorage.setItem('@email', emailF)
                     setForgetModal(false)
                     setLoading(false)
-                    setsnackbarText("Reset Link Sent Successfully.Check Your Mail")
-                    setsnackbar(true)
+                    // setsnackbarText("Reset Link Sent Successfully.Check Your Mail")
+                    setsnackbar(false)
+                    navigation.navigate('Forgot')
                 }
                 else {
                     setForgetModal(false)
@@ -149,7 +164,7 @@ const Login = ({navigation}) => {
                     await AsyncStorage.setItem('@refreshToken', response.data.refreshToken)
                     await AsyncStorage.setItem('@expiresIn', response.data.expiresIn)
                     setLoading(false)
-                    navigation.replace('HomeScreen')
+                    navigation.push('HomeScreen')
                 }
                 
             })
@@ -157,7 +172,7 @@ const Login = ({navigation}) => {
             .catch(err => {
                 console.log(err)
                 setLoading(false)
-                setsnackbarText("Some Error Occurred.Try again")
+                setsnackbarText("Incorrect Email/Password.Try again")
                 setsnackbar(true)
             })
     }
@@ -220,7 +235,7 @@ const Login = ({navigation}) => {
                                     defaultValue={emailF}
                                     style={{ paddingHorizontal: 5, width: '120%' }}
                                     placeholder='Email'
-                                    onChangeText={(e) => setEmailF(e)}>
+                                    onChangeText={(e) => setEmailF(e.trim())}>
                                 </TextInput>
                             </View>
                         </View>
@@ -273,7 +288,7 @@ const Login = ({navigation}) => {
                                 defaultValue={email}
                                 style={{ paddingHorizontal: 5, width: '75%'}}
                                 placeholder='Email'
-                                onChangeText={(e) => setEmail(e)}>
+                            onChangeText={(e) => setEmail(e.trim())}>
                             </TextInput>
                         </View>
                         <View style={styles.password}>
@@ -283,12 +298,13 @@ const Login = ({navigation}) => {
                                 style={{ paddingHorizontal: 5,width:'75%' }}
                                 placeholder='Password'
                                 secureTextEntry={EyeIcon ? false : true}
-                                onChangeText={(e) => setPassword(e)}>
+                            onChangeText={(e) => setPassword(e.trim())}>
                             </TextInput>
                         <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
                             {EyeIcon ? <EyeOpen/> : <EyeSlash/>}
                         </TouchableOpacity>
                         </View>
+                    <Text style={{fontSize:10}}>(Password must contains atleast 8 digits, 1 special char and 1 number)</Text>
                     <TouchableOpacity onPress={() => {
                         setForgetModal(!forgetModal);
                     }}>
@@ -309,16 +325,18 @@ const Login = ({navigation}) => {
     );
 }
 
-const Stack = createStackNavigator();
+const Root = createStackNavigator();
 
 export default function App() {
     return (
         <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
-        </Stack.Navigator>
+        <Root.Navigator initialRouteName="Login">
+            <Root.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Root.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+            <Root.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+            <Root.Screen name="Forgot" component={Otp} options={{ headerShown: false }} />
+            <Root.Screen name="Reset" component={Reset} options={{ headerShown: false }} />
+        </Root.Navigator>
         </NavigationContainer>
     );
 }

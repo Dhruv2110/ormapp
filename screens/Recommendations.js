@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, RefreshControl } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -16,7 +16,7 @@ import * as Connection from '../api/connections'
 const Recommendations = ({ navigation}) => {
 
     const [loading, setLoading] = useState(false)
-
+    const [refreshing, setRefreshing] = useState(false);
     const [twitterRe, setTwitterRe] = useState("")
     const [facebookRe, setFacebookRe] = useState("")
     const [linkedinRe, setLinkedinRe] = useState("")
@@ -26,6 +26,16 @@ const Recommendations = ({ navigation}) => {
     const [mediumRe, setMediumRe] = useState("")
     const [crunchbaseRe, setCrunchbaseRe] = useState("")
 
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+
+    //         }),
+    //     [navigation]
+    // );
 
     // useEffect(async () => {
     //     let user = await Auth.getUser();
@@ -51,30 +61,42 @@ const Recommendations = ({ navigation}) => {
         return msg
     }
 
+    async function fetchConnections() {
+        setLoading(true)
+        let connections = await Connection.getConnections()
+        const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
+
+        setTwitterRe(setMsg(twitter))
+        setFacebookRe(setMsg(facebook))
+        setLinkedinRe(setMsg(linkedin))
+        setPinterestRe(setMsg(pinterest))
+        setWebsiteRe(setMsg(website))
+        setYoutubeRe(setMsg(youtube))
+        setMediumRe(setMsg(medium))
+        setCrunchbaseRe(setMsg(crunchbase))
+        setLoading(false)
+    }
+
     useEffect(() => { 
 
-        async function fetchConnections() {
-            setLoading(true)
-            let connections = await Connection.getConnections()
-            const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
-
-            setTwitterRe(setMsg(twitter))
-            setFacebookRe(setMsg(facebook))
-            setLinkedinRe(setMsg(linkedin))
-            setPinterestRe(setMsg(pinterest))
-            setWebsiteRe(setMsg(website))
-            setYoutubeRe(setMsg(youtube))
-            setMediumRe(setMsg(medium))
-            setCrunchbaseRe(setMsg(crunchbase))
-            setLoading(false)
-        }
         fetchConnections()
     }, [])
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchConnections();
+        setRefreshing(false);
+    };
 
     return (
         <>
             <Header navigate={navigation} />
-            <ScrollView style={{ backgroundColor: '#191919' }}>
+            <ScrollView style={{ backgroundColor: '#191919' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <Spinner
                     visible={loading}
                     textContent={'Loading Recommendations...Please Wait...'}
@@ -84,7 +106,7 @@ const Recommendations = ({ navigation}) => {
                     <Text style={styles.heading}>Our Recommendations</Text>
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
                     <View style={styles.card}>
-
+                        <Text style={{ fontSize: 15, fontStyle: 'italic', marginBottom: 5, marginTop: -10 }}>(Pull to refresh)</Text>
                         <CardRecomm icon={<TwitterIcon />} site="twitter">
                             <TextInput multiline={true} defaultValue={twitterRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>

@@ -1,30 +1,41 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'
+import React,{useState} from 'react';
+import { StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
+import SnackBar from 'react-native-snackbar-component'
 
-export default function CardMeasure() {
+export default function CardMeasure({keyword, bestPage,pos}) {
+    // const [snackbar, setsnackbar] = useState(false)
+    // const onDismissSnackBar = () => setsnackbar(false);
+    var linkText = bestPage.slice(0,25) + '...'
+
     return (
+
     <View style={styles.innerCard}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={styles.tag}>
                                 <Text style={styles.tagText}>KEYWORD</Text>
                             </View>
-                            <Text style={{ marginTop: 15, marginLeft: 10 }}>John Smith Tampa FL</Text>
+                <Text style={{ marginTop: 15, marginLeft: 10 ,fontWeight:'bold'}}>{keyword}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-between' }}>
-                            <Text style={{ margin: 10, fontSize: 13 }}>BEST PAGE: /blog/an-intro-to-rank-traking</Text>
-                            <View style={{ margin: 10 }}><Icon
-                                name='external-link-alt'
-                                type='font-awesome-5'
-                                size={18}
-                                color='#00B2FF' /></View>
+                <Text style={{ margin: 10, fontSize: 11 }}>BEST PAGE: <Text style={{fontSize: 15}}>{linkText}</Text></Text>
+                
+                {bestPage == '' ? 
+                    <></> : <TouchableOpacity onPress={() => Linking.openURL(`${bestPage}`)}>
+                    <View style={{ margin: 10 }}><Icon
+                        name='external-link-alt'
+                        type='font-awesome-5'
+                        size={18}
+                        color='#00B2FF' /></View>
+                </TouchableOpacity>}
                         </View>
                         <View style={styles.stretch}>
-                            <Text style={{ fontSize: 12 }}>POSITION</Text>
+                            <Text style={{ fontSize: 12 }}>POSITION: {pos}</Text>
                             <Text style={{ fontSize: 12 }}>CHANGE</Text>
                             <Text style={{ fontSize: 12 }}>PREV.POSITION</Text>
                         </View>
     </View>
+    
     );
 }
 

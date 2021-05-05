@@ -5,17 +5,26 @@ import Footer from '../components/Footer'
 // import CardNotif from '../components/cards/CardNotif'
 import NewIcon from '../components/Icons/New'
 import DeleteIcon from '../components/Icons/Delete'
-import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon } from '../components/Icons/SocialIcons'
+import { FacebookIcon, LinkedInIcon, MediumIcon, PinterestIcon, TwitterIcon, WebsiteIcon, YoutubeIcon, CrunchBaseIcon } from '../components/Icons/SocialIcons'
 
 // import json from './data.json'
 import * as Connection from '../api/connections'
 
 
 
-export default function Notfications() {
+export default function Notfications(navigation) {
 
     const [data,setData] = useState([])
-    
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+
+    //         }),
+    //     [navigation]
+    // );
     var json = []
     useEffect(() => {
          
@@ -154,7 +163,7 @@ export default function Notfications() {
             case "MD":
                 return <MediumIcon />
             case "CB":
-                return <CrunchbaseIcon />
+                return <CrunchBaseIcon />
 
         }
     }

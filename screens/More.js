@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,6 +9,16 @@ import Settings from './Settings'
 import Measure from './Measure'
 
 const MoreScreen = ({ navigation }) => {
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+
+    //         }),
+    //     [navigation]
+    // );
     return (
         <>
             <Header navigate={navigation} />

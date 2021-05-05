@@ -19,6 +19,7 @@ export default function App() {
   const Tab = createBottomTabNavigator();
   return (
       <Tab.Navigator
+      initialRouteName="Keywords"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;

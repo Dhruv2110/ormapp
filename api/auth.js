@@ -114,6 +114,34 @@ export const logout = async () => {
     })   
 }
 
+export const chechOtp = async (credentials) => {
+    
+    //AsyncStorage.clear();
+
+    return API({
+        method: 'POST',
+        url: '/auth/otp',
+        data: credentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })   
+}
+
+export const reset = async (credentials) => {
+    
+    //AsyncStorage.clear();
+
+    return API({
+        method: 'POST',
+        url: '/auth/reset',
+        data: credentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })   
+}
+
 
 
 

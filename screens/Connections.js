@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, RefreshControl } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNSpeedometer from 'react-native-speedometer'
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -24,6 +24,7 @@ import * as Connection from '../api/connections'
 
 const Connections = ( { navigation } ) => {
     var total = 0
+    const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false)
     const [saving, setSaving] = useState(false)
     const [score, setScore] = useState(total)
@@ -72,6 +73,18 @@ const Connections = ( { navigation } ) => {
     //     let user = await Auth.getUser();
     //     setUser(user);
     // }, [])
+
+    // useEffect(
+    //     () =>
+    //         navigation.addListener('beforeRemove', (e) => {
+
+    //             // Prevent default behavior of leaving the screen
+    //             e.preventDefault();
+    //             // navigation.navigate('Keywords')
+
+    //         }),
+    //     [navigation]
+    // );
 
     async function fetchConnections() {
         setLoading(true)
@@ -210,6 +223,12 @@ const Connections = ( { navigation } ) => {
         // router.push()
     }
 
+    const onRefresh = () => {
+        setRefreshing(true);
+        fetchConnections();
+        setRefreshing(false);
+    };
+
     return (
         <>
             <Header navigate={navigation} />
@@ -221,7 +240,12 @@ const Connections = ( { navigation } ) => {
                 actionHandler={() => onDismissSnackBar()}
                 actionText="OK"
                 accentColor='#ff9933' />
-            <ScrollView style={{ backgroundColor: '#191919' }}>
+            <ScrollView style={{ backgroundColor: '#191919' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 
                 <Spinner
                     visible={loading}
@@ -286,7 +310,7 @@ const Connections = ( { navigation } ) => {
                     <Text style={styles.heading}>Connections</Text>
                     <Text style={styles.text}>{`Tell us the URLs of your social \n network profiles and/or\nwebsite(s)`}</Text>
                     <View style={styles.card}>
-
+                        <Text style={{ fontSize: 15, fontStyle: 'italic', marginBottom: 5, marginTop: -10 }}>(Pull to refresh)</Text>
                         <View style={styles.textBox}>
                             <View style={styles.col1}>
                                 <View style={styles.row}>

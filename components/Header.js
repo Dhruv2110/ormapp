@@ -6,6 +6,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import { Entypo } from '@expo/vector-icons';
 
 import * as Auth from '../api/auth';
+// import Login from '../App'
 
 
 
@@ -29,9 +30,20 @@ const Header = ({ navigate }) => {
         _menu.show();
     };
 
-    const logout = async () => {
-        // await Auth.logout();
-        // navigate.navigate('Measure')
+    const onPressNot = () => {
+        hideMenu()
+        navigate.navigate('Notifications')
+    }
+
+    const onPressLogOut = async () => {
+        hideMenu()
+        
+        let result = await Auth.logout()
+        console.log(result.status)
+        if (result.status == 200){
+            navigate.popToTop()
+        }
+        // navigate.navigate('Root', { screen: 'Login' });
     }
 
     return (
@@ -51,10 +63,10 @@ const Header = ({ navigate }) => {
                         />
                     </TouchableOpacity>}
                     animationDuration={10}
-                    style={{ padding: 5 }}//Menu Style
+                    style={{ padding: 2 }}//Menu Style
                 >
-                    <MenuItem onPress={() => {navigate.navigate('Notifications')}}>Notifications</MenuItem>
-                    {/* <MenuItem onPress={logout}>Logout</MenuItem> */}
+                    <MenuItem onPress={onPressNot}>Notifications</MenuItem>
+                    <MenuItem onPress={onPressLogOut}>Logout</MenuItem>
                 </Menu>
             </View>
 

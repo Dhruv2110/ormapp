@@ -134,7 +134,7 @@ const SignUp = ({navigation}) => {
                             <TextInput 
                             style={{ paddingHorizontal: 10, width: '75%'}}
                                 placeholder='Email'
-                                onChangeText={e => setEmail(e)}>
+                            onChangeText={e => setEmail(e.trim())}>
                             </TextInput>
                         </View>
                         <View style={styles.email}>
@@ -142,7 +142,7 @@ const SignUp = ({navigation}) => {
                             <TextInput 
                             style={{ paddingHorizontal: 10, width: '75%'}}
                                 placeholder='Full Name'
-                            onChangeText={e => setName(e)}>
+                            onChangeText={e => setName(e.trim())}>
                             </TextInput>
                         </View>
                         <View style={styles.email}>
@@ -167,12 +167,13 @@ const SignUp = ({navigation}) => {
                                 style={{ paddingHorizontal: 13,width:'75%' }}
                                 placeholder='Password'
                             secureTextEntry={EyeIcon ? false : true}
-                            onChangeText={e => setPassword(e)}>
+                            onChangeText={e => setPassword(e.trim())}>
                             </TextInput>
                         <TouchableOpacity onPress={() => ChangeEye(!EyeIcon)}>
                             {EyeIcon ? <EyeOpen /> : <EyeSlash />}
                         </TouchableOpacity>
                         </View>
+                    <Text style={{ fontSize: 10 }}>(Password must contains atleast 8 digits, 1 special char and 1 number)</Text>
                     
                     <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                         <Text style={{color:'white',fontSize: 20 }}>SIGNUP</Text>
