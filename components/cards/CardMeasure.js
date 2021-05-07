@@ -2,11 +2,25 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import SnackBar from 'react-native-snackbar-component'
+// import { UpIcon, DownIcon, EqualIcon } from '../Icons/Change'
+import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function CardMeasure({keyword, bestPage,pos}) {
+export default function CardMeasure({keyword, bestPage,pos,prePos,change}) {
     // const [snackbar, setsnackbar] = useState(false)
     // const onDismissSnackBar = () => setsnackbar(false);
     var linkText = bestPage.slice(0,25) + '...'
+
+    const GetIcon = () => {
+        var sign = Math.sign(change)
+        switch (sign) {
+            case 1:
+                return <FontAwesome5 name="arrow-up" size={12} color="green" />
+            case -1:
+                return <FontAwesome5 name="arrow-down" size={12} color="red" />
+            case 0:
+                return <FontAwesome5 name="equals" size={12} color="#00B2FF" />
+        }
+    }
 
     return (
 
@@ -30,9 +44,9 @@ export default function CardMeasure({keyword, bestPage,pos}) {
                 </TouchableOpacity>}
                         </View>
                         <View style={styles.stretch}>
-                            <Text style={{ fontSize: 12 }}>POSITION: {pos}</Text>
-                            <Text style={{ fontSize: 12 }}>CHANGE</Text>
-                            <Text style={{ fontSize: 12 }}>PREV.POSITION</Text>
+                <Text style={{ fontSize: 12 }}>POSITION: <Text style={{fontWeight:'bold'}}>{pos}</Text></Text>
+                <Text style={{ fontSize: 12 }}>CHANGE:<Text style={{ fontWeight: 'bold' }}>{Math.abs(change)}</Text> <GetIcon /></Text>
+                <Text style={{ fontSize: 12 }}>PREV.POSITION: <Text style={{ fontWeight: 'bold' }}>{prePos}</Text></Text>
                         </View>
     </View>
     
@@ -70,6 +84,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 10
+        padding: 15
     }
 })

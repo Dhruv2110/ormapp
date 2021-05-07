@@ -138,11 +138,9 @@ const Connections = ( { navigation } ) => {
     useEffect(() => {
         
         fetchConnections()
-        
-
     }, [])
 
-    const CheckURL = (url) => {
+    const CheckURL = async (url) => {
 
         console.log(url[1] == "")
 
@@ -153,10 +151,56 @@ const Connections = ( { navigation } ) => {
             console.log(toSend)
             saveConnections(toSend)
         }
-        else
+        else if(url[1] == "")
         {
-            setsnackbarText("Check Connection URL")
-            setsnackbar(true)
+            // setsnackbarText("Check Connection URL")
+            // setsnackbar(true)
+            // setSaving(true)
+            console.log(url)
+            const { msg, saved, valid } = await Connection.emptyConnections(url);
+            if (saved == true || url[0] == "twitter") {
+                setTwitterEdit(true)
+                setTwitterEn(false)
+                setTwitterCheck(false)
+            }
+
+            if (saved == true || url[0] == "facebook") {
+                setFacebookEdit(true)
+                setFacebookEn(false)
+                setFacebookCheck(false)
+            }
+            if (saved == true || url[0] == "linkedin") {
+                setLinkedinEdit(true)
+                setLinkedinEn(false)
+                setLinkedinCheck(false)
+            }
+            if (saved == true || url[0] == "website") {
+                setWebsiteEdit(true)
+                setWebsiteEn(false)
+                setWebsiteCheck(false)
+            }
+            if (saved == true || url[0] == "pinterest") {
+                setPinterestEdit(true)
+                setPinterestEn(false)
+                setPinterestCheck(false)
+            }
+            if (saved == true || url[0] == "youtube") {
+                setYoutubeEdit(true)
+                setYoutubeEn(false)
+                setYoutubeCheck(false)
+            }
+            if (saved == true || url[0] == "medium") {
+                setMediumEdit(true)
+                setMediumEn(false)
+                setMediumCheck(false)
+            }
+            if (saved == true || url[0] == "crunchbase") {
+                setCrunchbaseEdit(true)
+                setCrunchbaseEn(false)
+                setCrunchbaseCheck(false)
+            }
+            // setSaving(false)
+            fetchConnections()
         }
         
     }
@@ -318,7 +362,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> TWITTER</Text>
                                 </View>
                                 <TextInput editable={twitterEn} defaultValue={twitterURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setTwitterURL(e)}></TextInput>
+                                    onChangeText={(e) => setTwitterURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {twitterEdit
@@ -340,7 +384,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> FACEBOOK</Text>
                                 </View>
                                 <TextInput editable={facebookEn} defaultValue={facebookURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setFacebookURL(e)}></TextInput>
+                                    onChangeText={(e) => setFacebookURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {facebookEdit
@@ -362,7 +406,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> LINKEDIN</Text>
                                 </View>
                                 <TextInput editable={linkedinEn} defaultValue={linkedinURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setLinkedinURL(e)}></TextInput>
+                                    onChangeText={(e) => setLinkedinURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {linkedinEdit
@@ -384,7 +428,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> WEBSITE</Text>
                                 </View>
                                 <TextInput editable={websiteEn} defaultValue={websiteURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setWebsiteURL(e)}></TextInput>
+                                    onChangeText={(e) => setWebsiteURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {websiteEdit
@@ -406,7 +450,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> PINTEREST</Text>
                                 </View>
                                 <TextInput editable={pinterestEn} defaultValue={pinterestURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setPinterestURL(e)}></TextInput>
+                                    onChangeText={(e) => setPinterestURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {pinterestEdit
@@ -428,7 +472,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> YOUTUBE</Text>
                                 </View>
                                 <TextInput editable={youtubeEn} defaultValue={youtubeURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setYoutubeURL(e)}></TextInput>
+                                    onChangeText={(e) => setYoutubeURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {youtubeEdit
@@ -450,7 +494,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> MEDIUM</Text>
                                 </View>
                                 <TextInput editable={mediumEn} defaultValue={mediumURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setMediumURL(e)}></TextInput>
+                                    onChangeText={(e) => setMediumURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {mediumEdit
@@ -472,7 +516,7 @@ const Connections = ( { navigation } ) => {
                                     <Text style={{ fontSize: 15 }}> CRUNCHBASE</Text>
                                 </View>
                                 <TextInput editable={crunchbaseEn} defaultValue={crunchbaseURL} style={styles.input} placeholder="www.demosite.url.com"
-                                    onChangeText={(e) => setCrunchbaseURL(e)}></TextInput>
+                                    onChangeText={(e) => setCrunchbaseURL(e.trim())}></TextInput>
                             </View>
                             <View style={styles.col2}>
                                 {crunchbaseEdit

@@ -7,6 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { UpIcon, DownIcon, EqualIcon } from '../components/Icons/Change'
 import CardMeasure from '../components/cards/CardMeasure'
 
 import Notifications from './Notifications'
@@ -32,6 +33,12 @@ const Measure = ({ navigation } ) => {
     const [pos1, setpos1] = useState('')
     const [pos2, setpos2] = useState('')
     const [pos3, setpos3] = useState('')
+    const [prePos1, setprePos1] = useState('')
+    const [prePos2, setprePos2] = useState('')
+    const [prePos3, setprePos3] = useState('')
+    const [change1, setchange1] = useState('')
+    const [change2, setchange2] = useState('')
+    const [change3, setchange3] = useState('')
 
     // useEffect(
     //     () =>
@@ -51,91 +58,110 @@ const Measure = ({ navigation } ) => {
         setpos1('')
         setpos2('')
         setpos3('')
+        setprePos1('')
+        setprePos2('')
+        setprePos3('')
+        setchange1('')
+        setchange2('')
+        setchange3('')
+        
         //AsyncStorage.clear();
         setLoading(true)
         let keywords = await Keyword.getKeywords()
-        console.log(keywords)
-        // console.log(await AsyncStorage.getItem('@key1'))
-        // await AsyncStorage.getItem('@key2')
-        // await AsyncStorage.getItem('@key3')
-        // setkeyword1(await AsyncStorage.getItem('@key1'))
-        // setkeyword2(await AsyncStorage.getItem('@key2'))
-        // setkeyword3(await AsyncStorage.getItem('@key3'))
-        setkeyword1(keywords.items[0])
-        setkeyword2(keywords.items[1])
-        setkeyword3(keywords.items[2])
-        console.log(keyword1, keyword2, keyword3)
-        // const keyword = "apple"
-        var result1
-        var result2
-        var result3
-        console.log("Key 1", keywords.items[0])
-        console.log("Key 2", keywords.items[1])
-        console.log("Key 3", keywords.items[2])
-        if (keywords.items[0] != '') {
-            result1 = await Serp.getSerpData({ keyword: keywords.items[0]})
-            setBestPage1(result1.data.data.output[0][1])
-            setpos1(1)
+        console.log("items==",typeof keywords.items[0])
+        if ((keywords.items[0] == null || keywords.items[0] == "") && (keywords.items[1] == null || keywords.items[1] == "") && (keywords.items[2] == null || keywords.items[2] == ""))
+        {
+            setLoading(false)
         }
+        // setkeyword1(keywords.items[0])
+        // setkeyword2(keywords.items[1])
+        // setkeyword3(keywords.items[2])
+        else{
+            console.log(keyword1, keyword2, keyword3)
+            // const keyword = "apple"
+            var result1
+            var result2
+            var result3
+            console.log("Key 1", keywords.items[0])
+            console.log("Key 2", keywords.items[1])
+            console.log("Key 3", keywords.items[2])
+            console.log("typeof", typeof keywords.items[1])
+            var KeyArr = []
+            if (keywords.items[0] != null && keywords.items[0] != "")
+            {
+                KeyArr.push(keywords.items[0])
+            }
+            if (keywords.items[1] != null && keywords.items[1] != "")
+            {
+                KeyArr.push(keywords.items[1])
+            }
+            if (keywords.items[2] != null && keywords.items[2] != "")
+            {
+                KeyArr.push(keywords.items[2])
+            }
+            // var KeyArr = [keywords.items[0], keywords.items[1], keywords.items[2]]
 
-        if (keywords.items[1] != '') {
-            result2 = await Serp.getSerpData({ keyword: keywords.items[1]})
-            setBestPage2(result2.data.data.output[0][1])
-            setpos2(1)
+            var result = await Serp.getSerpData({ keyword: KeyArr })
+            console.log(result.data.data)
+            var arr = result.data.data
+            console.log("length", arr.length)
+            if (arr.length == 1) {
+                result1 = result.data.data[0]
+                setBestPage1(result1.url)
+                setpos1(result1.currentPosition)
+                setprePos1(result1.previousPosition)
+                setchange1(result1.previousPosition - result1.currentPosition)
+                setkeyword1(result1.keyword)
+            }
+
+            if (arr.length == 2) {
+                result1 = result.data.data[0]
+                setBestPage1(result1.url)
+                setpos1(result1.currentPosition)
+                setprePos1(result1.previousPosition)
+                setchange1(result1.previousPosition - result1.currentPosition)
+                setkeyword1(result1.keyword)
+
+                result2 = result.data.data[1]
+                setBestPage2(result2.url)
+                setpos2(result2.currentPosition)
+                setprePos2(result2.previousPosition)
+                setchange2(result2.previousPosition - result2.currentPosition)
+                setkeyword2(result2.keyword)
+            }
+            if (arr.length == 3) {
+                result1 = result.data.data[0]
+                setBestPage1(result1.url)
+                setpos1(result1.currentPosition)
+                setprePos1(result1.previousPosition)
+                setchange1(result1.previousPosition - result1.currentPosition)
+                setkeyword1(result1.keyword)
+
+                result2 = result.data.data[1]
+                setBestPage2(result2.url)
+                setpos2(result2.currentPosition)
+                setprePos2(result2.previousPosition)
+                setchange2(result2.previousPosition - result2.currentPosition)
+                setkeyword2(result2.keyword)
+
+                result3 = result.data.data[2]
+                setBestPage3(result3.url)
+                setpos3(result3.currentPosition)
+                setprePos3(result3.previousPosition)
+                setchange3(result3.previousPosition - result3.currentPosition)
+                setkeyword3(result3.keyword)
+            }
         }
+        
 
-        if (keywords.items[2] != '') {
-
-            result3 = await Serp.getSerpData({ keyword: keywords.items[2]})
-            setBestPage3(result3.data.data.output[0][1])
-            setpos3(1)
-        }
-
-
-        // console.log("key 1 res:",result1.data.data.output[0][1])
-        // console.log("key 2 res:", result2.data.data.output[0][1])
-        // console.log("key 3 res:", result3.data.data.output[0][1])
-
-        // setBestPage1(result1.data.data.output[0][1])
-        // setBestPage2(result2.data.data.output[0][1])
-        // setBestPage3(result3.data.data.output[0][1])
         setLoading(false)
-        // console.log("Key1 Res",result1)
-        // console.log("Key2 Res",result2)
-        // console.log("Key3 Res",result3)
 
-        // result1.data.json.data.splice(7)
-        // result2.data.json.data.splice(7)
-        // result3.data.json.data.splice(7)
-        // var arr1 = result1.data.json.data
-        // var arr2 = result2.data.json.data
-        // var arr3 = result3.data.json.data
-        // console.log(result1.data.json.data)
-        // console.log(result2.data.json.data)
-        // console.log(result3.data.json.data)
-
-        // var ArrData1 = []
-        // var ArrData2 = []
-        // var ArrData3 = []
-        // arr1.forEach((el) => {
-        //     ArrData1.push(el[0])
-        // })
-        // arr2.forEach((el) => {
-        //     ArrData2.push(el[0])
-        // })
-        // arr3.forEach((el) => {
-        //     ArrData3.push(el[0])
-        // })
-        // console.log(ArrData1, ArrData2, ArrData3)
-        // setData1(ArrData1)
-        // setData2(ArrData2)
-        // setData3(ArrData3)
-        // console.log(data2)
     }
     
 
     useEffect( () => {
         fetchSerpData()
+        setLoading(false)
     },[]);
 
     const onRefresh = () => {
@@ -242,9 +268,9 @@ const Measure = ({ navigation } ) => {
             </View>
                 <View style={styles.card}>
                     <Text style={{fontSize:15,fontStyle:'italic',marginBottom:5,marginTop:-10}}>(Pull to refresh)</Text>
-                        <CardMeasure keyword={keyword1} bestPage={bestPage1} pos={pos1} />
-                        <CardMeasure keyword={keyword2} bestPage={bestPage2} pos={pos2}  />
-                        <CardMeasure keyword={keyword3} bestPage={bestPage3} pos={pos3}  />
+                        <CardMeasure keyword={keyword1} bestPage={bestPage1} pos={pos1} prePos={prePos1} change={change1}/>
+                        <CardMeasure keyword={keyword2} bestPage={bestPage2} pos={pos2} prePos={prePos2} change={change2}/>
+                        <CardMeasure keyword={keyword3} bestPage={bestPage3} pos={pos3} prePos={prePos3} change={change3} />
                     <Footer />
                 </View>
             </View>

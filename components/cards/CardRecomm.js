@@ -8,7 +8,7 @@ const CardRecomm = ( {icon,site,children} ) => {
         <View style={styles.textBox}>
             <View style={styles.row}>
                 {icon}
-                <Text style={{ fontSize: 15 }}> www.{site}.com/example</Text>
+                <Text style={{ fontSize: 15 }}> {site}</Text>
             </View>
             {children}
         </View>

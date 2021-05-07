@@ -84,14 +84,29 @@ const Keywords = ( {navigation} ) => {
         setKeyword1(keywords.items[0])
         setKeyword2(keywords.items[1])
         setKeyword3(keywords.items[2])
-        await AsyncStorage.setItem('@key1', keywords.items[0])
-        await AsyncStorage.setItem('@key2', keywords.items[1])
-        await AsyncStorage.setItem('@key3', keywords.items[2])
+        if (keywords.items[0] == null || keywords.items[1] == null || keywords.items[1] == null){
+            setLoading(false)
+        }
+        else{
+            if (keywords.items[0] != '' && keywords.items[0] != null)
+            {
+                await AsyncStorage.setItem('@key1', keywords.items[0])
+            }
+            if (keywords.items[1] != '' && keywords.items[1] != null) {
+
+                await AsyncStorage.setItem('@key2', keywords.items[1])
+            }
+            if (keywords.items[2] != '' && keywords.items[2] != null) {
+
+                await AsyncStorage.setItem('@key3', keywords.items[2])
+            }
+        }
         setLoading(false)
     }
 
     useEffect(() => {
         fetchKeywords()
+        setLoading(false)
     }, [])
 
     const saveKeywords = async () => {

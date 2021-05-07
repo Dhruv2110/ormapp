@@ -26,6 +26,8 @@ const Recommendations = ({ navigation}) => {
     const [mediumRe, setMediumRe] = useState("")
     const [crunchbaseRe, setCrunchbaseRe] = useState("")
 
+    const [data,setData] = useState({})
+    
     // useEffect(
     //     () =>
     //         navigation.addListener('beforeRemove', (e) => {
@@ -47,11 +49,11 @@ const Recommendations = ({ navigation}) => {
         const {URL, useHttps, hasTitle, hasMetaDesc, hasCanTag } = link
         if(URL == "")
         {
-            msg = "Enter URL in connections"
+            msg = "Enter Keywords to page and add Meta Description"
             return msg
         }
         if (useHttps && hasTitle && hasMetaDesc && hasCanTag) {
-            return msg = "All Ok."
+            return msg = "All Parameters Fulfilled"
         }
         if (!useHttps) { msg += "Enable HTTPS." }
         if (!hasTitle) { msg += "Add title." }
@@ -62,10 +64,47 @@ const Recommendations = ({ navigation}) => {
     }
 
     async function fetchConnections() {
+        var json = {
+            "twitter": '',
+            "facebook": '',
+            "linkedin": '',
+            "website": '',
+            "pinterest": '',
+            "youtube": '',
+            "medium": '',
+            "crunchbase": '',
+        }
+        console.log(json)
         setLoading(true)
         let connections = await Connection.getConnections()
         const { twitter, facebook, linkedin, pinterest, website, youtube, medium, crunchbase } = connections
 
+        if (twitter.URL) {
+            json["twitter"] = twitter.URL
+        }
+        if (facebook.URL) {
+            json["facebook"] = facebook.URL
+        }
+        if (linkedin.URL) {
+            json["linkedin"] = linkedin.URL
+        }
+        if (pinterest.URL) {
+            json["pinterest"] = pinterest.URL
+        }
+        if (website.URL) {
+            json["website"] = website.URL
+        }
+        if (youtube.URL) {
+            json["youtube"] = youtube.URL
+        }
+        if (medium.URL) {
+            json["medium"] = medium.URL
+        }
+        if (crunchbase.URL) {
+            json["crunchbase"] = crunchbase.URL
+        }
+        console.log("json data",json)
+        setData(json)
         setTwitterRe(setMsg(twitter))
         setFacebookRe(setMsg(facebook))
         setLinkedinRe(setMsg(linkedin))
@@ -107,35 +146,35 @@ const Recommendations = ({ navigation}) => {
                     <Text style={styles.text}>{`Last Updated: Jan 5, 2021`}</Text>
                     <View style={styles.card}>
                         <Text style={{ fontSize: 15, fontStyle: 'italic', marginBottom: 5, marginTop: -10 }}>(Pull to refresh)</Text>
-                        <CardRecomm icon={<TwitterIcon />} site="twitter">
+                        <CardRecomm icon={<TwitterIcon />} site={data.twitter  || "www.twitter.com/example"}>
                             <TextInput multiline={true} defaultValue={twitterRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<FacebookIcon />} site="facebook">
+                        <CardRecomm icon={<FacebookIcon />} site={data.facebook || "www.facebook.com/example"}>
                             <TextInput multiline={true} defaultValue={facebookRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<LinkedInIcon />} site="linkedin">
+                        <CardRecomm icon={<LinkedInIcon />} site={data.linkedin || "www.linkedin.com/example"}>
                             <TextInput multiline={true} defaultValue={linkedinRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<WebsiteIcon />} site="website">
+                        <CardRecomm icon={<WebsiteIcon />} site={data.website || "www.website.com/example"}>
                             <TextInput multiline={true} defaultValue={websiteRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<PinterestIcon />} site="pinterest">
+                        <CardRecomm icon={<PinterestIcon />} site={data.pinterest || "www.pinterest.com/example"}>
                             <TextInput multiline={true} defaultValue={pinterestRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<YoutubeIcon />} site="youtube">
+                        <CardRecomm icon={<YoutubeIcon />} site={data.youtube || "www.youtube.com/example"}>
                             <TextInput multiline={true} defaultValue={youtubeRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<MediumIcon />} site="medium">
+                        <CardRecomm icon={<MediumIcon />} site={data.medium || "www.medium.com/example"}>
                             <TextInput multiline={true} defaultValue={mediumRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 
-                        <CardRecomm icon={<CrunchBaseIcon />} site="crunchbase">
+                        <CardRecomm icon={<CrunchBaseIcon />} site={data.crunchbase || "www.crunchbase.com/example"}>
                             <TextInput multiline={true} defaultValue={crunchbaseRe} editable={false} style={styles.input} placeholder="Add Keyword 1 to page and Meta Description"></TextInput>
                         </CardRecomm>
 

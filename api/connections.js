@@ -24,3 +24,16 @@ export const saveConnections = async (connections) => {
     })
     .then((result) => { return result.data })
 }
+
+
+export const emptyConnections = async (connections) => {
+    return await API({
+        method: 'POST',
+        url: '/userRoutes/emptyConnection',
+        headers: {
+            authorization: 'Bearer ' + await AsyncStorage.getItem('@accessToken')
+        },
+        data: connections
+    })
+    .then((result) => { return result.data })
+}
