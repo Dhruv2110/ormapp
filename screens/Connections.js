@@ -69,22 +69,6 @@ const Connections = ( { navigation } ) => {
 
     const onDismissSnackBar = () => setsnackbar(false);
 
-    // useEffect(async () => {
-    //     let user = await Auth.getUser();
-    //     setUser(user);
-    // }, [])
-
-    // useEffect(
-    //     () =>
-    //         navigation.addListener('beforeRemove', (e) => {
-
-    //             // Prevent default behavior of leaving the screen
-    //             e.preventDefault();
-    //             // navigation.navigate('Keywords')
-
-    //         }),
-    //     [navigation]
-    // );
 
     async function fetchConnections() {
         setLoading(true)

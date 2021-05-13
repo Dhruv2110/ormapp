@@ -60,7 +60,7 @@ const TwitterIcon = () => {
             <Icon
                 name='twitter'
                 type='font-awesome-5'
-                size={17}
+                size={20}
                 color='white' />
         </View>
     );

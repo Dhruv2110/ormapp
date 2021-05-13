@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, } from 'react-native';
+import { StyleSheet, Text, View, Linking, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function WebsiteIcon() {
@@ -8,14 +8,18 @@ export default function WebsiteIcon() {
             <FontAwesome5 name="headphones-alt" size={70} color="black" />
             <Text style={{ marginLeft: 7 }}>
                 <Text style={styles.text2}> {`Want more to help with \n ORM? Contact us`}</Text>
-                <Text style={{ color: 'black', fontSize: 20 }}> {`today to\n learn about our ORM and \n Crisis Solutions.`}</Text>
+                <Text style={{ color: 'black', fontSize: 20 }}> {`today to\n learn about our ORM and \n Crisis Solutions.\n`}</Text>
+                <TouchableOpacity onPress={() => Linking.openURL("https://tuckerhall.com/contact-us/")}>
                 <Text style={{ color: 'blue', textDecorationLine: 'underline', fontWeight: 'bold' }} >
-                    {`Free\n  Consultation`}
+                     <Text>  </Text>{`Free Consultation`}
                 </Text>
+                </TouchableOpacity>
             </Text>
         </View>
     )
 }
+
+
 
 const styles = StyleSheet.create({
         bottom: {

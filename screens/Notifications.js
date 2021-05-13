@@ -175,10 +175,6 @@ export default function Notfications(navigation) {
                 <View style={styles.col}>
                     <Text style={{ fontWeight: 'bold' }}>{url}</Text>
                     <Text>{msg}</Text>
-                    {/* <View style={{ flexDirection: 'row', marginVertical: 5 }}>
-                        <NewIcon />
-                        <Text style={{ fontSize: 12, margin: 7 }}>2 days ago</Text>
-                    </View> */}
                     
                 </View>
                 
